@@ -2,11 +2,11 @@
     <head>
         <title>Flask Tutorial</title>
         {% block javascript %}
-        <script src="{{ url_for('static', filename='blockly-master/blockly_compressed.js') }}" type="text/javascript">
+        <script src="{{ url_for('static', filename='js/blockly-master/blockly_compressed.js') }}" type="text/javascript">
         </script>
-        <script src="{{ url_for('static', filename='blockly-master/blocks_compressed.js') }}" type="text/javascript">
+        <script src="{{ url_for('static', filename='js/blockly-master/blocks_compressed.js') }}" type="text/javascript">
         </script>
-        <script src="{{ url_for('static', filename='blockly-master/msg/js/en.js') }}" type="text/javascript">
+        <script src="{{ url_for('static', filename='js/blockly-master/msg/js/en.js') }}" type="text/javascript">
         </script>
         {% endblock %}
     </head>
@@ -98,8 +98,6 @@
             };
             var workspace = Blockly.inject('blocklyDiv',
             {toolbox: document.getElementById('toolbox')});
-
-
         </script>
     </footer>
 </html>
