@@ -5,19 +5,22 @@ import requests
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    button = request.form.get('submit')
+# @app.route('/', methods=['GET', 'POST'])
+# def index():
+#     button = request.form.get('submit')
+#
+#     if(button):
+#         print(button)
+#         result = requests.get("http://192.168.10.105:80/"+button)
+#         print("Result:"+ result)
+#         if(result):
+#             print("recieved ")
+#     return render_template("index.html")
 
-    if(button):
-        print(button)
-        result = requests.get("http://192.168.10.105:80/"+button)
-        print("Result:"+ result)
-        if(result):
-            print("recieved ")
-    return render_template("index.html")
-    
-    
+@app.route('/')
+@app.route('/game')
+def gamePlatform():
+    return render_template("game.html")
 
 if __name__ == "__main__":
     # Error will be displayed on web page
