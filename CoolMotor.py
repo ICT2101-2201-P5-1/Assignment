@@ -18,6 +18,7 @@ app = Flask(__name__)
 #             print("recieved ")
 #     return render_template("index.html")
 
+# ---------------- APP ROUTES HERE --------------------------------------------
 @app.route('/')
 @app.route('/game')
 def gamePlatform():
