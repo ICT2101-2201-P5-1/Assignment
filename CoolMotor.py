@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, flash, redirect, request, jsonify
 import requests
+from flask_mysqldb import MySQL
 
 
 app = Flask(__name__)
