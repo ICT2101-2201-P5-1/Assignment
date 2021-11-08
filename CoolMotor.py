@@ -20,7 +20,7 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/game')
 def gamePlatform():
-    return render_template("game.html")
+    return render_template("index.html")
 
 if __name__ == "__main__":
     # Error will be displayed on web page
