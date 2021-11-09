@@ -1,7 +1,9 @@
 from flask import Flask, render_template, url_for, flash, redirect, request, jsonify
-import requests
 from mysql import connector
 import mysql.connector
+import models.model
+import controllers.controller
+
 
 app = Flask(__name__)
 
@@ -22,6 +24,8 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/game')
 def gamePlatform():
+
+    controllers.controller.controller()
     return render_template("index.html")
 
 if __name__ == "__main__":
