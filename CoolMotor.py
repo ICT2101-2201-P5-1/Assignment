@@ -1,7 +1,14 @@
 from flask import Flask, render_template, url_for, flash, redirect, request, jsonify
 from mysql import connector
 import mysql.connector
+<<<<<<< HEAD
 import Models.EditLevel
+=======
+import telnetCom
+
+
+
+>>>>>>> Communication
 
 app = Flask(__name__)
 
@@ -22,9 +29,16 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/game')
 def gamePlatform():
+<<<<<<< HEAD
     print(Models.EditLevel.fetchPassword())
+=======
+    #telnetCom.sendCommands(b'hello')
+    #telnetCom.receiveData()
+>>>>>>> Communication
     return render_template("index.html")
 
 if __name__ == "__main__":
     # Error will be displayed on web page
     app.run(debug=True)
+    
+
