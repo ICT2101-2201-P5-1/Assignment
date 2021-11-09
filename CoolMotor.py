@@ -1,9 +1,7 @@
 from flask import Flask, render_template, url_for, flash, redirect, request, jsonify
 from mysql import connector
 import mysql.connector
-import models.model
-import controllers.controller
-
+import Models.EditLevel
 
 app = Flask(__name__)
 
@@ -24,8 +22,7 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/game')
 def gamePlatform():
-
-    controllers.controller.controller()
+    print(Models.EditLevel.fetchPassword())
     return render_template("index.html")
 
 if __name__ == "__main__":
