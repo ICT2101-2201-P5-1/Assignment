@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, flash, redirect, request, jsonify
 from mysql import connector
 import mysql.connector
+import Models.EditLevel
 import telnetCom
 
 
@@ -25,6 +26,8 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/game')
 def gamePlatform():
+    print(Models.EditLevel.fetchPassword())
+    # To connect to car use these 2 methods 
     #telnetCom.sendCommands(b'hello')
     #telnetCom.receiveData()
     return render_template("index.html")
