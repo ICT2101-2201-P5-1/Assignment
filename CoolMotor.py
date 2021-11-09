@@ -1,7 +1,10 @@
 from flask import Flask, render_template, url_for, flash, redirect, request, jsonify
-import requests
 from mysql import connector
 import mysql.connector
+import telnetCom
+
+
+
 
 app = Flask(__name__)
 
@@ -22,8 +25,12 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/game')
 def gamePlatform():
+    #telnetCom.sendCommands(b'hello')
+    #telnetCom.receiveData()
     return render_template("index.html")
 
 if __name__ == "__main__":
     # Error will be displayed on web page
     app.run(debug=True)
+    
+
