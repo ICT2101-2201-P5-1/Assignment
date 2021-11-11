@@ -28,9 +28,23 @@ app = Flask(__name__)
 def gamePlatform():
     print(Models.EditLevel.fetchPassword())
     # To connect to car use these 2 methods 
-    #telnetCom.sendCommands(b'hello')
+    #telnetCom.sendCommands(b'drive')
     #telnetCom.receiveData()
     return render_template("index.html")
+
+
+
+@app.route('/command', methods=['GET', 'POST'])
+def command():
+    if request.method == 'POST':
+        command = request.form.get('command')
+        print(command)
+        commandB = bytes(command, 'utf-8')
+        print(commandB)
+        telnetCom.sendCommands(commandB)
+    return render_template("command.html")
+
+
 
 if __name__ == "__main__":
     # Error will be displayed on web page

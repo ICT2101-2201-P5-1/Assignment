@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block body %}
+<h1>Commands Page</h1>
+
+<div class="card">
+    <div class="card-header">
+        This is the Commands Page
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Send some commands to car</h5>
+      <p class="card-text">Please click to move car</p>
+      <form name="commandForm" method="POST" action="/command"> 
+        <button type="button" class="btn btn-outline-primary"><input  type="submit" name="command" value="drive"/>  </button>
+        <button type="button" class="btn btn-outline-secondary"><input type="submit" name="command" value="speedup"/> </button>
+        <button type="button" class="btn btn-outline-success"><input type="submit" name="command" value="slowdown"/> </button>
+        <button type="button" class="btn btn-outline-danger"><input type="submit" name="command" value="stop"/> </button>
+      </form>
+    </div>
+  </div>
+
+
+
+
+{% endblock %}
