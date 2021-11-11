@@ -31,6 +31,8 @@ def gamePlatform():
     #telnetCom.receiveData()
     return render_template("index.html")
 
+
+#display level history stored in the database
 @app.route("/displayLevel")
 def view_display_Level():
     data = Models.displayLevel.display()
