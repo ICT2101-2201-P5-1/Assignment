@@ -1,7 +1,8 @@
 from flask import Flask, render_template, url_for, flash, redirect, request, jsonify
 from mysql import connector
 import mysql.connector
-import Models.EditLevel , Models.displayLevel
+import Models.EditLevel
+import Models.displayLevel
 import telnetCom
 
 
