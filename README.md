@@ -3,15 +3,15 @@ ICT 2101/2201 Team Project P5-1
 
 Development Workflow:
 
-Team Leader: May Madi Aung (2002390)
+Team Leader: May Madi Aung - @mayinot (2002390)
 
-Member: Tan Chu Qing Alicia (2001874)
+Member: Tan Chu Qing Alicia - @BestCrochet (2001874)
 
-Member: Shawn Lemuel Evora Dabi (2001401)
+Member: Shawn Lemuel Evora Dabi - @ShawnLemuelDabi (2001401)
 
-Member: Woo Kah Howe (2001138)
+Member: Woo Kah Howe - @JustAyce (2001138)
 
-Member: Tudyisster Siva (2002131)
+Member: Tudyisster Siva - @WeirdBalls (2002131)
 
 ## How to Run
 The web interface uses the flask framework. To start the web portal, run the following:
