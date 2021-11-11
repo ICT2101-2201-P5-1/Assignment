@@ -3,7 +3,7 @@ from mysql.connector import errorcode
 from Credentials import constants
 
 
-def fetchPassword():
+def display():
     conn = mysql.connector.connect(host=constants.HOST,
                                    database=constants.DATABASE,
                                    user=constants.USER,

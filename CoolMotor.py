@@ -33,7 +33,7 @@ def gamePlatform():
 
 @app.route("/displayLevel")
 def view_display_Level():
-    data = Models.displayLevel()
+    data = Models.displayLevel.display()
     return render_template("displayLevel.html", title="Level Display", output_data=data)
 
 
