@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+
+{% endblock %}
+
+{% block body %}
+
+<table class="styled-table">
+    <thead>
+    <tr>
+        <th>Map ID</th>
+        <th>Map Difficulty</th>
+        <th>Map Name</th>
+        <th>Map Level Layout</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for row in output_data %}
+            <tr class="active-row">
+                <td>{{row[0]}}</td>
+                <td>{{row[1]}}</td>
+                <td>{{row[2]}}</td>
+                <td>{{row[3]}}</td>
+                <td>Future Button</td>
+                <td>Future Button</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
