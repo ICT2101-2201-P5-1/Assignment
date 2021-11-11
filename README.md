@@ -12,3 +12,15 @@ Member: Shawn Lemuel Evora Dabi (2001401)
 Member: Woo Kah Howe (2001138)
 
 Member: Tudyisster Siva (2002131)
+
+## How to Run
+The web interface uses the flask framework. To start the web portal, run the following:
+    
+    set flask_app=CoolMotor
+    flask run
+    
+## Development Workflow
+
+## UAT
+
+## Whitebox Testing
