@@ -2,7 +2,7 @@ import mysql.connector
 from mysql.connector import errorcode
 from Credentials import constants
 
-
+#to display level history saved in database
 def display():
     conn = mysql.connector.connect(host=constants.HOST,
                                    database=constants.DATABASE,
