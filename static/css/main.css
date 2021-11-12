@@ -24,6 +24,11 @@ a:hover {
     background-color: #f2848262;
 }
 
+.display_level_button{
+    margin-left: auto;
+    margin-right: auto;
+
+}
 
 .styled-table {
     border-collapse: collapse;
@@ -31,8 +36,11 @@ a:hover {
     font-size: 0.9em;
     font-family: sans-serif;
     min-width: 400px;
-    width: 100%;
+    width: 90%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin-left: auto;
+    margin-right: auto;
+
 }
 .styled-table thead tr {
     background-color: #F5CAC3;
