@@ -28,10 +28,12 @@ a:hover {
     border: 10px solid #f2848262;
     min-height: 250px;
     max-width: 250px;
+   
 }
 
 .grid-map.container{
     margin: 50px;
+    margin-right: 0px;
 }
 
 .map-title{
@@ -42,4 +44,11 @@ a:hover {
 #div1, #div2 {
     min-height: 250px;
     max-width: 250px;
-  }
+}
+
+.sprite.container{
+    border: 10px solid #f2848262;
+    padding: 10px;
+    margin-top: 100px;
+    margin-left: 0px;
+}
