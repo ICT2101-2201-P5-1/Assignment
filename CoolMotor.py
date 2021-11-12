@@ -33,6 +33,11 @@ def gamePlatform():
     return render_template("index.html")
 
 
+# LEVEL EDITOR
+@app.route('/edit_level')
+def edit_level():
+    return render_template("LevelEditor/CreateLevel.html")
+
 
 @app.route('/command', methods=['GET', 'POST'])
 def command():

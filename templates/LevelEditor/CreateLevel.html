@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+    {% block javascript %}
+
+  
+    <script>
+      function allowDrop(ev) {
+        ev.preventDefault();
+      }
+      
+      function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+      }
+      
+      function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        ev.target.appendChild(document.getElementById(data));
+      }
+      </script>
+    {% endblock %}
+
+{% endblock %}
+
+
+
+{% block body %}
+<div class="row">
+  <div class="col-sm-8"> <div class="grid-map container">
+    <h2 class="map-title"> Edit Map </h2>
+    <div class="row grid-row">
+      <div class="col grid-col">
+        <img id="start" src="/static/img/Sprite/start.png"  width="150px" height="150px">
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+    </div>
+    <div class="row grid-row">
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+    </div>
+    <div class="row grid-row">
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+    </div>
+    <div class="row grid-row">
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+    </div>
+    <div class="row grid-row">
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> 
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="col-sm-4">  
+    <div class="sprite container">
+      <img id="drag1" src="/static/img/Sprite/coins.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="drag2" src="/static/img/Sprite/wall.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+    </div>
+  </div>
+</div>
+ 
+
+{% endblock %}

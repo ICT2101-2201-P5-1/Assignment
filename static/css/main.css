@@ -23,3 +23,23 @@
 a:hover {
     background-color: #f2848262;
 }
+
+.grid-row .grid-col {
+    border: 10px solid #f2848262;
+    min-height: 250px;
+    max-width: 250px;
+}
+
+.grid-map.container{
+    margin: 50px;
+}
+
+.map-title{
+    text-decoration: underline;
+    padding-bottom: 10px;
+}
+
+#div1, #div2 {
+    min-height: 250px;
+    max-width: 250px;
+  }
