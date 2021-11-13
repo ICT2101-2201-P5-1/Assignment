@@ -1,3 +1,10 @@
+body {
+    overflow: -moz-scrollbars-vertical;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
 .logo{
     height: auto; 
     width: auto; 
@@ -51,8 +58,12 @@ a:hover {
     padding: 10px;
     margin-top: 100px;
     margin-left: 0px;
+    margin-right: 0;
 }
 
+.row{
+    margin-left: 0;
+}
 .command-form{
     border: 10px solid #f2848262;
     margin-left: 60px;
@@ -65,5 +76,21 @@ a:hover {
 
 .map-title.Commands{
     padding-left: 60px;
+}
+
+.command-form2{
+    border: 10px solid #f2848262;
+    margin: 0px;
+    background-color: #f7e8e6;
+    min-height: 310px;
+}
+
+.map-title.Commands2{
+    padding-left: 0px;
+    
+}
+
+.submit-button{
+    padding: 50px;
 }
 

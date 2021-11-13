@@ -27,14 +27,17 @@ def gamePlatform():
 # LEVEL EDITOR
 @app.route('/edit_level', methods=['GET', 'POST'])
 def edit_level():
-    
     if request.method == 'POST':
         jsdata = request.form['javascript_data'] 
         JSON_obj = json.loads(jsdata)  
         mapList.append(JSON_obj)
     mapList.sort(key=operator.itemgetter('position'))
-    print(mapList)
-    processFile.writeToMapFile(mapList)
+    if request.method == 'GET':
+        CommandList = request.args.getlist('Commands')
+        LevelName = request.args.get('LevelName')
+        Difficulty = request.args.get('Difficulties')
+        processFile.writeToMapFile(mapList,LevelName,CommandList, Difficulty)
+        mapList.clear()
     return render_template("LevelEditor/CreateLevel.html")
 
 
