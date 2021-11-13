@@ -37,9 +37,9 @@ Blockly.Blocks['right'] = {
 Blockly.Blocks['loop'] = {
   init: function() {
   this.setInputsInline(true);
-    this.appendDummyInput()
-        .appendField('repeat')
-        .appendField(new Blockly.FieldNumber());
+    this.appendDummyInput('loopTimes')
+        .appendField('run')
+        .appendField(new Blockly.FieldNumber(opt_value=2, opt_min=2, opt_max=5));
     this.appendDummyInput().appendField('times');
     this.appendStatementInput('DO').appendField('do');
     this.setNextStatement(true, 'Action');
