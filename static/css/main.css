@@ -52,3 +52,18 @@ a:hover {
     margin-top: 100px;
     margin-left: 0px;
 }
+
+.command-form{
+    border: 10px solid #f2848262;
+    margin-left: 60px;
+    margin-right: 170px;
+}
+
+.card.card-command{
+    border: none;
+}
+
+.map-title.Commands{
+    padding-left: 60px;
+}
+

@@ -12,19 +12,8 @@ import operator
 app = Flask(__name__)
 
 mapList = []
-# @app.route('/', methods=['GET', 'POST'])
-# def index():
-#     button = request.form.get('submit')
-#
-#     if(button):
-#         print(button)
-#         result = requests.get("http://192.168.10.105:80/"+button)
-#         print("Result:"+ result)
-#         if(result):
-#             print("recieved ")
-#     return render_template("index.html")
 
-# ---------------- APP ROUTES HERE --------------------------------------------
+# ---------------- APP ROUTES HERE -------------------------------------------- #
 @app.route('/')
 @app.route('/game')
 def gamePlatform():
@@ -63,7 +52,7 @@ def command():
 
 if __name__ == "__main__":
     # Error will be displayed on web page
-    app.run(debug=False)
+    app.run(debug=True)
 
     
 
