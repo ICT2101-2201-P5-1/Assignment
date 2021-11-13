@@ -34,8 +34,12 @@ def gamePlatform():
 
 
 # LEVEL EDITOR
-@app.route('/edit_level')
+@app.route('/edit_level', methods=['GET', 'POST'])
 def edit_level():
+    if request.method == 'POST':
+        print('Here')
+        jsdata = request.form['javascript_data']
+        print(jsdata)
     return render_template("LevelEditor/CreateLevel.html")
 
 
@@ -54,5 +58,6 @@ def command():
 if __name__ == "__main__":
     # Error will be displayed on web page
     app.run(debug=True)
+
     
 

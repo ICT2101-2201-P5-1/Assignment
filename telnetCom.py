@@ -10,7 +10,6 @@ def sendCommands(commands):
     print(commands)
     print("Writing data")
     tn.write(commands)
-
     print("DISCONNECT")
 
 def receiveData():
