@@ -24,16 +24,16 @@ app = Flask(__name__)
 
 # ---------------- APP ROUTES HERE --------------------------------------------
 @app.route('/')
-@app.route('/game')
 def gamePlatform():
-    print(Models.EditLevel.fetchPassword())
+    # print(Models.EditLevel.fetchPassword())
     # To connect to car use these 2 methods 
     #telnetCom.sendCommands(b'hello')
     #telnetCom.receiveData()
     return render_template("index.html")
 
+
 if __name__ == "__main__":
     # Error will be displayed on web page
     app.run(debug=True)
-    
+
 

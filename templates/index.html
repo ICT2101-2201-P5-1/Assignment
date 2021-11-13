@@ -9,6 +9,8 @@
     </script>
     <script src="{{ url_for('static', filename='js/blockly-master/msg/js/en.js') }}" type="text/javascript">
     </script>
+    <script src="{{ url_for('static', filename='js/game_blocks.js') }}", type="text/javascript"> </script>
+    <script src="{{ url_for('static', filename='js/game_processing.js') }}", type="text/javascript"> </script>
     {% endblock %}
 
 {% endblock %}
@@ -23,10 +25,9 @@
 {% endblock %}
 
 {% block footer %}
-
     <xml id="toolbox" style="display: none">
-          <block type="forward"></block>
-          <block type="backward"></block>
+          <block type="upward"></block>
+          <block type="downward"></block>
           <block type="left"></block>
           <block type="right"></block>
           <block type="loop"></block>
@@ -34,76 +35,8 @@
           <block type="if_coin"></block>
     </xml>
     <script>
-        Blockly.Blocks['forward'] = {
-          init: function() {
-            this.appendDummyInput()
-                .appendField('Move Forward');
-            this.setNextStatement(true, 'Action');
-            this.setPreviousStatement(true, 'Action');
-            this.setColour(20);
-          }
-        };
-        Blockly.Blocks['backward'] = {
-          init: function() {
-            this.appendDummyInput()
-                .appendField('Move Backward');
-            this.setNextStatement(true, 'Action');
-            this.setPreviousStatement(true, 'Action');
-            this.setColour(65);
-          }
-        };
-        Blockly.Blocks['left'] = {
-          init: function() {
-            this.appendDummyInput()
-                .appendField('Move Left');
-            this.setNextStatement(true, 'Action');
-            this.setPreviousStatement(true, 'Action');
-            this.setColour(120);
-          }
-        };
-        Blockly.Blocks['right'] = {
-          init: function() {
-            this.appendDummyInput()
-                .appendField('Move Right');
-            this.setNextStatement(true, 'Action');
-            this.setPreviousStatement(true, 'Action');
-            this.setColour(160);
-          }
-        };
-        Blockly.Blocks['loop'] = {
-          init: function() {
-          this.setInputsInline(true);
-            this.appendDummyInput()
-                .appendField('repeat')
-                .appendField(new Blockly.FieldNumber());
-            this.appendDummyInput().appendField('times');
-            this.appendStatementInput('DO').appendField('do');
-            this.setNextStatement(true, 'Action');
-            this.setPreviousStatement(true, 'Action');
-            this.setColour(210);
-          }
-        };
-        Blockly.Blocks['if_wall'] = {
-          init: function() {
-            this.appendDummyInput()
-                .appendField('If wall');
-            this.appendStatementInput('DO').appendField('do');
-            this.setNextStatement(true, 'Action');
-            this.setPreviousStatement(true, 'Action');
-            this.setColour(230);
-          }
-        };
-        Blockly.Blocks['if_coin'] = {
-          init: function() {
-            this.appendDummyInput()
-                .appendField('If coin');
-            this.appendStatementInput('DO').appendField('do');
-            this.setNextStatement(true, 'Action');
-            this.setPreviousStatement(true, 'Action');
-            this.setColour(260);
-          }
-        };
-        var workspace = Blockly.inject('blocklyDiv',
-        {toolbox: document.getElementById('toolbox')});
+        var workspace = Blockly.inject('blocklyDiv', {toolbox: document.getElementById('toolbox')});
+        document.getElementById("send_commands").addEventListener("click", sendCommandButton);
     </script>
+
 {% endblock %}
