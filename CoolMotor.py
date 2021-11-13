@@ -3,13 +3,15 @@ from mysql import connector
 import mysql.connector
 import Models.EditLevel
 import telnetCom
-
+import processFile
+import json
+import operator
 
 
 
 app = Flask(__name__)
 
-
+mapList = []
 # @app.route('/', methods=['GET', 'POST'])
 # def index():
 #     button = request.form.get('submit')
@@ -36,10 +38,14 @@ def gamePlatform():
 # LEVEL EDITOR
 @app.route('/edit_level', methods=['GET', 'POST'])
 def edit_level():
+    
     if request.method == 'POST':
-        print('Here')
-        jsdata = request.form['javascript_data']
-        print(jsdata)
+        jsdata = request.form['javascript_data'] 
+        JSON_obj = json.loads(jsdata)  
+        mapList.append(JSON_obj)
+    mapList.sort(key=operator.itemgetter('position'))
+    print(mapList)
+    processFile.writeToMapFile(mapList)
     return render_template("LevelEditor/CreateLevel.html")
 
 
@@ -57,7 +63,7 @@ def command():
 
 if __name__ == "__main__":
     # Error will be displayed on web page
-    app.run(debug=True)
+    app.run(debug=False)
 
     
 
