@@ -44,6 +44,11 @@ def command():
         telnetCom.sendCommands(commandB)
     return render_template("command.html")
 
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
+    
+    return render_template("dashboard.html")
+
 
 
 if __name__ == "__main__":
