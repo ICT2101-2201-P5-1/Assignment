@@ -12,6 +12,7 @@ import operator
 app = Flask(__name__)
 
 mapList = []
+LevelName = "Default"
 
 # ---------------- APP ROUTES HERE -------------------------------------------- #
 @app.route('/')
@@ -32,15 +33,24 @@ def edit_level():
         JSON_obj = json.loads(jsdata)  
         mapList.append(JSON_obj)
     mapList.sort(key=operator.itemgetter('position'))
-    if request.method == 'GET':
-        CommandList = request.args.getlist('Commands')
-        LevelName = request.args.get('LevelName')
-        Difficulty = request.args.get('Difficulties')
+    return render_template("LevelEditor/CreateLevel.html")
+
+
+@app.route('/getMAPData', methods=['POST'])
+def get_MAPData():
+    if request.method == 'POST':
+        CommandList = request.form.getlist('Commands')
+        LevelName = request.form.get('LevelName')
+        Difficulty = request.form.get('Difficulties')
         processFile.writeToMapFile(mapList,LevelName,CommandList, Difficulty)
         mapList.clear()
     return render_template("LevelEditor/CreateLevel.html")
 
 
+
+
+
+#-----------------------------May Communication Testing--------------------------------------------------------------#
 @app.route('/command', methods=['GET', 'POST'])
 def command():
     if request.method == 'POST':
@@ -51,6 +61,11 @@ def command():
         telnetCom.sendCommands(commandB)
     return render_template("command.html")
 
+@app.route('/getCarData', methods=['POST'])
+def get_data():
+    Car_data = telnetCom.receiveData()
+    print(Car_data)
+    return render_template("command.html", Car_data=Car_data)
 
 
 if __name__ == "__main__":

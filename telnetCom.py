@@ -14,8 +14,9 @@ def sendCommands(commands):
 
 def receiveData():
     tn = telnetlib.Telnet(HOST,PORT)
-    print("RECEIVING!")
-    #tn.write(B'RECEIVING')
-    data = tn.read_until(b"END")
-    print(data)
+    print("Writing data")
+    tn.write(b'RECEIVING')
+    print("Reading data")
+    data = tn.read_until(b'END')
     print("DISCONNECT")
+    return data
