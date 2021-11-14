@@ -12,81 +12,58 @@ function checkCommandStack(cmdStack){
 }
 
 /* parse the command stack.
+recursive function.
 */
-function parseCommands(cmdStack){
+function parseCommands(cmdStack, workspace){
+
     for (let i = 0; i < cmdStack.length; i++){
         console.log(cmdStack[i].type);
 
+        // check whether all inputs are filled.
+        if (cmdStack[i].allInputsFilled() == false){
+            alert("Some blocks have empty inputs. Please ensure it has at least one nested command.")
+            return false;
+        }
+
         switch(cmdStack[i].type){
             case "upward":
-//                console.log("MOVING UP");
                 break;
             case "downward":
-//                console.log("MOVING DOWN");
                 break;
             case "left":
-//                console.log("MOVING LEFT");
                 break;
             case "right":
-//                console.log("MOVING RIGHT");
                 break;
             case "loop":
-//                console.log("LOOPING");
 
                 // get the value of how many times to loop.
-                console.log(cmdStack[i].getInput("loopTimes").fieldRow[1].getValue());
+                loopTimes = cmdStack[i].getInput("loopTimes").fieldRow[1].getValue();
 
-                // get the nested block, check if there are children.
-                var cBlock = cmdStack[i].getChildren()[0];
-                if (cBlock != null){
-                    // as getChildren() returns at most two items: first nested block and next statement,
-                    // check if the first block returned is nested or a next statement block
-                    if(cBlock == cmdStack[i].getNextBlock()){
-                        alert("Loop block is empty. Please ensure it has at least one nested command.")
-                        return false;
-                    }
-                }
-                else{
-                    alert("Loop block is empty. Please ensure it has at least one nested command.")
-                    return false;
+                // thanks to the amazing error checking above,
+                // we can guarantee that getChildren(true)[0] will 101% return a nested block!
+                var cBlock = cmdStack[i].getChildren(true)[0];
+
+                // get the whole nested input stack
+                var statLength = cBlock.getDescendants();
+
+                for (let cnt = 1; cnt < loopTimes; cnt++){
+
+                    // get children and recursive call
+                    var cBlockStack = cmdStack[i].getChildren(true)[0].getDescendants();
+                    parseCommands(cBlockStack, workspace);
+
                 }
 
                 break;
             case "if_wall":
 //                console.log("Next block wall");
 
-                  // get the nested block, check if there are children.
-                var cBlock = cmdStack[i].getChildren()[0];
-                if (cBlock != null){
-                    // as getChildren() returns at most two items: first nested block and next statement,
-                    // check if the first block returned is nested or a next statement block
-                    if(cBlock == cmdStack[i].getNextBlock()){
-                        alert("'If wall' block is empty. Please ensure it has at least one nested command.")
-                        return false;
-                    }
-                }
-                else{
-                    alert("'If wall' block is empty. Please ensure it has at least one nested command.")
-                    return false;
-                }
+                var cBlock = cmdStack[i].getChildren(true)[0];
+                // get the whole nested input stack
+
                 break;
             case "if_coin":
 //                console.log("Next block coin");
-
-                // get the nested block, check if there are children.
-                var cBlock = cmdStack[i].getChildren()[0];
-                if (cBlock != null){
-                    // as getChildren() returns at most two items: first nested block and next statement,
-                    // check if the first block returned is nested or a next statement block
-                    if(cBlock == cmdStack[i].getNextBlock()){
-                        alert("'If coin' block is empty. Please ensure it has at least one nested command.")
-                        return false;
-                    }
-                }
-                else{
-                    alert("'If coin' block is empty. Please ensure it has at least one nested command.")
-                    return false;
-                }
                 break;
         }
     }
@@ -96,7 +73,7 @@ function sendCommandButton(){
     console.log(arr[0].getAllBlocks(true));
     // check no. of command stacks
     if (checkCommandStack(arr[0].getTopBlocks(true)) == true){
-        parseCommands(arr[0].getAllBlocks(true));
+        parseCommands(arr[0].getAllBlocks(true), arr[0]);
     }
     else{
         alert("Only one command stack allowed. Please remove the other stray command blocks.");
