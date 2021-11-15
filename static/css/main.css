@@ -23,3 +23,10 @@
 a:hover {
     background-color: #f2848262;
 }
+
+/* For Charts */
+.fit-image {
+    width: 100%;
+    object-fit: cover;
+    /* height: 300px; only if you want fixed height */
+}

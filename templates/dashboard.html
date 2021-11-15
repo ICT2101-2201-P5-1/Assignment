@@ -38,37 +38,49 @@
 
 
 {% block body %}
-    <div class="container">
-        <table class="table table-striped table-inverse table-responsive">
-            <thead class="thead-inverse">
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td scope="row"></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td scope="row"></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-        </table>
-    </div>
+    <br>
+    <div class="container border border-dark rounded">
 
-    <h1 class="text-center">INFOGRAPHICS</h1>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-sm">Chart 1</div>
-            <div class="col-sm">Chart 2</div>
+    
+        <div class="container">
+            <table class="table table-striped table-inverse table-responsive">
+                <thead class="thead-inverse">
+                    <tr class="text-center">
+                        <th>Level</th>
+                        <th>Date of Play</th>
+                        <th>Time Spent Playing</th>
+                        <th>Distance Travelled</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in data %}
+                        <tr class="text-center">
+                            <td>{{item[3]}}</td>
+                            <td scope="row">{{item[1]}}</td>
+                            <td>{{item[2]}}</td>
+                            <td>{{item[5]}}</td>
+                        </tr>
+                        {% endfor %}
+                
+                    </tbody>
+            </table>
         </div>
+
+        <h1 class="text-center">INFOGRAPHICS</h1>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-6 text-center"><h2>Chart 1</h2>
+                    <img class="img-responsive fit-image" src="../static/img/chart1.png">
+                </div>
+                <div class="col-6 text-center"><h2>Chart 2</h2>
+                    <img class="img-responsive fit-image" src="../static/img/chart2.png">
+                </div>
+                <br>
+            </div>
+        </div>
+        <br>
+
     </div>
 {% endblock %}
 
