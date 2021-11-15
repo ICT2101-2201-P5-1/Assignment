@@ -30,7 +30,7 @@ def gamePlatform():
     # To connect to car use these 2 methods 
     #telnetCom.sendCommands(b'hello')
     #telnetCom.receiveData()
-    session['attempt'] = 5
+    session['attempt'] = 3
     return render_template("index.html")
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -40,7 +40,7 @@ def login():
     if form.check():
         redirect(url_for('gamePlatform'))
     else:
-        pass
+        form.load()
     return render_template('login.html', title='Login', form=form)
 
 
