@@ -2,6 +2,9 @@ import mysql.connector
 from mysql.connector import errorcode
 from Credentials import constants
 
+# Hi Friends and Professors! Shawn(2001401) here. These controllers are for the dashboard!
+
+# This fetches the data to be displayed in the table
 def fetchData():
     conn = mysql.connector.connect(host=constants.HOST,
                                    database=constants.DATABASE,
@@ -15,6 +18,7 @@ def fetchData():
     conn.close()
     return data
 
+# These 2 fetches data to be converted into the first chart
 def fetchChart1y():
     conn = mysql.connector.connect(host=constants.HOST,
                                    database=constants.DATABASE,
@@ -41,6 +45,7 @@ def fetchChart1x():
     conn.close()
     return data1y
 
+# These 2 fetches data to be converted into the second chart
 def fetchChart2y():
     conn = mysql.connector.connect(host=constants.HOST,
                                    database=constants.DATABASE,
@@ -66,3 +71,5 @@ def fetchChart2x():
     cur.close()
     conn.close()
     return data1y
+
+# Thanks!

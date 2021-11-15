@@ -48,40 +48,36 @@ def command():
         telnetCom.sendCommands(commandB)
     return render_template("command.html")
 
+# Hi Friends and Professors. Shawn(2001401) here. This route is for the dashboard!
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    # For the Charts
-    # Bring some raw data.
+    
+    # Initialise the lists to be fed to matplotlib
     x1Array = []
     y1Array = []
     x2Array = []
     y2Array = []
+    
+    # Fetch data from MySql to be fed to lists
     chart_data_1x = Models.Dashboard.fetchChart1x() #currently a tuple, remove the 2nd tuple then 
     chart_data_1y = Models.Dashboard.fetchChart1y() #currently a tuple, remove the 2nd tuple then 
     chart_data_2x = Models.Dashboard.fetchChart2x()
     chart_data_2y = Models.Dashboard.fetchChart2y()
     
+    # Process the MySQL data and append to lists
     for first_x_tuple in chart_data_1x:
     	x1Array.append(first_x_tuple[0])
-     
     for first_y_tuple in chart_data_1y:
     	y1Array.append(first_y_tuple[0])
-     
     for second_x_tuple in chart_data_2x:
     	x2Array.append(second_x_tuple[0])
-
     for second_y_tuple in chart_data_2y:
     	y2Array.append(second_y_tuple[0])
     
-    # print(x1Array)
-    # print(y1Array)
-    # # print(x2Array)
-    # # print(y2Array)
-    
+    # Feed the lists into the chart gods and save it for displaying in the view model
     freq_series = pd.Series(y1Array)
     freq_series2 = pd.Series(y2Array)
     
-    # Plot the figure.
     fig1 = plt.figure(figsize=(12, 8))
     ax = freq_series.plot(kind="bar")
     ax.set_title("Distance Travelled Per Game")
@@ -99,18 +95,11 @@ def dashboard():
     ax.set_xticklabels(x2Array)
     plt.xticks(rotation=90)
     fig2.savefig('static/img/chart2.png')
-    
-    # fig1 = plt.figure()
-    # ax = fig1.add_axes([0,0,1,1])
-    
-    # # ax.bar(x1Array,y1Array)
-    # ax.bar(x1Array,y1Array)
-    # fig1.savefig('chart1.png')
-    
-    
-    
+
+    # Data is a function which returns the SQL data to be displayed in the view model
     return render_template("dashboard.html", data=Models.Dashboard.fetchData())
 
+#The dashboard route ENDS here
 
 
 if __name__ == "__main__":

@@ -1,3 +1,5 @@
+<!--  Hi Friends and Professors. Shawn(2001401) here. This view is for the dashboard! -->
+
 {% extends 'base.html'%}
 
 {% block head %}
@@ -31,17 +33,17 @@
     </script>
     {% endblock %}
 
-    
-
 {% endblock %}
-
-
 
 {% block body %}
     <br>
     <div class="container border border-dark rounded">
 
-    
+        <br>
+        <h1 class="text-center">Dashboard Data</h1>
+        <br>
+
+        <!-- The data fetched by the model and passed from the controller -->
         <div class="container">
             <table class="table table-striped table-inverse table-responsive">
                 <thead class="thead-inverse">
@@ -65,9 +67,13 @@
                     </tbody>
             </table>
         </div>
+        <!-- /The Data ends here! -->
 
-        <h1 class="text-center">INFOGRAPHICS</h1>
-
+        <br>
+        <h1 class="text-center">Infographics</h1>
+        <br>
+        
+        <!-- The Charts fetched by the model and passed from the controller -->
         <div class="container">
             <div class="row">
                 <div class="col-6 text-center"><h2>Chart 1</h2>
@@ -80,8 +86,10 @@
             </div>
         </div>
         <br>
+         <!-- /The Charts ends here!-->
 
     </div>
+    <br>
 {% endblock %}
 
 
