@@ -1,9 +1,9 @@
 from flask import Flask, render_template, url_for, flash, redirect, request, jsonify
 from mysql import connector
 import mysql.connector
+import Models.processFile
 import Models.EditLevel
 import telnetCom
-import processFile
 import json
 import operator
 
@@ -42,7 +42,7 @@ def get_MAPData():
         CommandList = request.form.getlist('Commands')
         LevelName = request.form.get('LevelName')
         Difficulty = request.form.get('Difficulties')
-        processFile.writeToMapFile(mapList,LevelName,CommandList, Difficulty)
+        Models.processFile.writeToMapFile(mapList,LevelName,CommandList, Difficulty)
         mapList.clear()
     return render_template("LevelEditor/CreateLevel.html")
 

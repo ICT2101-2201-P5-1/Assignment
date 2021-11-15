@@ -1,7 +1,13 @@
+import Models.EditLevel
+
+
 def writeToMapFile(Maparray,LevelName,CommandList, Difficulty):
-    fileObj = open("../ICT2101/Levels/"+LevelName+".txt","w+")
+    fileName = "../ICT2101/Levels/"+LevelName+".txt"
+    fileObj = open(fileName,"w+")
     print(Maparray,LevelName,CommandList, Difficulty)
     processCommands(fileObj, CommandList)
+    dbStatus = Models.EditLevel.insert_Level(Difficulty, LevelName, fileName)
+    print(dbStatus)
     MapDict ={}
     for grid in Maparray:
         MapDict[grid['position']]= grid['type']
