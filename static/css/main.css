@@ -19,6 +19,12 @@
 
 }
 
+.login-form{
+    text-align: center;
+    border: 2px solid #000;
+    padding: 25px 15px 25px 15px;
+    margin: 50px 50px 50px 50px;
+
 
 a:hover {
     background-color: #f2848262;
