@@ -35,9 +35,14 @@ def gamePlatform():
         lll = request.cookied.get('lastLevelLoaded')
 
     mapFile = Models.GamePlatform.readMapDataFromDB(lll)
-    Models.GamePlatform.initLevelLayout("Levels/1.txt")
+    # TODO:
+    # replace hardcoded level with mapFile once the DB is updated.
+    commandList, mapData = Models.GamePlatform.initLevelLayout("Levels/1.txt")
 
-    return render_template("index.html")
+    # replace data with mapData once I am finished with the initLevelLayout.
+    data = {'username': 'Pang', 'site': 'stackoverflow.com'}
+    return render_template("index.html", vars=data, commandList=commandList)
+
 
 # set last level loaded as cookie..
 @app.route('/set-level')

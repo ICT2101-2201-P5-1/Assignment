@@ -75,7 +75,9 @@ function parseCommands(cmdStack, workspace){
 
 /* initLevelLayout
 */
-function initLevelLayout(){
+function initLevelLayout(vars){
+
+    console.log("hi", vars);
 
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
@@ -85,10 +87,6 @@ function initLevelLayout(){
 
     // Load an image of intrinsic size 300x227 in CSS pixels
     image.src = '/static/img/Sprite/coins.png';
-    
-    // Use the intrinsic size of image in CSS pixels for the canvas element
-      canvas.width = this.naturalWidth;
-      canvas.height = this.naturalHeight;
 
     function drawImageActualSize() {
       // Use the intrinsic size of image in CSS pixels for the canvas element

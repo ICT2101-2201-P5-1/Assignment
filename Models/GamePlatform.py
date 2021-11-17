@@ -24,17 +24,29 @@ def readMapDataFromDB(mid):
 
 def initLevelLayout(mapFile):
 
+    # our map level json object
+    mapLevelLayout = {"row":5, "col":5, "tiles":[]}
+    commandList = ["upward", "downward", "left", "right", "loop", "if_wall", "if_coin"]
+
     with open(mapFile, "r") as f:
 
         # i is counter
         i = 1
         for line in f.readlines():
 
+            # render blockly commands
             if i == 1:
-                # render blockly
+
+                # loop through commandList, blank out the blocks that are disabled.
+                # the range is len(line) - 1 to account for newline character.
+                for x in range(len(line) - 1):
+                    if int(line[x]) == 0:
+                        commandList[x] = ""
+                # increase counter so we dont ever come in here again
                 i += 1
-                pass
 
             else:
                 # render map
                 print(line)
+
+    return commandList, None

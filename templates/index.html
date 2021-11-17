@@ -19,9 +19,8 @@
 
     <div class="container-fluid justify-content-center">
         <h1>This is the Index page</h1>
-        <canvas id="canvas">
+        <canvas id="canvas"> </canvas>
 
-        </canvas>
     </div>
     <div class="container-fluid justify-content-center">
         <h2> Car Control Station </h2>
@@ -32,19 +31,20 @@
 {% endblock %}
 
 {% block footer %}
+
     <xml id="toolbox" style="display: none">
-          <block type="upward"></block>
-          <block type="downward"></block>
-          <block type="left"></block>
-          <block type="right"></block>
-          <block type="loop"></block>
-          <block type="if_wall"></block>
-          <block type="if_coin"></block>
+        <!--  for loop for printing out xml-blocks according to command list  -->
+        {%for block in commandList%}
+            {% if block != ""%}
+                <block type="{{block}}"></block>
+            {% endif %}
+        {% endfor %}
     </xml>
+
     <script>
         var workspace = Blockly.inject('blocklyDiv', {toolbox: document.getElementById('toolbox')});
         document.getElementById("send_commands").addEventListener("click", sendCommandButton);
-        document.addEventListener("DOMContentLoaded", initLevelLayout);
+        document.addEventListener("DOMContentLoaded", initLevelLayout({{vars | tojson}}));
     </script>
 
 {% endblock %}
