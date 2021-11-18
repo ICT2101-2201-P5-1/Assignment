@@ -22,13 +22,14 @@ def gamePlatform():
     print(Models.EditLevel.fetchPassword())
     return render_template("index.html")
 
-#### Edit Level #### 
-# Handle receiving of POST request from Map and rendering of CreateLevel page 
-# @param jsdata The data transfered from drag & drop interface 
-# @param JSON_obj JSON object in position: "2", value:"goal"
-# @param mapList global array 
-# @return the CreateLevel.html page 
-####
+'''
+Edit Level
+    Handle receiving of POST request from Map and rendering of CreateLevel page 
+        @param jsdata The data transfered from drag & drop interface 
+        @param JSON_obj JSON object in position: "2", value:"goal"
+        @param mapList global array 
+        @return the CreateLevel.html page 
+'''
 @app.route('/edit_level', methods=['GET', 'POST'])
 def edit_level():
     # Get post request from TranserJson(value,data) JS
@@ -42,13 +43,14 @@ def edit_level():
     return render_template("LevelEditor/CreateLevel.html")
 
 
-#### Get Map Data #### 
-# Handle receiving of POST request from Level_Editor_Form and rendering of CreateLevel page 
-# @param CommandList The id list of checked commands
-# @param LevelName String levelName user input
-# @param Difficulty value 1(easy),2(medium),3(hard)
-# @return the CreateLevel.html page 
-####
+'''
+    Get Map Data 
+        Handle receiving of POST request from Level_Editor_Form and rendering of CreateLevel page 
+            @param CommandList The id list of checked commands
+            @param LevelName String levelName user input
+            @param Difficulty value 1(easy),2(medium),3(hard)
+            @return the CreateLevel.html page 
+'''
 @app.route('/getMAPData', methods=['POST'])
 def get_MAPData():
     # Get post request from form when user submit
