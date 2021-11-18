@@ -3,7 +3,7 @@ from mysql import connector
 import mysql.connector
 import Models.EditLevel
 import telnetCom
-from processLogin import LoginForm
+from Models.processLogin import LoginForm
 
 
 app = Flask(__name__)
