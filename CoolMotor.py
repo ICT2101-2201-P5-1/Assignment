@@ -7,9 +7,11 @@ import telnetCom
 import json
 import operator
 
-
-
 app = Flask(__name__)
+
+
+# For Flash box in Processfile 
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 # Global Array 
 mapList = []
@@ -58,9 +60,17 @@ def get_MAPData():
         CommandList = request.form.getlist('Commands')
         LevelName = request.form.get('LevelName')
         Difficulty = request.form.get('Difficulties')
-        Models.processFile.writeToMapFile(mapList,LevelName,CommandList, Difficulty)
+        status = Models.processFile.writeToMapFile(mapList,LevelName,CommandList, Difficulty)
         # Clear the array after every submission 
         mapList.clear()
+        if status == 'success':
+            
+            flash("Level created successsfully!")
+        else:
+            flash("Please select a goal in the map!")
+            redirect(url_for('edit_level'))
+
+        
     return render_template("LevelEditor/CreateLevel.html")
 
 

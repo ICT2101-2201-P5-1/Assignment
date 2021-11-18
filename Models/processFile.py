@@ -1,19 +1,36 @@
 import Models.EditLevel
 
 
+'''
+Edit Level
+    Handle receiving of POST request from Map and rendering of CreateLevel page 
+        @param jsdata The data transfered from drag & drop interface 
+        @param JSON_obj JSON object in position: "2", value:"goal"
+        @param mapList global array 
+        @return the CreateLevel.html page 
+'''
 def writeToMapFile(Maparray,LevelName,CommandList, Difficulty):
-    fileName = "../ICT2101/Levels/"+LevelName+".txt"
-    dbfilePath = "/Levels/"+LevelName+".txt"
-    fileObj = open(fileName,"w+")
-    print(Maparray,LevelName,CommandList, Difficulty)
-    processCommands(fileObj, CommandList)
-    dbStatus = Models.EditLevel.insert_Level(Difficulty, LevelName, dbfilePath)
-    print(dbStatus)
     MapDict ={}
     for grid in Maparray:
         MapDict[grid['position']]= grid['type']
-    processGrid(fileObj, MapDict)
-    fileObj.close()   
+    if 'goal' in MapDict.values():
+        fileName = "../ICT2101/Levels/"+LevelName+".txt"
+        dbfilePath = "/Levels/"+LevelName+".txt"
+        fileObj = open(fileName,"w+")
+        processCommands(fileObj, CommandList) 
+        dbStatus = Models.EditLevel.insert_Level(Difficulty, LevelName, dbfilePath)
+        processGrid(fileObj, MapDict)
+        fileObj.close()  
+        return 'success'
+    else:
+        return 'fail'
+
+
+    
+
+
+        
+     
 
 
 def processCommands(fileObj, CommandList):
