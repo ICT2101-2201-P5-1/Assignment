@@ -6,22 +6,38 @@
 
   
     <script>
+      /**
+       * Allow Map grid to take in drag drop image 
+      */
       function allowDrop(ev) {
         ev.preventDefault();
       }
-      
+      /**
+       * Allow image id to be set to text varible 
+       * @param   text    store image id
+      */
       function drag(ev) {
         ev.dataTransfer.setData("text", ev.target.id);
         
       }
-      
+      /**
+       * Allow grid to get image id and move the image to grid
+       * @param   text    store image id
+       * @param   data    store image id
+      */
       function drop(ev,value) {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
         TranserJson(value,data);
         ev.target.appendChild(document.getElementById(data));
       }
-
+      /**
+       * Pair postion to chosen sprite using JSON then covert it into string to be transfered to CoolMotor for processing 
+       * @param   value     grid box number
+       * @param   data      sprite (goal/wall/coins)
+       * @param   sprite    sprite cut id number from sprite 
+       * @param   DDjson     position and sprite json pair 
+      */
       function TranserJson(value,data){
         var sprite = data;
         var sprite = sprite.substring(0, sprite.length - 1);
