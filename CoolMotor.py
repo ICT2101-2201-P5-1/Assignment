@@ -27,16 +27,25 @@ app = Flask(__name__)
 def gamePlatform():
     print(Models.EditLevel.fetchPassword())
     # To connect to car use these 2 methods 
-    #telnetCom.sendCommands(b'hello')
-    #telnetCom.receiveData()
+    # telnetCom.sendCommands(b'hello')
+    # telnetCom.receiveData()
     return render_template("index.html")
 
 
-#display level history stored in the database
+# display level history stored in the database
 @app.route("/displayLevel")
 def view_display_Level():
     data = Models.displayLevel.display()
     return render_template("displayLevel.html", title="Level Display", output_data=data)
+
+
+@app.route("/deletelevel/<int:id>", methods=['POST'])
+def delete_level(id):
+    x = int(id)
+    print(x)
+    Models.displayLevel.delete(x)
+    print("Test")
+    return redirect(url_for('view_display_Level'))
 
 
 if __name__ == "__main__":
