@@ -47,6 +47,15 @@
   <div class="col-sm-7"> 
     <div class="grid-map container">
       <h2 class="map-title"> Edit Map </h2>
+
+      {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          <div class=flashes>
+            {% for message in messages %}
+            <h1>{{ message }}</h1>
+            {% endfor %}
+          </div>
+          {% endif %}
       <div class="row grid-row">
         <div class="col grid-col">
           <img id="start" src="/static/img/Sprite/start.png"  width="150px" height="150px">
