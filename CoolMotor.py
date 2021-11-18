@@ -39,12 +39,11 @@ def view_display_Level():
     return render_template("displayLevel.html", title="Level Display", output_data=data)
 
 
+# id refers to the map_id from the level dashboard
 @app.route("/deletelevel/<int:id>", methods=['POST'])
 def delete_level(id):
     x = int(id)
-    print(x)
     Models.displayLevel.delete(x)
-    print("Test")
     return redirect(url_for('view_display_Level'))
 
 

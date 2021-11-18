@@ -18,13 +18,13 @@ def display():
     return data
 
 
+# x refers to the map_id being forwarded from the HTML Form
 def delete(x):
     conn = mysql.connector.connect(host=constants.HOST,
                                    database=constants.DATABASE,
                                    user=constants.USER,
                                    password=constants.PASSWORD)
     x = int(x)
-    print("within delete ",x)
     cur = conn.cursor()
     cur.execute("DELETE FROM levels WHERE map_id = %s;", (x,))
     conn.commit()
