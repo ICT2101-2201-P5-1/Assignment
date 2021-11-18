@@ -16,40 +16,17 @@ def writeToMapFile(Maparray,LevelName,CommandList, Difficulty):
 
 
 def processCommands(fileObj, CommandList):
-    if('C1' in CommandList):
-        fileObj.write('1')
-    else:
-        fileObj.write('0')
-
-    if('C2' in CommandList):
-        fileObj.write('1')
-    else:
-        fileObj.write('0')
-
-    if('C3' in CommandList):
-        fileObj.write('1')
-    else:
-        fileObj.write('0')
-
-    if('C4' in CommandList):
-        fileObj.write('1')
-    else:
-        fileObj.write('0')
-
-    if('C5' in CommandList):
-        fileObj.write('1')
-    else:
-        fileObj.write('0')
-
-    if('C6' in CommandList):
-        fileObj.write('1')
-    else:
-        fileObj.write('0')
-
-    if('C7' in CommandList):
-        fileObj.write('1\n')
-    else:
-        fileObj.write('0\n')
+    for i in range(1,8):
+        if str(i) in CommandList:
+            if i == 7:
+                fileObj.write('1' +'\n')
+            else:
+                fileObj.write('1')
+        else:
+            if i == 7:
+                fileObj.write('0' +'\n')
+            else:
+                fileObj.write('0')
 
 
 def processGrid(fileObj, MapDict):

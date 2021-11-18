@@ -28,7 +28,7 @@ def fetchPassword():
 def insert_Level(Difficulty, LevelName, fileName):
     conn = init_connection_sql()
     cur = conn.cursor()
-    cur.execute("""INSERT INTO cool_motor.levels ( map_difficulty, map_name, map_level_layout) 
+    cur.execute("""INSERT INTO coolmotor.levels ( map_difficulty, map_name, map_level_layout) 
     VALUES ( %s, %s, %s);""",(Difficulty, LevelName, fileName))
     conn.commit()
     cur.close()
