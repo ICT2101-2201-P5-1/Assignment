@@ -7,7 +7,6 @@ import telnetCom
 
 # For the chart
 from matplotlib import pyplot as plt
-import numpy as np
 import pandas as pd
 
 
@@ -59,12 +58,14 @@ def dashboard():
     y2Array = []
     
     # Fetch data from MySql to be fed to lists
-    chart_data_1x = Models.Dashboard.fetchChart1x() #currently a tuple, remove the 2nd tuple then 
-    chart_data_1y = Models.Dashboard.fetchChart1y() #currently a tuple, remove the 2nd tuple then 
+    chart_data_1x = Models.Dashboard.fetchChart1x() 
+    chart_data_1y = Models.Dashboard.fetchChart1y()
     chart_data_2x = Models.Dashboard.fetchChart2x()
     chart_data_2y = Models.Dashboard.fetchChart2y()
     
-    # Process the MySQL data and append to lists
+    # Process the MySQL data and append to lists.
+    # Originally, fetched SQL data is a tuple, this changes 
+    # it to a list so that it can be turned to a chart
     for first_x_tuple in chart_data_1x:
     	x1Array.append(first_x_tuple[0])
     for first_y_tuple in chart_data_1y:
@@ -74,7 +75,7 @@ def dashboard():
     for second_y_tuple in chart_data_2y:
     	y2Array.append(second_y_tuple[0])
     
-    # Feed the lists into the chart gods and save it for displaying in the view model
+    # Feed the lists into charts and save it for displaying in dashboard.html
     freq_series = pd.Series(y1Array)
     freq_series2 = pd.Series(y2Array)
     
