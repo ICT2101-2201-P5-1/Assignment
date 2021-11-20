@@ -2,11 +2,23 @@
 
 {% block head %}
 
-
 {% endblock %}
 
 {% block body %}
-
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class ='m-4'>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <span>{{ message }}</span>
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 <table class="styled-table">
     <thead>
     <tr>
@@ -31,7 +43,7 @@
                 {% endif %}
                 <td>{{row[2]}}</td>
                 <td>
-                    <form method="POST" action="{{ url_for('delete_level', id=row[1]) }}">
+                    <form method="POST" action="{{ url_for('delete_level', id=row[0]) }}">
                     <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>

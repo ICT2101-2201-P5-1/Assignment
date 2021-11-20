@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, flash, redirect, request, jsonify
+from flask import Flask, render_template, url_for, session, flash, redirect, request, jsonify
 from mysql import connector
 import mysql.connector
 import Models.EditLevel
@@ -7,6 +7,7 @@ import telnetCom
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret'
 
 
 # @app.route('/', methods=['GET', 'POST'])
@@ -44,6 +45,8 @@ def view_display_Level():
 def delete_level(id):
     x = int(id)
     Models.displayLevel.delete(x)
+    session.pop('_flashes', None)
+    flash('Deletion Successful', "info")
     return redirect(url_for('view_display_Level'))
 
 
