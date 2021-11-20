@@ -42,9 +42,13 @@
     </xml>
 
     <script>
+        var map = {{mapLevelLayout | tojson}};
+
         var workspace = Blockly.inject('blocklyDiv', {toolbox: document.getElementById('toolbox')});
-        document.getElementById("send_commands").addEventListener("click", sendCommandButton);
-        document.addEventListener("DOMContentLoaded", initLevelLayout({{mapLevelLayout | tojson}}));
+        document.getElementById("send_commands").addEventListener("click", function(){ map = sendCommandButton(map); } );
+        $( document ).ready(function() {
+            initLevelLayout(map);
+        });
     </script>
 
 {% endblock %}

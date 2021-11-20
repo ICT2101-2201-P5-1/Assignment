@@ -17,8 +17,24 @@ function checkCommandStack(cmdStack){
 /* parse the command stack. recursive function.
 * @cmdStack = an array of Blockly blocks.
 * @workspace = Blockly workspace object.
+* map format:
+0 = empty
+1 = car
+2 = wall
+3 = coin
+4 = goal
 */
-function parseCommands(cmdStack, workspace){
+async function parseCommands(cmdStack, workspace, map){
+
+    console.log("hi2", map);
+
+    for (let i = 0; i < map.tiles.length; i++){
+        if (map.tiles[i] == "1"){
+            carPos = i;
+            console.log("CarPOS", carPos);
+            break;
+        }
+    }
 
     for (let i = 0; i < cmdStack.length; i++){
         console.log(cmdStack[i].type);
@@ -31,10 +47,65 @@ function parseCommands(cmdStack, workspace){
 
         switch(cmdStack[i].type){
             case "upward":
+
+                // hit boundary wall
+                if ((carPos - 5) < 0){
+                    // car crash
+                    break;
+                }
+                // allowed to move
+                else{
+                    // hits virtual wall
+                    if (map.tiles[carPos - 5] == 2){
+                       // car crash
+                       break;
+                    }
+                    else{
+                        // update car position on map
+                        map.tiles[carPos] = "0"
+                        carPos -= 5;
+                        map.tiles[carPos] = "1";
+
+                        // render map..
+                        initLevelLayout(map);
+                        console.log("delaying");
+                        await sleep(1000);
+                    }
+                }
+
                 break;
             case "downward":
+
+                // hit boundary wall
+                if ((carPos + 5) > 24){
+                    // car crash
+                    break;
+                }
+                // allowed to move
+                else{
+
+                    // hits virtual wall
+                    if (map.tiles[carPos + 5] == 2){
+                       // car crash
+                       break;
+                    }
+                    else{
+                        // update car position on map
+                        map.tiles[carPos] = "0"
+                        carPos += 5;
+                        map.tiles[carPos] = "1";
+
+//                        setTimeout(() => {  initLevelLayout(map); }, 2000);
+                        // render map..
+                        initLevelLayout(map);
+                        console.log("delaying");
+                        await sleep(1000);
+                    }
+                }
+
                 break;
             case "left":
+
                 break;
             case "right":
                 break;
@@ -54,7 +125,8 @@ function parseCommands(cmdStack, workspace){
 
                     // get children and recursive call
                     var cBlockStack = cmdStack[i].getChildren(true)[0].getDescendants();
-                    parseCommands(cBlockStack, workspace);
+                    parseCommands(cBlockStack, workspace, map);
+                    await sleep(1000);
 
                 }
 
@@ -71,6 +143,22 @@ function parseCommands(cmdStack, workspace){
                 break;
         }
     }
+
+}
+
+function sleep(ms) {
+  return new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
+}
+
+
+/*
+*/
+
+function renderMap(map){
+
+
 }
 
 /* initLevelLayout
@@ -82,6 +170,8 @@ function initLevelLayout(map){
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
 
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     imgTile = new Image();
     imgTile.onload = drawImageActualSize;
     imgTile.src = '/static/img/Sprite/spriteSheet.png';
@@ -91,14 +181,13 @@ function initLevelLayout(map){
     }
 
     function drawImageActualSize(){
+
         canvas.width = this.naturalWidth;
         canvas.height = this.naturalHeight;
 
         for (var c = 0; c < map.cols; c++) {
             for (var r = 0; r < map.rows; r++) {
                 var tile = map.getTile(c, r);
-
-                console.log(tile);
 
                 if (tile != 0) { // 0 => empty tile
 
@@ -125,20 +214,25 @@ function initLevelLayout(map){
             }
         }
     }
+
 }
 
 /* onclick event for the 'send command' button.
 */
-function sendCommandButton(){
+function sendCommandButton(map){
     var arr = Blockly.Workspace.getAll();
-    console.log(arr[0].getAllBlocks(true));
+//    console.log(arr[0].getAllBlocks(true));
+
+    console.log(map);
     // check no. of command stacks
     if (checkCommandStack(arr[0].getTopBlocks(true)) == true){
-        parseCommands(arr[0].getAllBlocks(true), arr[0]);
+        parseCommands(arr[0].getAllBlocks(true), arr[0], map);
+        console.log("eof",map);
     }
     else if (arr[0].getAllBlocks(true).length == 0)
         alert("Please ensure that there is at least one command in the box.");
     else
         alert("Only one command stack allowed. Please remove the other stray command blocks or combine them together.");
 
+    return map;
 }
