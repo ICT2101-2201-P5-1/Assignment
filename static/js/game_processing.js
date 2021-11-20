@@ -75,29 +75,55 @@ function parseCommands(cmdStack, workspace){
 
 /* initLevelLayout
 */
-function initLevelLayout(vars){
+function initLevelLayout(map){
 
-    console.log("hi", vars);
+    console.log("hi", map);
 
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
 
-    const image = new Image(100,100); // Using optional size for image
-    image.onload = drawImageActualSize; // Draw when image has loaded
+    imgTile = new Image();
+    imgTile.onload = drawImageActualSize;
+    imgTile.src = '/static/img/Sprite/spriteSheet.png';
 
-    // Load an image of intrinsic size 300x227 in CSS pixels
-    image.src = '/static/img/Sprite/coins.png';
+    map.getTile = function(col, row) {
+        return this.tiles[row * map.cols + col]
+    }
 
-    function drawImageActualSize() {
-      // Use the intrinsic size of image in CSS pixels for the canvas element
-      canvas.width = this.naturalWidth;
-      canvas.height = this.naturalHeight;
+    function drawImageActualSize(){
+        canvas.width = this.naturalWidth;
+        canvas.height = this.naturalHeight;
 
-      // To use the custom size we'll have to specify the scale parameters
-      // using the element's width and height properties - lets draw one
-      // on top in the corner:
+        for (var c = 0; c < map.cols; c++) {
+            for (var r = 0; r < map.rows; r++) {
+                var tile = map.getTile(c, r);
 
-      ctx.drawImage(this, 0, 0, this.width, this.height);
+                console.log(tile);
+
+                if (tile != 0) { // 0 => empty tile
+
+                    ctx.drawImage(
+                        imgTile, // image
+                        (tile - 1) * map.tsize, // source x
+                        0, // source y
+                        map.tsize, // source width
+                        map.tsize, // source height
+                        c * 100, // target x
+                        r * 100, // target y
+                        100, // target width
+                        100 // target height
+                    );
+                }
+                else{
+                    ctx.fillStyle = "rgb(220,220,220)";
+                    ctx.lineWidth = "2";
+                    ctx.beginPath();
+                    ctx.rect(c * 100, r * 100, 100, 100);
+                    ctx.stroke();
+                    ctx.closePath();
+                }
+            }
+        }
     }
 }
 

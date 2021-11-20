@@ -41,7 +41,7 @@ def gamePlatform():
 
     # replace data with mapData once I am finished with the initLevelLayout.
     data = {'username': 'Pang', 'site': 'stackoverflow.com'}
-    return render_template("index.html", vars=data, commandList=commandList)
+    return render_template("index.html", mapLevelLayout=mapData, commandList=commandList)
 
 
 # set last level loaded as cookie..

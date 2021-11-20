@@ -9,7 +9,7 @@ def readMapDataFromDB(mid):
                                    user=constants.USER,
                                    password=constants.PASSWORD)
 
-    cur = conn.cursor()
+    cur = conn.cursor(prepared=True)
     query = ("select map_level_layout from levels where map_id = %s")
     cur.execute(query, (mid,))
 
@@ -25,7 +25,7 @@ def readMapDataFromDB(mid):
 def initLevelLayout(mapFile):
 
     # our map level json object
-    mapLevelLayout = {"row":5, "col":5, "tiles":[]}
+    mapLevelLayout = {"rows":5, "cols":5, "tsize":512, "tiles":[]}
     commandList = ["upward", "downward", "left", "right", "loop", "if_wall", "if_coin"]
 
     with open(mapFile, "r") as f:
@@ -34,7 +34,7 @@ def initLevelLayout(mapFile):
         i = 1
         for line in f.readlines():
 
-            # render blockly commands
+            # create blockly commands to display later
             if i == 1:
 
                 # loop through commandList, blank out the blocks that are disabled.
@@ -46,7 +46,9 @@ def initLevelLayout(mapFile):
                 i += 1
 
             else:
-                # render map
-                print(line)
+                # create map tiles to display later
+                for x in line:
+                    if x != '\n':
+                        mapLevelLayout.get("tiles").append(x)
 
-    return commandList, None
+    return commandList, mapLevelLayout
