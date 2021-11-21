@@ -23,19 +23,23 @@ function checkCommandStack(cmdStack){
 2 = wall
 3 = coin
 4 = goal
+
 */
 async function parseCommands(cmdStack, workspace, map){
 
+    // define return value in the event of car crash, used inside LOOP block.
+//    var ret = 0;
     console.log("hi2", map);
 
     for (let i = 0; i < map.tiles.length; i++){
         if (map.tiles[i] == "1"){
             carPos = i;
-            console.log("CarPOS", carPos);
             break;
         }
     }
 
+    // give our for-loop a label so we can break out of it later
+    parseCommandsLoop:
     for (let i = 0; i < cmdStack.length; i++){
         console.log(cmdStack[i].type);
 
@@ -51,14 +55,16 @@ async function parseCommands(cmdStack, workspace, map){
                 // hit boundary wall
                 if ((carPos - 5) < 0){
                     // car crash
-                    break;
+                    console.log("car crash boundary");
+                    return -1;
                 }
                 // allowed to move
                 else{
                     // hits virtual wall
                     if (map.tiles[carPos - 5] == 2){
-                       // car crash
-                       break;
+                        // car crash
+                        console.log("car crash wall");
+
                     }
                     else{
                         // update car position on map
@@ -68,26 +74,30 @@ async function parseCommands(cmdStack, workspace, map){
 
                         // render map..
                         initLevelLayout(map);
-                        console.log("delaying");
-                        await sleep(1000);
+
+                        // delay for animation purposes
+                        await sleep(500);
                     }
                 }
-
                 break;
+
             case "downward":
 
                 // hit boundary wall
                 if ((carPos + 5) > 24){
                     // car crash
-                    break;
+                    console.log("car crash boundary");
+                    return -1;
                 }
                 // allowed to move
                 else{
 
                     // hits virtual wall
                     if (map.tiles[carPos + 5] == 2){
-                       // car crash
-                       break;
+
+                        // car crash
+                        console.log("car crash wall");
+                        break;
                     }
                     else{
                         // update car position on map
@@ -95,19 +105,77 @@ async function parseCommands(cmdStack, workspace, map){
                         carPos += 5;
                         map.tiles[carPos] = "1";
 
-//                        setTimeout(() => {  initLevelLayout(map); }, 2000);
                         // render map..
                         initLevelLayout(map);
-                        console.log("delaying");
-                        await sleep(1000);
+
+                        // delay for animation purposes
+                        await sleep(500);
+                    }
+                }
+                break;
+
+            case "left":
+
+                // hit boundary wall
+                // NOTE: the LEFT block has an extra check for value '-1' due to the JS negative modulo bug
+                if (((carPos - 1) % 5 == 4) || ((carPos - 1) % 5 == -1)){
+                    // car crash
+                    console.log("car crash boundary");
+                    return -1;
+                }
+                // allowed to move
+                else{
+                    // hits virtual wall
+                    if (map.tiles[carPos - 1] == 2){
+                        // car crash
+                        console.log("car crash wall");
+                        break;
+                    }
+                    else{
+                        // update car position on map
+                        map.tiles[carPos] = "0"
+                        carPos -= 1;
+                        map.tiles[carPos] = "1";
+
+                        // render map..
+                        initLevelLayout(map);
+
+                        // delay for animation purposes
+                        await sleep(500);
+                    }
+                }
+                break;
+
+            case "right":
+
+                // hit boundary wall
+                if ((carPos + 1) % 5 == 0){
+                    // car crash
+                    console.log("car crash boundary");
+                    return -1;
+                }
+                // allowed to move
+                else{
+                    // hits virtual wall
+                    if (map.tiles[carPos + 1] == 2){
+                        // car crash
+                        console.log("car crash wall");
+                        break;
+                    }
+                    else{
+                        // update car position on map
+                        map.tiles[carPos] = "0"
+                        carPos += 1;
+                        map.tiles[carPos] = "1";
+
+                        // render map..
+                        initLevelLayout(map);
+
+                        // delay for animation purposes
+                        await sleep(500);
                     }
                 }
 
-                break;
-            case "left":
-
-                break;
-            case "right":
                 break;
             case "loop":
 
@@ -125,27 +193,37 @@ async function parseCommands(cmdStack, workspace, map){
 
                     // get children and recursive call
                     var cBlockStack = cmdStack[i].getChildren(true)[0].getDescendants();
-                    parseCommands(cBlockStack, workspace, map);
-                    await sleep(1000);
+                    let ret = await parseCommands(cBlockStack, workspace, map);
+
+                    // check if child-blocks inside LOOP causes a car crash.
+                    // if so, break out of the function and do not re-loop.
+                    // ret is returned as a Promise.
+                    if(ret == -1){
+                        break parseCommandsLoop;
+                    }
+
+                    // delay for animation purposes
+                    await sleep(500);
 
                 }
 
                 break;
             case "if_wall":
-//                console.log("Next block wall");
-
+                if(cmdStack[i].getParent() == null){
+                    break parseCommandsLoop;
+                }
                 var cBlock = cmdStack[i].getChildren(true)[0];
                 // get the whole nested input stack
 
                 break;
             case "if_coin":
-//                console.log("Next block coin");
                 break;
         }
     }
 
 }
 
+// sleep function that causes delay for animation purposes
 function sleep(ms) {
   return new Promise(
     resolve => setTimeout(resolve, ms)
@@ -221,7 +299,7 @@ function initLevelLayout(map){
 */
 function sendCommandButton(map){
     var arr = Blockly.Workspace.getAll();
-//    console.log(arr[0].getAllBlocks(true));
+    console.log(arr[0].getAllBlocks(true));
 
     console.log(map);
     // check no. of command stacks
