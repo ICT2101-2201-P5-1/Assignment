@@ -1,12 +1,17 @@
 import mysql.connector
-from mysql.connector import errorcode
 from Credentials import constants
 
-# Hi Friends and Professors! Shawn(2001401) here. These controllers are for the dashboard!
-
-
-
-# This fetches the data to be displayed in the table at dashboard.html
+'''
+fetchData() function is to fetch the data from the dashboard table in the coolmotor database
+    @param conn               Opens the connection with the database
+    @param cur                Initialise the cursor which accesses the databse
+    @param query              Initialises the SQL qeury
+    @param cur.execute(query) Executes an sql query with the data stored in the query parameter
+    @param data               Stores the data from the query
+    @param cur.close()        Closes the access to the database
+    @param conn.close()       Closes the connection to the database
+    @return                   Returns the data that is fetched
+'''
 def fetchData():
     conn = mysql.connector.connect(host=constants.HOST,
                                    database=constants.DATABASE,
@@ -20,7 +25,18 @@ def fetchData():
     conn.close()
     return data
 
-# These 2 fetches data to be converted into the first chart at CoolMotor.py
+'''
+fetchChart1y() function is to fetch the data from the dashboard table in the coolmotor database
+to be used in the y axis of the 1st chart
+    @param conn               Opens the connection with the database
+    @param cur                Initialise the cursor which accesses the databse
+    @param query              Initialises the SQL qeury
+    @param cur.execute(query) Executes an sql query with the data stored in the query parameter
+    @param data               Stores the data from the query
+    @param cur.close()        Closes the access to the database
+    @param conn.close()       Closes the connection to the database
+    @return                   Returns the data that is fetched
+'''
 def fetchChart1y():
     conn = mysql.connector.connect(host=constants.HOST,
                                    database=constants.DATABASE,
@@ -29,11 +45,22 @@ def fetchChart1y():
     cur = conn.cursor()
     query = ("SELECT distance_travelled FROM dashboard;")
     cur.execute(query)
-    data1x = cur.fetchall()
+    data = cur.fetchall()
     cur.close()
     conn.close()
-    return data1x
-
+    return data
+'''
+fetchChart1x() function is to fetch the data from the dashboard table in the coolmotor database
+to be used in the x axis of the 1st chart
+    @param conn               Opens the connection with the database
+    @param cur                Initialise the cursor which accesses the databse
+    @param query              Initialises the SQL qeury
+    @param cur.execute(query) Executes an sql query with the data stored in the query parameter
+    @param data               Stores the data from the query
+    @param cur.close()        Closes the access to the database
+    @param conn.close()       Closes the connection to the database
+    @return                   Returns the data that is fetched
+'''
 def fetchChart1x():
     conn = mysql.connector.connect(host=constants.HOST,
                                    database=constants.DATABASE,
@@ -42,12 +69,23 @@ def fetchChart1x():
     cur = conn.cursor()
     query = ("SELECT entry_id FROM dashboard;")
     cur.execute(query)
-    data1y = cur.fetchall()
+    data = cur.fetchall()
     cur.close()
     conn.close()
-    return data1y
+    return data
 
-# These 2 fetches data to be converted into the second chart at CoolMotor.py
+'''
+fetchChart2y() function is to fetch the data from the dashboard table in the coolmotor database
+to be used in the y axis of the 2nd chart
+    @param conn               Opens the connection with the database
+    @param cur                Initialise the cursor which accesses the databse
+    @param query              Initialises the SQL qeury
+    @param cur.execute(query) Executes an sql query with the data stored in the query parameter
+    @param data               Stores the data from the query
+    @param cur.close()        Closes the access to the database
+    @param conn.close()       Closes the connection to the database
+    @return                   Returns the data that is fetched
+'''
 def fetchChart2y():
     conn = mysql.connector.connect(host=constants.HOST,
                                    database=constants.DATABASE,
@@ -56,11 +94,23 @@ def fetchChart2y():
     cur = conn.cursor()
     query = ("SELECT game_duration FROM dashboard;")
     cur.execute(query)
-    data1x = cur.fetchall()
+    data = cur.fetchall()
     cur.close()
     conn.close()
-    return data1x
+    return data
 
+'''
+fetchChart2x() function is to fetch the data from the dashboard table in the coolmotor database
+to be used in the x axis of the 2nd chart
+    @param conn               Opens the connection with the database
+    @param cur                Initialise the cursor which accesses the databse
+    @param query              Initialises the SQL qeury
+    @param cur.execute(query) Executes an sql query with the data stored in the query parameter
+    @param data               Stores the data from the query
+    @param cur.close()        Closes the access to the database
+    @param conn.close()       Closes the connection to the database
+    @return                   Returns the data that is fetched
+'''
 def fetchChart2x():
     conn = mysql.connector.connect(host=constants.HOST,
                                    database=constants.DATABASE,
@@ -69,10 +119,7 @@ def fetchChart2x():
     cur = conn.cursor()
     query = ("SELECT date FROM dashboard;")
     cur.execute(query)
-    data1y = cur.fetchall()
+    data = cur.fetchall()
     cur.close()
     conn.close()
-    return data1y
-
-
-# Thanks!
+    return data

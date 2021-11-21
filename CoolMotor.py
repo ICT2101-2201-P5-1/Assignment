@@ -48,15 +48,45 @@ def command():
     return render_template("command.html")
 
 '''
-Hi Friends and Professors. Shawn(2001401) here. This route is for the dashboard!
-
 dashboard() function is to create the charts and call the dashboard.html view model
-    4 empty lists are initialised.
-    Data is fetched from MySql via Dashboard.py (the Controller).
-    Process the MySQL data and append to lists.
-    Originally, fetched SQL data is a tuple. It is changed to a list.
-    Feed the lists into charts and save it for displaying in dashboard.html.
+
+    @param x1Array            Empty list is initialised for 1st chart's x-axis
+    @param y1Array            Empty list is initialised for 1st chart's y-axis
+    @param x2Array            Empty list is initialised for 2nd chart's x-axis
+    @param y2Array            Empty list is initialised for 2nd chart's y-axis
     
+    @param chart_data_1x      Call Dashboard.py controller function which is an SQL query to call the 1st chart's x-axis
+    @param chart_data_1y      Call Dashboard.py controller function which is an SQL query to call the 1st chart's y-axis
+    @param chart_data_2x      Call Dashboard.py controller function which is an SQL query to call the 2nd chart's x-axis
+    @param chart_data_2y      Call Dashboard.py controller function which is an SQL query to call the 2nd chart's y-axis
+    
+    Originally, fetched SQL data is a tuple and unuseable by matplotlib. It is changed to a list.
+    
+    @param freq_series        Uses pandas to initialise the y-axis of the 1st chart
+    @param freq_series2       Uses pandas to initialise the y-axis of the 2nd chart
+    
+    @param fig1               Initialises the 1st chart
+    @param ax                 Initialises how the data is reperesented by the 1st chart
+    @param ax.set_title       Sets the Title of the chart
+    @param ax.set_xlabel      Labels the x-axis of the 1st chart
+    @param ax.set_ylabel      Labels the y-axis of the 1st chart
+    @param ax.set_xticklabels Initiaises the x-axis of the 1st chart
+    @param plt.xticks         Formats the x-axis' labels of the 1st chart
+    @param plt.yticks         Formats the y-axis' labels of the 1st chart
+    @param fig1.savefig       Saves the 1st chart for displaying by the view model
+    
+    @param fig2               Initialises the @nd chart
+    @param ax                 Initialises how the data is reperesented by the 1st chart
+    @param ax.set_title       Sets the Title of the chart
+    @param ax.set_xlabel      Labels the x-axis of the 2nd chart
+    @param ax.set_ylabel      Labels the y-axis of the 2nd chart
+    @param ax.set_xticklabels Initiaises the x-axis of the 2nd chart
+    @param plt.xticks         Formats the x-axis' labels of the 2nd chart
+    @param plt.yticks         Formats the y-axis' labels of the 2nd chart
+    @param fig2.savefig       Saves the 2nd chart for displaying by the view model
+    
+    @return                   Displays the dashboard onto the dashboard.html view model. 
+                              Also, data, which is passed into the return, takes in an SQL query from the model Dashboard.py to display data 
 '''
 
 @app.route('/dashboard', methods=['GET', 'POST'])
