@@ -47,25 +47,31 @@ def command():
         telnetCom.sendCommands(commandB)
     return render_template("command.html")
 
-# Hi Friends and Professors. Shawn(2001401) here. This route is for the dashboard!
+'''
+Hi Friends and Professors. Shawn(2001401) here. This route is for the dashboard!
+
+dashboard() function is to create the charts and call the dashboard.html view model
+    4 empty lists are initialised.
+    Data is fetched from MySql via Dashboard.py (the Controller).
+    Process the MySQL data and append to lists.
+    Originally, fetched SQL data is a tuple. It is changed to a list.
+    Feed the lists into charts and save it for displaying in dashboard.html.
+    
+'''
+
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     
-    # Initialise the lists to be fed to matplotlib
     x1Array = []
     y1Array = []
     x2Array = []
     y2Array = []
     
-    # Fetch data from MySql to be fed to lists
     chart_data_1x = Models.Dashboard.fetchChart1x() 
     chart_data_1y = Models.Dashboard.fetchChart1y()
     chart_data_2x = Models.Dashboard.fetchChart2x()
     chart_data_2y = Models.Dashboard.fetchChart2y()
     
-    # Process the MySQL data and append to lists.
-    # Originally, fetched SQL data is a tuple, this changes 
-    # it to a list so that it can be turned to a chart
     for first_x_tuple in chart_data_1x:
     	x1Array.append(first_x_tuple[0])
     for first_y_tuple in chart_data_1y:
@@ -75,7 +81,6 @@ def dashboard():
     for second_y_tuple in chart_data_2y:
     	y2Array.append(second_y_tuple[0])
     
-    # Feed the lists into charts and save it for displaying in dashboard.html
     freq_series = pd.Series(y1Array)
     freq_series2 = pd.Series(y2Array)
     
@@ -99,11 +104,7 @@ def dashboard():
     plt.yticks(fontsize=16, rotation=0)
     fig2.savefig('static/img/chart2.png')
 
-    # Data is a function which returns the SQL data to be displayed in the view model
     return render_template("dashboard.html", data=Models.Dashboard.fetchData())
-
-#The dashboard route ENDS here
-
 
 if __name__ == "__main__":
     # Error will be displayed on web page
