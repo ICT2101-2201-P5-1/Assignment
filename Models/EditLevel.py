@@ -13,7 +13,6 @@ def init_connection_sql():
                                    password=constants.PASSWORD
                                    )
 
-
 def fetchPassword(): 
     conn = init_connection_sql()
     cur = conn.cursor()
