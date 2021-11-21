@@ -27,6 +27,12 @@ function carCrashed(){
 
 function winGame(){
     alert("YOU WIN");
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/", true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+        win: "1"
+    }));
 }
 /* parse the command stack. recursive function.
 * @cmdStack = an array of Blockly blocks.

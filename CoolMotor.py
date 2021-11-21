@@ -24,15 +24,23 @@ app = Flask(__name__)
 #     return render_template("index.html")
 
 # ---------------- APP ROUTES HERE --------------------------------------------
-@app.route('/')
+@app.route('/', methods=['GET','POST'])
 def gamePlatform():
     # To connect to car use these 2 methods 
     #telnetCom.sendCommands(b'hello')
     #telnetCom.receiveData()
 
+    # win game scenario call-back
+    if request.method == "POST":
+        # check for lastLevelLoaded, set variable = 1 (tutorial level) if unset
+        win = request.get_json().get('win')
+        if win == '1':
+            # store data to db
+            pass
+
     lll = 1
     if request.cookies.get('lastLevelLoaded') is not None:
-        lll = request.cookied.get('lastLevelLoaded')
+        lll = request.cookies.get('lastLevelLoaded')
 
     mapFile, levelName = Models.GamePlatform.readMapDataFromDB(lll)
     # TODO:
