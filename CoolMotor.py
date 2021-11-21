@@ -33,18 +33,24 @@ def gamePlatform():
     return render_template("index.html")
 
 
-# display level history stored in the database
+'''
+This routes to the displaylevel.html, that page will display
+all the levels stored in the database and allow for deletes. 
+'''
 @app.route("/displayLevel")
 def view_display_Level():
     data = Models.displayLevel.display()
     return render_template("displayLevel.html", title="Level Display", output_data=data)
 
 
-# id refers to the map_id from the level dashboard
+'''
+this route takes the variable passed by the delete button 
+in the displaylevel.html and passes it to the delete function
+        @param id           Is the variable that it receives from the displaylevel.html delete button
+'''
 @app.route("/deletelevel/<int:id>", methods=['POST'])
 def delete_level(id):
-    x = int(id)
-    Models.displayLevel.delete(x)
+    Models.displayLevel.delete(id)
     session.pop('_flashes', None)
     flash('Deletion Successful', "info")
     return redirect(url_for('view_display_Level'))
