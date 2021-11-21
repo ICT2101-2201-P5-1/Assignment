@@ -43,7 +43,7 @@ function winGame(){
 async function parseCommands(cmdStack, workspace, map){
 
     // @param win   win condition variable
-    var win = 0;
+    console.log(win);
     console.log("hi2", map);
 
     for (let i = 0; i < map.tiles.length; i++){
@@ -71,7 +71,7 @@ async function parseCommands(cmdStack, workspace, map){
                 if ((carPos - 5) < 0){
                     // car crash
                     carCrashed();
-                    return -1;
+                    return 1;
                 }
                 // allowed to move
                 else{
@@ -79,7 +79,7 @@ async function parseCommands(cmdStack, workspace, map){
                     if (map.tiles[carPos - 5] == 2){
                         // car crash
                         carCrashed();
-                        return -1;
+                        return 1;
                     }
 
                     // moves to empty space
@@ -89,7 +89,10 @@ async function parseCommands(cmdStack, workspace, map){
                         if (map.tiles[carPos - 5] == 3){
                             collectCoin();
                         }
-
+                        // if next tile is goal
+                        else if (map.tiles[carPos - 5] == 4){
+                            win = 1;
+                        }
                         // update car position on map
                         map.tiles[carPos] = "0";
                         carPos -= 5;
@@ -100,6 +103,12 @@ async function parseCommands(cmdStack, workspace, map){
 
                         // delay for animation purposes
                         await sleep(500);
+
+                        // win game
+                        if(win == 1){
+                            winGame();
+                            return 1;
+                        }
                     }
                 }
                 break;
@@ -110,7 +119,7 @@ async function parseCommands(cmdStack, workspace, map){
                 if ((carPos + 5) > 24){
                     // car crash
                     carCrashed();
-                    return -1;
+                    return 1;
                 }
                 // allowed to move
                 else{
@@ -119,12 +128,16 @@ async function parseCommands(cmdStack, workspace, map){
                     if (map.tiles[carPos + 5] == 2){
                         // car crash
                         carCrashed();
-                        return -1;
+                        return 1;
                     }
                     else{
                         // collect coins
                         if (map.tiles[carPos + 5] == 3){
                             collectCoin();
+                        }
+                        // if next tile is goal
+                        else if (map.tiles[carPos + 5] == 4){
+                            win = 1;
                         }
                         // update car position on map
                         map.tiles[carPos] = "0";
@@ -136,6 +149,12 @@ async function parseCommands(cmdStack, workspace, map){
 
                         // delay for animation purposes
                         await sleep(500);
+
+                        // win game
+                        if(win == 1){
+                            winGame();
+                            return 1;
+                        }
                     }
                 }
                 break;
@@ -147,7 +166,7 @@ async function parseCommands(cmdStack, workspace, map){
                 if (((carPos - 1) % 5 == 4) || ((carPos - 1) % 5 == -1)){
                     // car crash
                     carCrashed();
-                    return -1;
+                    return 1;
                 }
                 // allowed to move
                 else{
@@ -155,12 +174,16 @@ async function parseCommands(cmdStack, workspace, map){
                     if (map.tiles[carPos - 1] == 2){
                         // car crash
                         carCrashed();
-                        return -1;
+                        return 1;
                     }
                     else{
                         // collect coins
                         if (map.tiles[carPos - 1] == 3){
                             collectCoin();
+                        }
+                        // if next tile is goal
+                        else if (map.tiles[carPos - 1] == 4){
+                            win = 1;
                         }
                         // update car position on map
                         map.tiles[carPos] = "0";
@@ -172,6 +195,12 @@ async function parseCommands(cmdStack, workspace, map){
 
                         // delay for animation purposes
                         await sleep(500);
+
+                        // win game
+                        if(win == 1){
+                            winGame();
+                            return 1;
+                        }
                     }
                 }
                 break;
@@ -182,21 +211,24 @@ async function parseCommands(cmdStack, workspace, map){
                 if ((carPos + 1) % 5 == 0){
                     // car crash
                     carCrashed();
-                    return -1;
+                    return 1;
                 }
                 // allowed to move
                 else{
                     // hits virtual wall
                     if (map.tiles[carPos + 1] == 2){
                         carCrashed();
-                        return -1;
+                        return 1;
                     }
                     else{
                         // collect coins
                         if (map.tiles[carPos + 1] == 3){
                             collectCoin();
                         }
-                        
+                        // if next tile is goal
+                        else if (map.tiles[carPos + 1] == 4){
+                            win = 1;
+                        }
                         // update car position on map
                         map.tiles[carPos] = "0";
                         carPos += 1;
@@ -208,8 +240,11 @@ async function parseCommands(cmdStack, workspace, map){
                         // delay for animation purposes
                         await sleep(500);
 
-                        if(win == 1)
+                        // win game
+                        if(win == 1){
                             winGame();
+                            return 1;
+                        }
                     }
                 }
 
@@ -235,7 +270,7 @@ async function parseCommands(cmdStack, workspace, map){
                     // check if child-blocks inside LOOP causes a car crash.
                     // if so, break out of the function and do not re-loop.
                     // ret is returned as a Promise.
-                    if(ret == -1){
+                    if(ret == 1){
                         break parseCommandsLoop;
                     }
 
@@ -323,7 +358,7 @@ function sendCommandButton(map){
     if (checkCommandStack(arr[0].getTopBlocks(true)) == true){
         document.getElementById("cmdsSent").innerHTML = ++commandsSent;
         parseCommands(arr[0].getAllBlocks(true), arr[0], map);
-        console.log("eof",map);
+        console.log("eof",win);
     }
     else if (arr[0].getAllBlocks(true).length == 0)
         alert("Please ensure that there is at least one command in the box.");

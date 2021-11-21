@@ -52,6 +52,7 @@
 
     <script>
         var map = {{mapLevelLayout | tojson}};
+        var win = 0;
 
         var workspace = Blockly.inject('blocklyDiv', {toolbox: document.getElementById('toolbox')});
         document.getElementById("send_commands").addEventListener("click", function(){ map = sendCommandButton(map); } );
