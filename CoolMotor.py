@@ -34,12 +34,12 @@ def gamePlatform():
     if request.cookies.get('lastLevelLoaded') is not None:
         lll = request.cookied.get('lastLevelLoaded')
 
-    mapFile = Models.GamePlatform.readMapDataFromDB(lll)
+    mapFile, levelName = Models.GamePlatform.readMapDataFromDB(lll)
     # TODO:
     # replace hardcoded level with mapFile once the DB is updated.
     commandList, mapData = Models.GamePlatform.initLevelLayout("Levels/1.txt")
 
-    return render_template("index.html", mapLevelLayout=mapData, commandList=commandList)
+    return render_template("index.html", mapLevelLayout=mapData, commandList=commandList, levelName=levelName)
 
 
 # set last level loaded as cookie..

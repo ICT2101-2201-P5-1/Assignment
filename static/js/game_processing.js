@@ -42,6 +42,8 @@ function winGame(){
 
 async function parseCommands(cmdStack, workspace, map){
 
+    // @param win   win condition variable
+    var win = 0;
     console.log("hi2", map);
 
     for (let i = 0; i < map.tiles.length; i++){
@@ -194,7 +196,7 @@ async function parseCommands(cmdStack, workspace, map){
                         if (map.tiles[carPos + 1] == 3){
                             collectCoin();
                         }
-
+                        
                         // update car position on map
                         map.tiles[carPos] = "0";
                         carPos += 1;
@@ -205,6 +207,9 @@ async function parseCommands(cmdStack, workspace, map){
 
                         // delay for animation purposes
                         await sleep(500);
+
+                        if(win == 1)
+                            winGame();
                     }
                 }
 

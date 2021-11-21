@@ -10,7 +10,7 @@ def readMapDataFromDB(mid):
                                    password=constants.PASSWORD)
 
     cur = conn.cursor(prepared=True)
-    query = ("select map_level_layout from levels where map_id = %s")
+    query = ("select map_level_layout, map_name from levels where map_id = %s")
     cur.execute(query, (mid,))
 
     pw = cur.fetchone()
@@ -19,7 +19,7 @@ def readMapDataFromDB(mid):
     cur.close()
     conn.close()
 
-    return pw[0]
+    return pw[0], pw[1]
 
 
 def initLevelLayout(mapFile):
