@@ -14,6 +14,20 @@ function checkCommandStack(cmdStack){
         return false;
 }
 
+function collectCoin(){
+    var coinsCollected = parseInt(document.getElementById("coinsCollected").innerHTML, 10);
+    document.getElementById("coinsCollected").innerHTML = ++coinsCollected;
+    console.log("collect coin");
+}
+
+function carCrashed(){
+    var carCrashes = parseInt(document.getElementById("carCrashes").innerHTML, 10);
+    document.getElementById("carCrashes").innerHTML = ++carCrashes;
+}
+
+function winGame(){
+    alert("YOU WIN");
+}
 /* parse the command stack. recursive function.
 * @cmdStack = an array of Blockly blocks.
 * @workspace = Blockly workspace object.
@@ -25,10 +39,9 @@ function checkCommandStack(cmdStack){
 4 = goal
 
 */
+
 async function parseCommands(cmdStack, workspace, map){
 
-    // define return value in the event of car crash, used inside LOOP block.
-//    var ret = 0;
     console.log("hi2", map);
 
     for (let i = 0; i < map.tiles.length; i++){
@@ -55,7 +68,7 @@ async function parseCommands(cmdStack, workspace, map){
                 // hit boundary wall
                 if ((carPos - 5) < 0){
                     // car crash
-                    console.log("car crash boundary");
+                    carCrashed();
                     return -1;
                 }
                 // allowed to move
@@ -63,17 +76,25 @@ async function parseCommands(cmdStack, workspace, map){
                     // hits virtual wall
                     if (map.tiles[carPos - 5] == 2){
                         // car crash
-                        console.log("car crash wall");
-
+                        carCrashed();
+                        return -1;
                     }
+
+                    // moves to empty space
                     else{
+
+                        // collect coins
+                        if (map.tiles[carPos - 5] == 3){
+                            collectCoin();
+                        }
+
                         // update car position on map
-                        map.tiles[carPos] = "0"
+                        map.tiles[carPos] = "0";
                         carPos -= 5;
                         map.tiles[carPos] = "1";
 
                         // render map..
-                        initLevelLayout(map);
+                        renderMap(map);
 
                         // delay for animation purposes
                         await sleep(500);
@@ -86,7 +107,7 @@ async function parseCommands(cmdStack, workspace, map){
                 // hit boundary wall
                 if ((carPos + 5) > 24){
                     // car crash
-                    console.log("car crash boundary");
+                    carCrashed();
                     return -1;
                 }
                 // allowed to move
@@ -94,19 +115,22 @@ async function parseCommands(cmdStack, workspace, map){
 
                     // hits virtual wall
                     if (map.tiles[carPos + 5] == 2){
-
                         // car crash
-                        console.log("car crash wall");
-                        break;
+                        carCrashed();
+                        return -1;
                     }
                     else{
+                        // collect coins
+                        if (map.tiles[carPos + 5] == 3){
+                            collectCoin();
+                        }
                         // update car position on map
-                        map.tiles[carPos] = "0"
+                        map.tiles[carPos] = "0";
                         carPos += 5;
                         map.tiles[carPos] = "1";
 
                         // render map..
-                        initLevelLayout(map);
+                        renderMap(map);
 
                         // delay for animation purposes
                         await sleep(500);
@@ -120,7 +144,7 @@ async function parseCommands(cmdStack, workspace, map){
                 // NOTE: the LEFT block has an extra check for value '-1' due to the JS negative modulo bug
                 if (((carPos - 1) % 5 == 4) || ((carPos - 1) % 5 == -1)){
                     // car crash
-                    console.log("car crash boundary");
+                    carCrashed();
                     return -1;
                 }
                 // allowed to move
@@ -128,17 +152,21 @@ async function parseCommands(cmdStack, workspace, map){
                     // hits virtual wall
                     if (map.tiles[carPos - 1] == 2){
                         // car crash
-                        console.log("car crash wall");
-                        break;
+                        carCrashed();
+                        return -1;
                     }
                     else{
+                        // collect coins
+                        if (map.tiles[carPos - 1] == 3){
+                            collectCoin();
+                        }
                         // update car position on map
-                        map.tiles[carPos] = "0"
+                        map.tiles[carPos] = "0";
                         carPos -= 1;
                         map.tiles[carPos] = "1";
 
                         // render map..
-                        initLevelLayout(map);
+                        renderMap(map);
 
                         // delay for animation purposes
                         await sleep(500);
@@ -151,25 +179,29 @@ async function parseCommands(cmdStack, workspace, map){
                 // hit boundary wall
                 if ((carPos + 1) % 5 == 0){
                     // car crash
-                    console.log("car crash boundary");
+                    carCrashed();
                     return -1;
                 }
                 // allowed to move
                 else{
                     // hits virtual wall
                     if (map.tiles[carPos + 1] == 2){
-                        // car crash
-                        console.log("car crash wall");
-                        break;
+                        carCrashed();
+                        return -1;
                     }
                     else{
+                        // collect coins
+                        if (map.tiles[carPos + 1] == 3){
+                            collectCoin();
+                        }
+
                         // update car position on map
-                        map.tiles[carPos] = "0"
+                        map.tiles[carPos] = "0";
                         carPos += 1;
                         map.tiles[carPos] = "1";
 
                         // render map..
-                        initLevelLayout(map);
+                        renderMap(map);
 
                         // delay for animation purposes
                         await sleep(500);
@@ -206,17 +238,6 @@ async function parseCommands(cmdStack, workspace, map){
                     await sleep(500);
 
                 }
-
-                break;
-            case "if_wall":
-                if(cmdStack[i].getParent() == null){
-                    break parseCommandsLoop;
-                }
-                var cBlock = cmdStack[i].getChildren(true)[0];
-                // get the whole nested input stack
-
-                break;
-            case "if_coin":
                 break;
         }
     }
@@ -231,17 +252,9 @@ function sleep(ms) {
 }
 
 
-/*
+/* rendersMap
 */
-
 function renderMap(map){
-
-
-}
-
-/* initLevelLayout
-*/
-function initLevelLayout(map){
 
     console.log("hi", map);
 
@@ -268,7 +281,6 @@ function initLevelLayout(map){
                 var tile = map.getTile(c, r);
 
                 if (tile != 0) { // 0 => empty tile
-
                     ctx.drawImage(
                         imgTile, // image
                         (tile - 1) * map.tsize, // source x
@@ -298,12 +310,13 @@ function initLevelLayout(map){
 /* onclick event for the 'send command' button.
 */
 function sendCommandButton(map){
-    var arr = Blockly.Workspace.getAll();
-    console.log(arr[0].getAllBlocks(true));
 
-    console.log(map);
+    var commandsSent = parseInt(document.getElementById("cmdsSent").innerHTML, 10);
+    var arr = Blockly.Workspace.getAll();
+
     // check no. of command stacks
     if (checkCommandStack(arr[0].getTopBlocks(true)) == true){
+        document.getElementById("cmdsSent").innerHTML = ++commandsSent;
         parseCommands(arr[0].getAllBlocks(true), arr[0], map);
         console.log("eof",map);
     }

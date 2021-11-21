@@ -47,23 +47,3 @@ Blockly.Blocks['loop'] = {
     this.setColour(210);
   }
 };
-Blockly.Blocks['if_wall'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField('If wall');
-    this.appendStatementInput('DO').appendField('do');
-    this.setNextStatement(true, 'Action');
-    this.setPreviousStatement(true, 'Action');
-    this.setColour(230);
-  }
-};
-Blockly.Blocks['if_coin'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField('If coin');
-    this.appendStatementInput('DO').appendField('do');
-    this.setNextStatement(true, 'Action');
-    this.setPreviousStatement(true, 'Action');
-    this.setColour(260);
-  }
-};

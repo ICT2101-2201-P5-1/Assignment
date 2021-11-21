@@ -26,7 +26,7 @@ def initLevelLayout(mapFile):
 
     # our map level json object
     mapLevelLayout = {"rows":5, "cols":5, "tsize":512, "tiles":[]}
-    commandList = ["upward", "downward", "left", "right", "loop", "if_wall", "if_coin"]
+    commandList = ["upward", "downward", "left", "right", "loop"]
 
     with open(mapFile, "r") as f:
 

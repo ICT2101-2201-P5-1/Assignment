@@ -20,11 +20,20 @@
     <div class="container-fluid justify-content-center">
         <h1>This is the Index page</h1>
         <canvas id="canvas"> </canvas>
-
+    </div>
+    <div class="container-fluid justify-content-center">
+        <p>Level: {{level}}</p>
+        <p class="d-inline">Time Elapsed:</p>
+        <br/>
+        <p class="d-inline">Coins Collected:</p> <p class="d-inline" id="coinsCollected">0</p>
+        <br/>
+        <p class="d-inline">Car Crashes:</p> <p class="d-inline" id="carCrashes">0</p>
+        <br/>
+        <p class="d-inline">Commands Sent:</p> <p class="d-inline" id="cmdsSent">0</p>
     </div>
     <div class="container-fluid justify-content-center">
         <h2> Car Control Station </h2>
-        <div id="blocklyDiv" style="height: 480px; width: 1200px;"></div>
+        <div id="blocklyDiv" style="height: 320px; width: 1200px;"></div>
         <button id="send_commands" type="button">Send Commands</button>
     </div>
 
@@ -47,7 +56,7 @@
         var workspace = Blockly.inject('blocklyDiv', {toolbox: document.getElementById('toolbox')});
         document.getElementById("send_commands").addEventListener("click", function(){ map = sendCommandButton(map); } );
         $( document ).ready(function() {
-            initLevelLayout(map);
+            renderMap(map);
         });
     </script>
 
