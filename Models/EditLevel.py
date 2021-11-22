@@ -29,6 +29,7 @@ Insert Level details into coolmotor.levels
     @param LevelName String levelName user input
     @param fileName is path to generated textfile
     @return "Insert Level success" notify user
+
 ''' 
 def insert_Level(Difficulty, LevelName, fileName):
     conn = init_connection_sql()
@@ -40,7 +41,10 @@ def insert_Level(Difficulty, LevelName, fileName):
     conn.close()
     return "Insert Level success"
 
-
+'''
+Get the last MapID inserted into database
+    
+''' 
 def fetch_LastMapID():
     conn = init_connection_sql()
     cur = conn.cursor()

@@ -64,6 +64,21 @@
 
 
 {% block body %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class ='m-4'>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <span>{{ message }}</span>
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 <div class="row">
   <div class="col-sm-7"> 
     <div class="grid-map container">
