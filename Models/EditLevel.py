@@ -23,7 +23,13 @@ def fetchPassword():
     conn.close()
     return pw
 
-
+'''
+Insert Level details into coolmotor.levels
+    @param Difficulty value 1(easy),2(medium),3(hard)
+    @param LevelName String levelName user input
+    @param fileName is path to generated textfile
+    @return "Insert Level success" notify user
+''' 
 def insert_Level(Difficulty, LevelName, fileName):
     conn = init_connection_sql()
     cur = conn.cursor()
@@ -31,4 +37,21 @@ def insert_Level(Difficulty, LevelName, fileName):
     VALUES ( %s, %s, %s);""",(Difficulty, LevelName, fileName))
     conn.commit()
     cur.close()
+    conn.close()
     return "Insert Level success"
+
+
+def fetch_LastMapID():
+    conn = init_connection_sql()
+    cur = conn.cursor()
+    query = """SELECT map_id 
+        FROM coolmotor.levels
+        ORDER BY map_id DESC;"""
+    cur.execute(query)
+    MapIDList = cur.fetchall()
+    MapIDTuple = MapIDList[0]
+    LastMapID = int(MapIDTuple[0])
+    print(LastMapID)
+    cur.close()
+    conn.close()
+    return LastMapID

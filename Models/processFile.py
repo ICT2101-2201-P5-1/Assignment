@@ -22,8 +22,9 @@ def writeToMapFile(Maparray,LevelName,CommandList, Difficulty):
     for grid in Maparray:
         MapDict[grid['position']]= grid['type']
     if 'goal' in MapDict.values():
-        fileName = "../ICT2101/Levels/"+LevelName+".txt"
-        dbfilePath = "/Levels/"+LevelName+".txt"
+        MapID = Models.EditLevel.fetch_LastMapID() +1 
+        fileName = "../ICT2101/Levels/"+str(MapID)+".txt"
+        dbfilePath = "Levels/"+str(MapID)+".txt"
         fileObj = open(fileName,"w+")
         processCommands(fileObj, CommandList) 
         dbStatus = Models.EditLevel.insert_Level(Difficulty, LevelName, dbfilePath)
@@ -47,8 +48,6 @@ Process Commands
         3) Move Left
         4) Move Right
         5) Repeat 
-        6) If wall
-        7) If coins 
     If command is present it is indicated with 1 in the text file in the order stated above. 
     The 1st line in the text file is used to indicate commands provided.
         @param CommandList The id list of checked commands
@@ -56,14 +55,14 @@ Process Commands
 '''   
 
 def processCommands(fileObj, CommandList):
-    for i in range(1,8):
+    for i in range(1,6):
         if str(i) in CommandList:
-            if i == 7:
+            if i == 5:
                 fileObj.write('1' +'\n')
             else:
                 fileObj.write('1')
         else:
-            if i == 7:
+            if i == 5:
                 fileObj.write('0' +'\n')
             else:
                 fileObj.write('0')

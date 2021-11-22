@@ -21,7 +21,7 @@ LevelName = "Default"
 @app.route('/')
 @app.route('/game')
 def gamePlatform():
-    print(Models.EditLevel.fetchPassword())
+    print(Models.EditLevel.fetch_LastMapID())
     return render_template("index.html")
 
 '''
