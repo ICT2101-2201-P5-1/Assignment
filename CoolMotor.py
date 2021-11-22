@@ -2,9 +2,8 @@ from flask import Flask, render_template, url_for, flash, redirect, request, jso
 from mysql import connector
 import mysql.connector
 import Models.EditLevel
+import Models.Dashboard
 import telnetCom
-
-
 
 
 app = Flask(__name__)
@@ -45,6 +44,11 @@ def command():
     return render_template("command.html")
 
 
+
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
+    Models.Dashboard.getGameDataFromDB()
+    return render_template("dashboard.html", data=Models.Dashboard.fetchData())
 
 if __name__ == "__main__":
     # Error will be displayed on web page
