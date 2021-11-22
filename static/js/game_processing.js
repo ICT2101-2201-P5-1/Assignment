@@ -1,11 +1,8 @@
 
-/* check the number of command stacks.
-   only one command stack is allowed,
-   so check and send back error message if
-   there is > 1 command stack.
-
-   @cmdStack = an array of Blockly blocks.
-   returns boolean.
+/**
+* Checks the number of command stack in the workspace
+* @param    cmdStack    1-D JavaScript array of Blockly TOP blocks from our workspace
+* @return               returns boolean
 */
 function checkCommandStack(cmdStack){
     if(cmdStack.length == 1)
@@ -14,6 +11,9 @@ function checkCommandStack(cmdStack){
         return false;
 }
 
+/**
+* Updates the HTML variable according to the collect coin or car crash scenario.
+*/
 function collectCoin(){
     var coinsCollected = parseInt(document.getElementById("coinsCollected").innerHTML, 10);
     document.getElementById("coinsCollected").innerHTML = ++coinsCollected;
@@ -25,6 +25,9 @@ function carCrashed(){
     document.getElementById("carCrashes").innerHTML = ++carCrashes;
 }
 
+/**
+* Sends a post request to CoolMotor controller when game is won.
+*/
 function winGame(){
     alert("YOU WIN");
     var xhr = new XMLHttpRequest();
@@ -34,22 +37,23 @@ function winGame(){
         win: "1"
     }));
 }
-/* parse the command stack. recursive function.
-* @cmdStack = an array of Blockly blocks.
-* @workspace = Blockly workspace object.
-* map format:
-0 = empty
-1 = car
-2 = wall
-3 = coin
-4 = goal
 
+/**
+* parse the command stack. recursive function.
+* @param    cmdStack    1-D JavaScript array of Blockly blocks from our workspace
+* @param    workspace   Blockly workspace object
+* @param    map         1-D JavaScript array that holds the map layout. (global variable)
+*           map format:
+*           0 = empty
+*           1 = car
+*           2 = wall
+*           3 = coin
+*           4 = goal
+* @param    carPos      holds the car position (int)
+* @param    win         determines if the player has won or not (global variable, int)
 */
-
 async function parseCommands(cmdStack, workspace, map){
 
-    // @param win   win condition variable
-    console.log(win);
     console.log("hi2", map);
 
     for (let i = 0; i < map.tiles.length; i++){
@@ -212,7 +216,6 @@ async function parseCommands(cmdStack, workspace, map){
                 break;
 
             case "right":
-
                 // hit boundary wall
                 if ((carPos + 1) % 5 == 0){
                     // car crash
@@ -253,14 +256,13 @@ async function parseCommands(cmdStack, workspace, map){
                         }
                     }
                 }
-
                 break;
-            case "loop":
 
+            case "loop":
                 // get the value of how many times to loop.
                 loopTimes = cmdStack[i].getInput("loopTimes").fieldRow[1].getValue();
 
-                // thanks to the amazing error checking above,
+                // thanks to the amazing error checking in sendCommandButton,
                 // we can guarantee that getChildren(true)[0] will 101% return a nested block!
                 var cBlock = cmdStack[i].getChildren(true)[0];
 
@@ -290,7 +292,11 @@ async function parseCommands(cmdStack, workspace, map){
 
 }
 
-// sleep function that causes delay for animation purposes
+/**
+* Sleep function that causes delay for animation purposes
+* @param    ms          the time in milliseconds to pause
+* @return   Promise     delay is returned as a Promise.
+*/
 function sleep(ms) {
   return new Promise(
     resolve => setTimeout(resolve, ms)
@@ -298,7 +304,10 @@ function sleep(ms) {
 }
 
 
-/* rendersMap
+/**
+* Function to render the map grid and sprites onto index.html.
+* Uses Canvas to draw the images.
+* @param    map     1-D JavaScript array that holds the map layout. (global variable)
 */
 function renderMap(map){
 

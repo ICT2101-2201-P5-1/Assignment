@@ -45,7 +45,7 @@ def gamePlatform():
     mapFile, levelName = Models.GamePlatform.readMapDataFromDB(lll)
     # TODO:
     # replace hardcoded level with mapFile once the DB is updated.
-    commandList, mapData = Models.GamePlatform.initLevelLayout("Levels/1.txt")
+    commandList, mapData = Models.GamePlatform.initLevelLayout("Levels/2.txt")
 
     return render_template("index.html", mapLevelLayout=mapData, commandList=commandList, levelName=levelName)
 

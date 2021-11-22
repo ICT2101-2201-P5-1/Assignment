@@ -3,6 +3,13 @@ from mysql.connector import errorcode
 from Credentials import constants
 
 
+'''
+readMapDataFromDB
+    Reads the map level file path from the database 
+        @param mid  Refers to the map ID to fetch the the DB
+        @return pw[0]   The map level file path
+        @return pw[1]   The map name
+'''
 def readMapDataFromDB(mid):
     conn = mysql.connector.connect(host=constants.HOST,
                                    database=constants.DATABASE,
@@ -22,6 +29,16 @@ def readMapDataFromDB(mid):
     return pw[0], pw[1]
 
 
+'''
+initLevelLayout
+    Reads the map data from the text file, parses the map data into JSON format.
+        @param mapFile  The map level file path
+        @param mapLevelLayout  The map level details in JSON
+        @param commandList  The full command list
+        
+        @return commandList  The parsed command list according to the map text file specs.
+        @return mapLevelLayout  The map level details in JSON
+'''
 def initLevelLayout(mapFile):
 
     # our map level json object
