@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+    {% block CSS %}
+    <link rel="stylesheet" href="../static/css/Dashboard.css">
+    {% endblock %}
+{% endblock %}
+
+
+
+{% block body %}
+    <br>
+    <div class="container rounded">
+
+        <br>
+        <h1 class="text-center">Dashboard Data</h1>
+        <br>
+
+        <!-- The data fetched by the model and passed from the controller into the view -->
+        <!-- Standardize with Tudy -->
+        <div class="container">
+            <div class="col-sm">
+                <!-- <table class="table table-striped table-inverse table-responsive border border-dark rounded "> -->
+                <table class="table-responsive styled-table">
+                    <thead class="thead-inverse">
+                        <tr class="text-center">
+                            <th>Level</th>
+                            <th>Date of Play</th>
+                            <th>Time Spent Playing</th>
+                            <th>Distance Travelled</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in data %}
+                            <tr class="text-center">
+                                <td>{{item[3]}}</td>
+                                <td scope="row">{{item[1]}}</td>
+                                <td>{{item[2]}}</td>
+                                <td>{{item[5]}}</td>
+                            </tr>
+                            {% endfor %}
+                    
+                        </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /The Data ends here! -->
+
+        <br>
+        <h1 class="text-center">Infographics</h1>
+        <br>
+        
+        <!-- The Charts fetched by the model and passed from the controller -->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm text-center "><h2>Chart 1</h2>
+                    <img class="img-responsive fit-image" src="../static/img/chart1.png">
+                </div>
+                <div class="col-sm text-center "><h2>Chart 2</h2>
+                    <img class="img-responsive fit-image" src="../static/img/chart2.png">
+                </div>
+                <br>
+            </div>
+        </div>
+        <br>
+         <!-- /The Charts ends here!-->
+
+    </div>
+    <br>
+{% endblock %}
+
+

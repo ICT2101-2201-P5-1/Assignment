@@ -3,6 +3,7 @@ from mysql import connector
 import mysql.connector
 import Models.EditLevel
 import Models.displayLevel
+import Models.Dashboard
 import telnetCom
 
 
@@ -27,9 +28,6 @@ app.config['SECRET_KEY'] = 'secret'
 @app.route('/game')
 def gamePlatform():
     print(Models.EditLevel.fetchPassword())
-    # To connect to car use these 2 methods 
-    # telnetCom.sendCommands(b'hello')
-    # telnetCom.receiveData()
     return render_template("index.html")
 
 
@@ -54,6 +52,24 @@ def delete_level(id):
     session.pop('_flashes', None)
     flash('Deletion Successful', "info")
     return redirect(url_for('view_display_Level'))
+
+
+@app.route('/command', methods=['GET', 'POST'])
+def command():
+    if request.method == 'POST':
+        command = request.form.get('command')
+        print(command)
+        commandB = bytes(command, 'utf-8')
+        print(commandB)
+        telnetCom.sendCommands(commandB)
+    return render_template("command.html")
+
+
+
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
+    Models.Dashboard.getGameDataFromDB()
+    return render_template("dashboard.html", data=Models.Dashboard.fetchData())
 
 
 if __name__ == "__main__":
