@@ -1,12 +1,14 @@
-from flask import Flask, render_template, url_for, flash, redirect, request, jsonify
+from flask import Flask, render_template, url_for, session, flash, redirect, request, jsonify
 from mysql import connector
 import mysql.connector
 import Models.EditLevel
+import Models.displayLevel
 import Models.Dashboard
 import telnetCom
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret'
 
 
 # @app.route('/', methods=['GET', 'POST'])
@@ -26,11 +28,30 @@ app = Flask(__name__)
 @app.route('/game')
 def gamePlatform():
     print(Models.EditLevel.fetchPassword())
-    # To connect to car use these 2 methods 
-    #telnetCom.sendCommands(b'drive')
-    #telnetCom.receiveData()
     return render_template("index.html")
 
+
+'''
+This routes to the displaylevel.html, that page will display
+all the levels stored in the database and allow for deletes. 
+'''
+@app.route("/displayLevel")
+def view_display_Level():
+    data = Models.displayLevel.display()
+    return render_template("displayLevel.html", title="Level Display", output_data=data)
+
+
+'''
+this route takes the variable passed by the delete button 
+in the displaylevel.html and passes it to the delete function
+        @param id           Is the variable that it receives from the displaylevel.html delete button
+'''
+@app.route("/deletelevel/<int:id>", methods=['POST'])
+def delete_level(id):
+    Models.displayLevel.delete(id)
+    session.pop('_flashes', None)
+    flash('Deletion Successful', "info")
+    return redirect(url_for('view_display_Level'))
 
 
 @app.route('/command', methods=['GET', 'POST'])
@@ -49,6 +70,7 @@ def command():
 def dashboard():
     Models.Dashboard.getGameDataFromDB()
     return render_template("dashboard.html", data=Models.Dashboard.fetchData())
+
 
 if __name__ == "__main__":
     # Error will be displayed on web page
