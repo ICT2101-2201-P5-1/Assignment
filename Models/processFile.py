@@ -12,7 +12,6 @@ Write To Map File
         @param mapList Array that store position and sprite
         @param MapDict (Position: Sprite) key and value pair 
         @param fileName is path to generate new textfile
-        @param dbfilePath used to change formating of level map (coordinate with map rendering)
         @param fileObj file object
         @param dbStatus status of insert statement (sucess/fail)
         @return success/fail
@@ -23,11 +22,10 @@ def writeToMapFile(Maparray,LevelName,CommandList, Difficulty):
         MapDict[grid['position']]= grid['type']
     if 'goal' in MapDict.values():
         MapID = Models.EditLevel.fetch_LastMapID() +1 
-        fileName = "../ICT2101/Levels/"+str(MapID)+".txt"
-        dbfilePath = "Levels/"+str(MapID)+".txt"
+        fileName = "Levels/"+str(MapID)+".txt"
         fileObj = open(fileName,"w+")
         processCommands(fileObj, CommandList) 
-        dbStatus = Models.EditLevel.insert_Level(Difficulty, LevelName, dbfilePath)
+        dbStatus = Models.EditLevel.insert_Level(Difficulty, LevelName, fileName)
         processGrid(fileObj, MapDict)
         fileObj.close()  
         return 'success'
