@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Andika&display=swap" rel="stylesheet"> 
         {% block header %}
         {% endblock %}
         {% block javascript %}
@@ -9,20 +12,21 @@
     </head>
     <body>
 
-      
-      <nav class="navbar navbar-expand-lg justify-content-center text-center">
-          <a class="navbar-brand" href="/"><img class="logo" src="../static/img/CoolMotorLogo.png"></a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav ">
-              <a  class="navitem nav-item nav-link" style="color: #000000; padding: 20px;" href="{{url_for('gamePlatform')}}"><em><strong>Home</strong></em></a>
-              <a class="navitem nav-item nav-link" style="color: #000000;  padding: 20px;" href="{{url_for('dashboard')}}"><em><strong>Dashboard</strong></em></a>
-              <a class="navitem nav-item nav-link" style="color: #000000;  padding: 20px;" href=""><em><strong>Level Editor</strong></em></a>
+      <div class="container" align="center">
+        <nav class="navbar navbar-expand-lg justify-content-center text-center" >
+            <a class="navbar-brand" href="/"><img class="logo" src="../static/img/CoolMotorLogo.png"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" align="center" id="navbarNavAltMarkup">
+              <div class="navbar-nav" align="center">
+                <a  class="navitem nav-item nav-link" style="color: #000000; padding: 20px;" href="{{url_for('gamePlatform')}}"><em><strong>Home</strong></em></a>
+                <a class="navitem nav-item nav-link" style="color: #000000;  padding: 20px;" href="{{url_for('dashboard')}}"><em><strong>Dashboard</strong></em></a>
+                <a class="navitem nav-item nav-link" style="color: #000000;  padding: 20px;" href=""><em><strong>Level Editor</strong></em></a>
+              </div>
             </div>
-          </div>
-      </nav>
+        </nav>
+      </div>
       
 
       
@@ -31,7 +35,18 @@
             {% block body %} {% endblock %}
         </div>
     </body>
+    
 	<footer>
-        {% block footer %} {% endblock %}
+    <img src="../static/img/footer.png" height ="auto" width="100%">
+    <!-- <div class="container" align="center">
+      <div class="row">
+        <div class="col-4">1</div>
+        <div class="col-4">Programming Starts from Young</div>
+        <div class="col-4">1</div>
+      </div>
+    </div> -->
+        {% block footer %}
+        
+        {% endblock %}
     </footer>
 </html>
