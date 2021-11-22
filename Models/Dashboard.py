@@ -19,7 +19,7 @@ def fetchData():
                                    database=constants.DATABASE,
                                    user=constants.USER,
                                    password=constants.PASSWORD)
-    cur = conn.cursor()
+    cur = conn.cursor(prepared=True)
     query = ("SELECT * FROM dashboard;")
     cur.execute(query)
     data = cur.fetchall()
@@ -44,7 +44,7 @@ def fetchChart1y():
                                    database=constants.DATABASE,
                                    user=constants.USER,
                                    password=constants.PASSWORD)
-    cur = conn.cursor()
+    cur = conn.cursor(prepared=True)
     query = ("SELECT distance_travelled FROM dashboard;")
     cur.execute(query)
     data = cur.fetchall()
@@ -68,7 +68,7 @@ def fetchChart1x():
                                    database=constants.DATABASE,
                                    user=constants.USER,
                                    password=constants.PASSWORD)
-    cur = conn.cursor()
+    cur = conn.cursor(prepared=True)
     query = ("SELECT entry_id FROM dashboard;")
     cur.execute(query)
     data = cur.fetchall()
@@ -93,7 +93,7 @@ def fetchChart2y():
                                    database=constants.DATABASE,
                                    user=constants.USER,
                                    password=constants.PASSWORD)
-    cur = conn.cursor()
+    cur = conn.cursor(prepared=True)
     query = ("SELECT game_duration FROM dashboard;")
     cur.execute(query)
     data = cur.fetchall()
@@ -118,7 +118,7 @@ def fetchChart2x():
                                    database=constants.DATABASE,
                                    user=constants.USER,
                                    password=constants.PASSWORD)
-    cur = conn.cursor()
+    cur = conn.cursor(prepared=True)
     query = ("SELECT date FROM dashboard;")
     cur.execute(query)
     data = cur.fetchall()
