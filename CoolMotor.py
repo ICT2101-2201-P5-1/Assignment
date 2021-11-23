@@ -120,7 +120,7 @@ all the levels stored in the database and allow for deletes.
 @app.route("/displayLevel")
 def view_display_Level():
     data = Models.displayLevel.display()
-    return render_template("displayLevel.html", title="Level Display", output_data=data)
+    return render_template("LevelEditor/displayLevel.html", title="Level Display", output_data=data)
 
 
 '''
