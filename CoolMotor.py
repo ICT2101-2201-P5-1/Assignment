@@ -1,8 +1,9 @@
-from flask import Flask, render_template, url_for, session, flash, redirect, request, jsonify
+from flask import Flask, render_template, url_for, flash, redirect, request, jsonify, make_response,session
 from mysql import connector
 import mysql.connector
 import Models.processFile
 import Models.EditLevel
+import Models.GamePlatform
 import Models.displayLevel
 import Models.Dashboard
 import telnetCom
@@ -20,15 +21,49 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 mapList = []
 LevelName = "Default"
 
-# ---------------- APP ROUTES HERE -------------------------------------------- #
-@app.route('/')
-@app.route('/game')
+
+# ---------------- APP ROUTES HERE --------------------------------------------
+@app.route('/', methods=['GET','POST'])
 def gamePlatform():
+    # To connect to car use these 2 methods 
+    #telnetCom.sendCommands(b'hello')
+    #telnetCom.receiveData()
 
-    print(Models.EditLevel.fetch_LastMapID())
-    print(Models.EditLevel.fetchPassword())
+    # win game scenario call-back
+    if request.method == "POST":
+        # check for lastLevelLoaded, set variable = 1 (tutorial level) if unset
+        win = request.get_json().get('win')
+        if win == '1':
+            # store data to db
+            pass
 
-    return render_template("index.html")
+    lll = 1
+    if request.cookies.get('lastLevelLoaded') is not None:
+        lll = request.cookies.get('lastLevelLoaded')
+
+    mapFile, levelName = Models.GamePlatform.readMapDataFromDB(lll)
+    commandList, mapData = Models.GamePlatform.initLevelLayout(mapFile)
+
+    return render_template("index.html", mapLevelLayout=mapData, commandList=commandList, levelName=levelName)
+
+
+# set last level loaded as cookie..
+@app.route('/set-level')
+def selectLevel():
+
+    res = make_response("Set last level loaded as cookie")
+
+    if request.method == "POST":
+        # check for lastLevelLoaded, set variable = 1 (tutorial level) if unset
+        if not request.cookies.get('lastLevelLoaded'):
+            res.set_cookie('lastLevelLoaded', '1', max_age=60 * 60 * 24 * 365 * 2)
+
+        else:
+            mid = request.form.get('level')
+            res.set_cookie('lastLevelLoaded', mid, max_age=60 * 60 * 24 * 365 * 2)
+
+    return res
+
 
 '''
 Edit Level
@@ -130,5 +165,4 @@ if __name__ == "__main__":
     # Error will be displayed on web page
     app.run(debug=True)
 
-    
 
