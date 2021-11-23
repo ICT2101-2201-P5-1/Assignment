@@ -1,0 +1,305 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+    {% block CSS %}
+    <link rel="stylesheet" href="../static/css/LevelEditor.css">
+    {% endblock %}
+
+    {% block javascript %}
+
+  
+    <script>
+      /**
+       * Allow Map grid to take in drag drop image 
+      */
+      function allowDrop(ev) {
+        ev.preventDefault();
+      }
+      /**
+       * Allow image id to be set to text varible 
+       * @param   text    store image id
+      */
+      function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+        
+      }
+      /**
+       * Allow grid to get image id and move the image to grid
+       * @param   text    store image id
+       * @param   data    store image id
+      */
+      function drop(ev,value) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        TranserJson(value,data);
+        ev.target.appendChild(document.getElementById(data));
+      }
+      /**
+       * Pair postion to chosen sprite using JSON then covert it into string to be transfered to CoolMotor for processing 
+       * @param   value     grid box number
+       * @param   data      sprite (goal/wall/coins)
+       * @param   sprite    sprite cut id number from sprite 
+       * @param   DDjson     position and sprite json pair 
+      */
+      function TranserJson(value,data){
+        var sprite = data;
+        var sprite = sprite.substring(0, sprite.length - 1);
+        const DDjson = {
+          position: value,
+          type: sprite
+        };
+        const myJSON = JSON.stringify(DDjson); 
+        $.post( "/edit_level", {
+          javascript_data: myJSON
+        });
+      }      
+      </script>
+    {% endblock %}
+    
+
+
+{% endblock %}
+
+
+
+{% block body %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class ='m-4'>
+          {% if message == 'Level created successsfully!' %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <span>{{ message }}</span>
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            {% endif %}
+
+            {% if message == 'Please select a goal in the map!' %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span>{{ message }}</span>
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<div class="row">
+  <div class="col-sm-7"> 
+    <div class="grid-map container">
+      <h2 class="map-title"> Edit Map </h2>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4  ">
+            
+          </div>
+        </div>
+      </div>
+      
+      <div class="row grid-row">
+        <div class="col grid-col">
+          <img id="start" src="/static/img/Sprite/start.png"  width="150px" height="150px">
+        </div>
+        <div class="col grid-col">
+          <div id="div1"  ondrop="drop(event,'2')" ondragover="allowDrop(event)"></div>
+        </div>
+        <div class="col grid-col">
+          <div id="div1"  ondrop="drop(event,'3')" ondragover="allowDrop(event)"></div> 
+        </div>
+        <div class="col grid-col">
+          <div id="div1"  ondrop="drop(event,'4')" ondragover="allowDrop(event)"></div> 
+        </div>
+        <div class="col grid-col">
+          <div id="div1"  ondrop="drop(event,'5')" ondragover="allowDrop(event)"></div> 
+        </div>
+      </div>
+      <div class="row grid-row">
+        <div class="col grid-col">
+          <div id="div1"  ondrop="drop(event,'6')" ondragover="allowDrop(event)"></div> 
+        </div>
+        <div class="col grid-col">
+          <div id="div1"  ondrop="drop(event,'7')" ondragover="allowDrop(event)"></div> 
+        </div>
+        <div class="col grid-col">
+          <div id="div1"  ondrop="drop(event,'8')" ondragover="allowDrop(event)"></div> 
+        </div>
+        <div class="col grid-col">
+          <div id="div1"  ondrop="drop(event,'9')" ondragover="allowDrop(event)"></div> 
+        </div>
+        <div class="col grid-col">
+          <div id="div1" ondrop="drop(event,'10')" ondragover="allowDrop(event)"></div> 
+        </div>
+      </div>
+      <div class="row grid-row">
+        <div class="col grid-col">
+          <div id="div1" ondrop="drop(event,'11')" ondragover="allowDrop(event)"></div> 
+        </div>
+        <div class="col grid-col">
+          <div id="div1" ondrop="drop(event,'12')" ondragover="allowDrop(event)"></div> 
+        </div>
+        <div class="col grid-col">
+          <div id="div1" ondrop="drop(event,'13')" ondragover="allowDrop(event)"></div> 
+        </div>
+        <div class="col grid-col">
+          <div id="div1" ondrop="drop(event,'14')" ondragover="allowDrop(event)"></div> 
+        </div>
+        <div class="col grid-col">
+          <div id="div1" ondrop="drop(event,'15')" ondragover="allowDrop(event)"></div> 
+        </div>
+      </div>
+      <div class="row grid-row">
+        <div class="col grid-col">
+          <div id="div1" ondrop="drop(event,'16')" ondragover="allowDrop(event)"></div> 
+        </div>
+        <div class="col grid-col">
+          <div id="div1" ondrop="drop(event,'17')" ondragover="allowDrop(event)"></div> 
+        </div>
+        <div class="col grid-col">
+          <div id="div1" ondrop="drop(event,'18')" ondragover="allowDrop(event)"></div> 
+        </div>
+        <div class="col grid-col">
+          <div id="div1" ondrop="drop(event,'19')" ondragover="allowDrop(event)"></div> 
+        </div>
+        <div class="col grid-col">
+          <div id="div1" ondrop="drop(event,'20')" ondragover="allowDrop(event)"></div> 
+        </div>
+      </div>
+    <div class="row grid-row">
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event,'21')" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event,'22')" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event,'23')" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event,'24')" ondragover="allowDrop(event)"></div> 
+      </div>
+      <div class="col grid-col">
+        <div id="div1" ondrop="drop(event,'25')" ondragover="allowDrop(event)"></div> 
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="col-sm-4">  
+   <a class="btn btn-primary btn-lg" href="#" role="button">Display Levels</a>
+    <div class="sprite container"> 
+      <h3>Drag Item to map:</h3>
+      <img id="coins1" src="/static/img/Sprite/coins.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="coins2" src="/static/img/Sprite/coins.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="coins3" src="/static/img/Sprite/coins.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="coins4" src="/static/img/Sprite/coins.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="coins5" src="/static/img/Sprite/coins.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="coins6" src="/static/img/Sprite/coins.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="coins7" src="/static/img/Sprite/coins.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="coins8" src="/static/img/Sprite/coins.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="coins9" src="/static/img/Sprite/coins.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="coinsA" src="/static/img/Sprite/coins.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="coinsB" src="/static/img/Sprite/coins.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="coinsC" src="/static/img/Sprite/coins.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="coinsD" src="/static/img/Sprite/coins.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="coinsE" src="/static/img/Sprite/coins.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="coinsF" src="/static/img/Sprite/coins.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="wall1" src="/static/img/Sprite/wall.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="wall2" src="/static/img/Sprite/wall.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="wall3" src="/static/img/Sprite/wall.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="wall4" src="/static/img/Sprite/wall.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="wall5" src="/static/img/Sprite/wall.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="wall6" src="/static/img/Sprite/wall.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="wall7" src="/static/img/Sprite/wall.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="wall8" src="/static/img/Sprite/wall.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="wall9" src="/static/img/Sprite/wall.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="wallA" src="/static/img/Sprite/wall.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="wallB" src="/static/img/Sprite/wall.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="wallC" src="/static/img/Sprite/wall.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="wallD" src="/static/img/Sprite/wall.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="wallE" src="/static/img/Sprite/wall.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="wallF" src="/static/img/Sprite/wall.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+      <img id="goal1" src="/static/img/Sprite/goal.png" draggable="true" ondragstart="drag(event)" width="150px" height="150px">
+    </div>
+  </div>
+</div>
+<form name="Level_Editor_Form" method="POST" action="/getMAPData">
+  <div class="row">
+    <div class="col-sm-7">
+      <h2 class="map-title Commands"> Select Commands </h2>
+      <div class="card-body command-form">
+        
+          <input value="1" name ="Commands" type="checkbox" id="upward" name="commands"
+                 checked>
+          <label for="upward"><img id="Moveup" src="/static/img/Command/MoveUpward.png"  ></label>
+      
+       
+          <input value="2" name ="Commands" type="checkbox" id="downward" name="commands"
+                 checked>
+          <label for="downward"><img id="MoveDownward" src="/static/img/Command/MoveDownward.png"  ></label>
+    
+    
+          <input value="3" name ="Commands" type="checkbox" id="left" name="commands"
+                 checked>
+          <label for="left"><img id="MoveLeft" src="/static/img/Command/MoveLeft.PNG"  ></label>
+    
+      
+          <input value="4" name ="Commands" type="checkbox" id="right" name="commands"
+                 checked>
+          <label for="right"><img id="MoveRight" src="/static/img/Command/MoveRight.PNG"  ></label>
+          <br>
+      
+          <input value="5" name ="Commands" type="checkbox" id="repeat" name="commands">
+          <label for="repeat"><img id="RepeatLoop" src="/static/img/Command/Repeat.PNG"  ></label>
+ 
+      </div>
+    </div>
+    <div class="col-sm-4"> 
+      <h2 class="map-title Commands2"> Save Level </h2> 
+      <div class="card-body command-form2">
+        <br>
+        <div class="form-group">
+          <label for="formGroupExampleInput">Enter LevelName:</label>
+          <input name ="LevelName" type="text" class="form-control" id="LevelName" aria-describedby="Level Name" placeholder="Enter level name" required>
+        </div>
+        <br>
+        <p>Difficulties:</p>
+        <input value="3" name ="Difficulties" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" >
+          <label class="form-check-label" for="flexRadioDefault1">
+            Hard
+          </label>
+        
+        <input value="2" name ="Difficulties"  class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
+          <label class="form-check-label" for="flexRadioDefault2">
+            Medium
+          </label>
+  
+        <input value="1" name ="Difficulties" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked>
+          <label class="form-check-label" for="flexRadioDefault3">
+            Easy
+          </label>
+        <br> <br> 
+        
+        <button  type="submit" class="btn btn-primary center btn-lg">Submit</button>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+
+
+
+
+
+
+
+
+
+ 
+
+{% endblock %}
