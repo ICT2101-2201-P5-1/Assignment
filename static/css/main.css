@@ -2,6 +2,7 @@ body {
     /* background-image: url('../img/bg.jpg'); */
     background-image: linear-gradient( white, #F4C9C2);
     font-family: 'Andika', sans-serif;
+    overflow-x: hidden; /* hide horizontal*/
 }
 
 .logo{
