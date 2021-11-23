@@ -1,13 +1,16 @@
-from flask import Flask, render_template, url_for, flash, redirect, request, jsonify
+from flask import Flask, render_template, url_for, session, flash, redirect, request, jsonify
 from mysql import connector
 import mysql.connector
 import Models.processFile
 import Models.EditLevel
+import Models.displayLevel
+import Models.Dashboard
 import telnetCom
 import json
 import operator
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret'
 
 
 # For Flash box in Processfile 
@@ -21,7 +24,10 @@ LevelName = "Default"
 @app.route('/')
 @app.route('/game')
 def gamePlatform():
+
     print(Models.EditLevel.fetch_LastMapID())
+    print(Models.EditLevel.fetchPassword())
+
     return render_template("index.html")
 
 '''
@@ -69,11 +75,30 @@ def get_MAPData():
         else:
             flash("Please select a goal in the map!")
             redirect(url_for('edit_level'))
-
-        
+      
     return render_template("LevelEditor/CreateLevel.html")
 
+'''
+This routes to the displaylevel.html, that page will display
+all the levels stored in the database and allow for deletes. 
+'''
+@app.route("/displayLevel")
+def view_display_Level():
+    data = Models.displayLevel.display()
+    return render_template("displayLevel.html", title="Level Display", output_data=data)
 
+
+'''
+This route takes the variable passed by the delete button 
+in the displaylevel.html and passes it to the delete function
+        @param id           Is the variable that it receives from the displaylevel.html delete button
+'''
+@app.route("/deletelevel/<int:id>", methods=['POST'])
+def delete_level(id):
+    Models.displayLevel.delete(id)
+    session.pop('_flashes', None)
+    flash('Deletion Successful', "info")
+    return redirect(url_for('view_display_Level'))
 
 
 
@@ -93,6 +118,12 @@ def get_data():
     Car_data = telnetCom.receiveData()
     print(Car_data)
     return render_template("command.html", Car_data=Car_data)
+
+
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
+    Models.Dashboard.getGameDataFromDB()
+    return render_template("dashboard.html", data=Models.Dashboard.fetchData())
 
 
 if __name__ == "__main__":
