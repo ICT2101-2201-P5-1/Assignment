@@ -1,7 +1,7 @@
 import time
 import telnetlib
 
-HOST = "192.168.10.105"
+HOST = "192.168.43.174"
 PORT = 80
 
 

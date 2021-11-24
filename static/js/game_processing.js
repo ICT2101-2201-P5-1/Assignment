@@ -39,6 +39,21 @@ function winGame(){
 }
 
 /**
+* Sends a post request to CoolMotor controller when game is won.
+*/
+function sendCommands(commands){
+    alert("sent to cAR");
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/", true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+        commands: commands
+    }));
+}
+
+
+
+/**
 * parse the command stack. recursive function.
 * @param    cmdStack    1-D JavaScript array of Blockly blocks from our workspace
 * @param    workspace   Blockly workspace object
@@ -53,6 +68,7 @@ function winGame(){
 * @param    win         determines if the player has won or not (global variable, int)
 */
 async function parseCommands(cmdStack, workspace, map){
+    var commands = [];
 
     console.log("hi2", map);
 
@@ -110,6 +126,9 @@ async function parseCommands(cmdStack, workspace, map){
 
                         // render map..
                         renderMap(map);
+                        commands.push("upward");
+                        sendCommands(commands);
+                        commands = [];
 
                         // delay for animation purposes
                         await sleep(500);
@@ -156,6 +175,9 @@ async function parseCommands(cmdStack, workspace, map){
 
                         // render map..
                         renderMap(map);
+                        commands.push("downward");
+                        sendCommands(commands);
+                        commands = [];
 
                         // delay for animation purposes
                         await sleep(500);
@@ -202,6 +224,10 @@ async function parseCommands(cmdStack, workspace, map){
 
                         // render map..
                         renderMap(map);
+                        commands.push("left");
+                        sendCommands(commands);
+                        commands = [];
+                        
 
                         // delay for animation purposes
                         await sleep(500);
@@ -245,6 +271,9 @@ async function parseCommands(cmdStack, workspace, map){
 
                         // render map..
                         renderMap(map);
+                        commands.push("right");
+                        sendCommands(commands);
+                        commands = [];
 
                         // delay for animation purposes
                         await sleep(500);
@@ -302,7 +331,6 @@ function sleep(ms) {
     resolve => setTimeout(resolve, ms)
   );
 }
-
 
 /**
 * Function to render the map grid and sprites onto index.html.
