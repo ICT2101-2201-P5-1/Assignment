@@ -30,7 +30,7 @@ def gamePlatform():
     # To connect to car use these 2 methods 
     #telnetCom.sendCommands(b'hello')
     #telnetCom.receiveData()
-    session['attempt'] = 3
+    session['attempt'] = 5
     return render_template("index.html")
 
 @app.route("/login", methods=['GET', 'POST'])
