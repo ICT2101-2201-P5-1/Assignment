@@ -16,7 +16,7 @@ class LoginForm(FlaskForm):
 
     def load(self):
         if 'attempt' not in session:
-            self.attempt = session['attempt'] = 2
+            self.attempt = session['attempt'] = 5
         else:
             self.attempt = session['attempt']
             if self.attempt <= 0:
@@ -29,7 +29,7 @@ class LoginForm(FlaskForm):
                 self.password.render_kw = {'readonly': True}
             else:
                 session.pop('incident_time', None)
-                self.attempt = session['attempt'] = 3
+                self.attempt = session['attempt'] = 5
         else:
             self.incident_time = 0
 
