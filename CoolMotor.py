@@ -38,7 +38,7 @@ def login():
     form = LoginForm()
     form.load()
     if form.check():
-        redirect(url_for('gamePlatform'))
+        return redirect(url_for('gamePlatform'))
     else:
         form.load()
     return render_template('login.html', title='Login', form=form)
