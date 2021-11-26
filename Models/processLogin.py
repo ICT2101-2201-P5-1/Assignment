@@ -47,13 +47,13 @@ class LoginForm(FlaskForm):
             hashed_input = bcrypt.generate_password_hash(self.password.data).decode('utf-8')
             db_pw = str(fetchPassword())[3:-4]
             if bcrypt.check_password_hash(hashed_input, db_pw):
-                flash("Successful Login!", 'success')
-                return True
+                #flash("Successful Login!", 'success')
+                return "Success"
             else:
                 if self.attempt < 1:
                     session['attempt'] = 0
                     if not 'incident_time' in session:
                         session['incident_time'] = datetime.now().timestamp()
-                    flash(f'Too many incorrect logins incident"', 'danger')
-
-                return False
+                    #flash(f'Too many incorrect logins incident"', 'danger')
+                    return "Timeout"
+                return "Fail"
