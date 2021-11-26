@@ -164,11 +164,19 @@ def dashboard():
 def login():
     form = LoginForm()
     form.load()
-    if form.check():
-        return redirect(url_for('gamePlatform'))
-    else:
+    if form.check() == "Success":
+        flash('Login Successful', "info")
+        return redirect(url_for('edit_level'))
+    elif form.check() == "Fail":
         form.load()
-    return render_template('login.html', title='Login', form=form)
+        flash('Wrong Password!')
+        
+    elif form.check() == "Timeout":
+        form.load()
+        flash('Too many incorrect logins incident!')
+    
+    return render_template('LevelEditor/login.html', title='Login', form=form)
+
 
 
 if __name__ == "__main__":
