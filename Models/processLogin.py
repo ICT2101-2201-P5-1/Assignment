@@ -4,6 +4,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length
 from flask_bcrypt import Bcrypt
 from datetime import datetime
+from EditLevel import fetchPassword
 
 bcrypt = Bcrypt()
 
@@ -15,6 +16,9 @@ class LoginForm(FlaskForm):
     incident_time = None
 
     def load(self):
+        """
+        function is to load website's settings such as the number of attempts and if the user has any violations
+        """
         if 'attempt' not in session:
             self.attempt = session['attempt'] = 5
         else:
@@ -34,11 +38,15 @@ class LoginForm(FlaskForm):
             self.incident_time = 0
 
     def check(self):
+        """
+        function checks for input password, if it is incorrect, it will decrement the attempt counter
+        """
         if self.validate_on_submit():
             self.attempt -= 1
             session['attempt'] = self.attempt
             hashed_input = bcrypt.generate_password_hash(self.password.data).decode('utf-8')
-            if bcrypt.check_password_hash(hashed_input, 'admin') and self.password.data == "admin":
+            db_pw = str(fetchPassword())[3:-4]
+            if bcrypt.check_password_hash(hashed_input, db_pwd):
                 flash("Successful Login!", 'success')
                 return True
             else:
