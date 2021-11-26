@@ -2,7 +2,6 @@ import mysql.connector
 from mysql.connector import errorcode
 from Credentials import constants
 
-
 def init_connection_sql():
     '''
     Initialise connection for MySQL
