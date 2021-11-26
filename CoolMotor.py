@@ -38,6 +38,7 @@ def gamePlatform():
         #telnetCom.sendCommands(b'hello')
         commandB = bytes(commands[0], 'utf-8')
         print(commandB)
+        telnetCom.sendCommands(commandB)
 
         if win == '1':
             # store data to db

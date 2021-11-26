@@ -126,7 +126,7 @@ async function parseCommands(cmdStack, workspace, map){
 
                         // render map..
                         renderMap(map);
-                        commands.push("upward");
+                        commands.push("back");
                         sendCommands(commands);
                         commands = [];
 
@@ -175,7 +175,7 @@ async function parseCommands(cmdStack, workspace, map){
 
                         // render map..
                         renderMap(map);
-                        commands.push("downward");
+                        commands.push("drive");
                         sendCommands(commands);
                         commands = [];
 
