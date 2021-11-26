@@ -7,12 +7,12 @@ import Models.GamePlatform
 import Models.displayLevel
 import Models.Dashboard
 import telnetCom
+from Models.processLogin import LoginForm
 import json
 import operator
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
-
 
 # For Flash box in Processfile 
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -21,14 +21,12 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 mapList = []
 LevelName = "Default"
 
-
 # ---------------- APP ROUTES HERE --------------------------------------------
 @app.route('/', methods=['GET','POST'])
 def gamePlatform():
     # To connect to car use these 2 methods 
     #telnetCom.sendCommands(b'hello')
     #telnetCom.receiveData()
-
     # win game scenario call-back
     if request.method == "POST":
         # check for lastLevelLoaded, set variable = 1 (tutorial level) if unset
@@ -159,6 +157,18 @@ def get_data():
 def dashboard():
     Models.Dashboard.getGameDataFromDB()
     return render_template("dashboard.html", data=Models.Dashboard.fetchData())
+
+
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    form.load()
+    if form.check():
+        return redirect(url_for('gamePlatform'))
+    else:
+        form.load()
+    return render_template('login.html', title='Login', form=form)
 
 
 if __name__ == "__main__":
