@@ -1,0 +1,70 @@
+
+.grid-row .grid-col {
+    border: 10px solid #f2848262;
+    min-height: 250px;
+    max-width: 250px;
+   
+}
+
+.grid-map.container{
+    margin: 50px;
+    margin-right: 0px;
+}
+
+.map-title{
+    text-decoration: underline;
+    padding-bottom: 10px;
+}
+
+#div1, #div2 {
+    min-height: 250px;
+    max-width: 250px;
+}
+
+.sprite.container{
+    border: 10px solid #f2848262;
+    padding: 10px;
+    margin-top: 100px;
+    margin-left: 0px;
+    margin-right: 0;
+}
+
+.row{
+    margin-left: 0;
+}
+.command-form{
+    border: 10px solid #f2848262;
+    margin-left: 60px;
+    margin-right: 170px;
+}
+
+.card.card-command{
+    border: none;
+}
+
+.map-title.Commands{
+    padding-left: 60px;
+}
+
+.command-form2{
+    border: 10px solid #f2848262;
+    margin: 0px;
+    background-color: #f7e8e6;
+    min-height: 310px;
+}
+
+.map-title.Commands2{
+    padding-left: 0px;
+    
+}
+
+.submit-button{
+    padding: 50px;
+}
+
+.btn{
+    margin-top: 28px;
+    margin-left: 600px;
+    margin-bottom: 0px;
+}
+
