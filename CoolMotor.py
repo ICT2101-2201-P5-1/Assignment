@@ -28,6 +28,7 @@ def gamePlatform():
     #telnetCom.sendCommands(b'hello')
     #telnetCom.receiveData()
     # win game scenario call-back
+    levelsData = Models.displayLevel.display()
     if request.method == "POST":
         # check for lastLevelLoaded, set variable = 1 (tutorial level) if unset
         win = request.get_json().get('win')
@@ -42,11 +43,11 @@ def gamePlatform():
     mapFile, levelName = Models.GamePlatform.readMapDataFromDB(lll)
     commandList, mapData = Models.GamePlatform.initLevelLayout(mapFile)
 
-    return render_template("index.html", mapLevelLayout=mapData, commandList=commandList, levelName=levelName)
+    return render_template("index.html", mapLevelLayout=mapData, commandList=commandList, levelName=levelName, levelsData=levelsData)
 
 
 # set last level loaded as cookie..
-@app.route('/set-level')
+@app.route('/selectLevel' , methods=['GET','POST'])
 def selectLevel():
 
     res = make_response("Set last level loaded as cookie")
@@ -58,7 +59,10 @@ def selectLevel():
 
         else:
             mid = request.form.get('level')
+            print(mid)
             res.set_cookie('lastLevelLoaded', mid, max_age=60 * 60 * 24 * 365 * 2)
+            redirect(url_for('gamePlatform'))
+
 
     return res
 

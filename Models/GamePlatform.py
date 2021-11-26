@@ -29,6 +29,7 @@ def readMapDataFromDB(mid):
     return pw[0], pw[1]
 
 
+
 '''
 initLevelLayout
     Reads the map data from the text file, parses the map data into JSON format.
