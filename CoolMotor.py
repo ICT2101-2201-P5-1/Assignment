@@ -50,7 +50,7 @@ def gamePlatform():
 @app.route('/selectLevel' , methods=['GET','POST'])
 def selectLevel():
 
-    res = make_response("Set last level loaded as cookie")
+    res = make_response(redirect(url_for('gamePlatform')))
 
     if request.method == "POST":
         # check for lastLevelLoaded, set variable = 1 (tutorial level) if unset
@@ -61,9 +61,7 @@ def selectLevel():
             mid = request.form.get('level')
             print(mid)
             res.set_cookie('lastLevelLoaded', mid, max_age=60 * 60 * 24 * 365 * 2)
-            redirect(url_for('gamePlatform'))
-
-
+            
     return res
 
 
