@@ -42,6 +42,7 @@
 
 {% block body %}
 
+<<<<<<< HEAD
 <div class="container">
     <div class="row">
       <div class="col">
@@ -103,6 +104,34 @@
             </div>
 
       </div>
+=======
+    <div class="container-fluid justify-content-center">
+        <h1>This is the Index page</h1>
+        <canvas id="canvas"> </canvas>
+    </div>
+    <div class="container-fluid justify-content-center">
+        <p class="d-inline font-weight-bold">Level: </p>
+        <p class="d-inline">{{mapName}}</p>
+        <p class="d-inline font-weight-bold">Difficulty: </p>
+        <p class="d-inline" id="map_difficulty">{{mapDifficulty}}</p>
+        <p class="d-none" id="map_id">{{mapId}}</p>
+        <br/>
+        <br/>
+        <p class="d-inline">Time Elapsed:</p>
+        <p class="d-inline" id="game_minutes">00</p><p class="d-inline"> m</p>
+        <p class="d-inline" id="game_seconds">00</p><p class="d-inline"> s</p>
+        <br/>
+        <p class="d-inline">Coins Collected:</p> <p class="d-inline" id="coinsCollected">0</p>
+        <br/>
+        <p class="d-inline">Car Crashes:</p> <p class="d-inline" id="carCrashes">0</p>
+        <br/>
+        <p class="d-inline">Commands Sent:</p> <p class="d-inline" id="cmdsSent">0</p>
+    </div>
+    <div class="container-fluid justify-content-center">
+        <h2> Car Control Station </h2>
+        <div id="blocklyDiv" style="height: 320px; width: 1200px;"></div>
+        <button id="send_commands" type="button">Send Commands</button>
+>>>>>>> feature/storeGameData
     </div>
 </div>
 
@@ -129,6 +158,27 @@
         $( document ).ready(function() {
             renderMap(map);
         });
+
+        // Set the date we're counting down to
+        var minutesLabel = document.getElementById("game_minutes");
+        var secondsLabel = document.getElementById("game_seconds");
+        var totalSeconds = 0;
+        setInterval(setTime, 1000);
+
+        function setTime() {
+          ++totalSeconds;
+          secondsLabel.innerHTML = pad(totalSeconds % 60);
+          minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+        }
+
+        function pad(val) {
+          var valString = val + "";
+          if (valString.length < 2) {
+            return "0" + valString;
+          } else {
+            return valString;
+          }
+        }
     </script>
 
 {% endblock %}
