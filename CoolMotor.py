@@ -51,16 +51,13 @@ def gamePlatform():
     mapId, mapDifficulty, mapName, mapFile = Models.GamePlatform.readMapDataFromDB(lll)
     commandList, mapData = Models.GamePlatform.initLevelLayout(mapFile)
 
-<<<<<<< HEAD
-    return render_template("index.html", mapLevelLayout=mapData, commandList=commandList, levelName=levelName, levelsData=levelsData)
-=======
     return render_template("index.html"
                            , mapLevelLayout=mapData
                            , commandList=commandList
                            , mapName=mapName
                            , mapId=mapId
-                           , mapDifficulty=mapDifficulty)
->>>>>>> feature/storeGameData
+                           , mapDifficulty=mapDifficulty
+                           ,levelsData=levelsData)
 
 
 # set last level loaded as cookie..

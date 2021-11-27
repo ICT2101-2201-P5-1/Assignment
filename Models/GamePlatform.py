@@ -20,7 +20,7 @@ readMapDataFromDB
 '''
 def readMapDataFromDB(mid):
     conn = init_connection_sql()
-    cur = conn.cursor(prepared=True)
+    cur = conn.cursor()
     query = ("select * from levels where map_id = %s")
     cur.execute(query, (mid,))
 
