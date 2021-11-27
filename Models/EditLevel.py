@@ -4,9 +4,7 @@ from Credentials import constants
 
 
 def init_connection_sql():
-    '''
-    Initialise connection for MySQL
-    '''
+    # Initialise connection for MySQL
     return mysql.connector.connect(host=constants.HOST,
                                    database=constants.DATABASE,
                                    user=constants.USER,
@@ -15,7 +13,7 @@ def init_connection_sql():
 
 def fetchPassword(): 
     conn = init_connection_sql()
-    cur = conn.cursor()
+    cur = conn.cursor(prepared=True)
     query = ("""SELECT pw FROM accounts;""")
     cur.execute(query)
     pw = cur.fetchall()

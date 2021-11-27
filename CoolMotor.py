@@ -28,28 +28,43 @@ def gamePlatform():
     #telnetCom.sendCommands(b'hello')
     #telnetCom.receiveData()
     # win game scenario call-back
+    levelsData = Models.displayLevel.display()
     if request.method == "POST":
         # check for lastLevelLoaded, set variable = 1 (tutorial level) if unset
         win = request.get_json().get('win')
-        if win == '1':
+        map_id = request.get_json().get('map_id')
+        map_difficulty = request.get_json().get('map_difficulty')
+        game_min = request.get_json().get('game_minutes')
+        game_sec = request.get_json().get('game_seconds')
+        dist_travelled = request.get_json().get('dist_travelled')
+        if win == 1:
+
+            total_secs = int(game_min) * 60 + int(game_sec)
             # store data to db
+            Models.GamePlatform.storeGameDataToDB(map_id, map_difficulty, dist_travelled, total_secs)
             pass
 
     lll = 1
     if request.cookies.get('lastLevelLoaded') is not None:
         lll = request.cookies.get('lastLevelLoaded')
 
-    mapFile, levelName = Models.GamePlatform.readMapDataFromDB(lll)
+    mapId, mapDifficulty, mapName, mapFile = Models.GamePlatform.readMapDataFromDB(lll)
     commandList, mapData = Models.GamePlatform.initLevelLayout(mapFile)
 
-    return render_template("index.html", mapLevelLayout=mapData, commandList=commandList, levelName=levelName)
+    return render_template("index.html"
+                           , mapLevelLayout=mapData
+                           , commandList=commandList
+                           , mapName=mapName
+                           , mapId=mapId
+                           , mapDifficulty=mapDifficulty
+                           ,levelsData=levelsData)
 
 
 # set last level loaded as cookie..
-@app.route('/set-level')
+@app.route('/selectLevel' , methods=['GET','POST'])
 def selectLevel():
 
-    res = make_response("Set last level loaded as cookie")
+    res = make_response(redirect(url_for('gamePlatform')))
 
     if request.method == "POST":
         # check for lastLevelLoaded, set variable = 1 (tutorial level) if unset
@@ -58,8 +73,9 @@ def selectLevel():
 
         else:
             mid = request.form.get('level')
+            print(mid)
             res.set_cookie('lastLevelLoaded', mid, max_age=60 * 60 * 24 * 365 * 2)
-
+            
     return res
 
 
