@@ -14,8 +14,15 @@ Member: Woo Kah Howe - @JustAyce (2001138)
 Member: Tudyisster Siva - @WeirdBalls (2002131)
 ## Install 
 Install these dependency before running 
-    $ pip install Flask
-    flask run
+    
+    $ pip install Flask 
+    $ pip install mysql-connector-python
+    $ pip install MySql
+    $ pip install matplotlib
+    $ pip install pandas 
+    $ pip install -U Flask-WTF
+    $ pip install flask-bcrypt
+    
 
 ## How to Run
 The web interface uses the flask framework. To start the web portal, run the following:
