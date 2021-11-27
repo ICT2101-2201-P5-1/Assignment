@@ -12,6 +12,10 @@ Member: Shawn Lemuel Evora Dabi - @ShawnLemuelDabi (2001401)
 Member: Woo Kah Howe - @JustAyce (2001138)
 
 Member: Tudyisster Siva - @WeirdBalls (2002131)
+## Install 
+Install these dependency before running 
+    $ pip install Flask
+    flask run
 
 ## How to Run
 The web interface uses the flask framework. To start the web portal, run the following:
