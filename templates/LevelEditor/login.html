@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {% block CSS %}
+    <link rel="stylesheet" href="../static/css/login.css">
+    {% endblock %}
+{% endblock %}
+
+
+{% block body %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class ='m-4'>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span>{{ message }}</span>
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+    
+
+    <div class="container">
+        <div class="row">
+          
+          <div class="d-flex justify-content-center">
+            <div class = "login-form">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <fieldset class="form-group">
+                        <h1>Teacher Login</h1> <br>
+                        <div class="form-group">
+                         <!--{{ form.password.label(class="form-control-label") }}-->
+                            {% if form.password.errors %}
+                                {{ form.password(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div> 
+                            {% else %}
+                                {{ form.password(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div> <br>
+                        <div class="form-group">
+                            {{ form.submit(class="btn-primary ") }}
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    
+{% endblock body %}
+
+{% block footer %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+{% endblock footer %}

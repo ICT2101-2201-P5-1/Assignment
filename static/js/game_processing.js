@@ -34,7 +34,13 @@ function winGame(){
     xhr.open("POST", "/", true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify({
-        win: "1"
+        win: 1,
+        map_id: document.getElementById("map_id").innerHTML,
+        map_difficulty: document.getElementById("map_difficulty").innerHTML,
+        game_minutes: document.getElementById("game_minutes").innerHTML,
+        game_seconds: document.getElementById("game_seconds").innerHTML,
+        dist_travelled: 20 // hardcoded placeholder value.
+//        dist_travelled: document.getElementById("dist_travelled").innerHTML
     }));
 }
 
@@ -53,8 +59,6 @@ function winGame(){
 * @param    win         determines if the player has won or not (global variable, int)
 */
 async function parseCommands(cmdStack, workspace, map){
-
-    console.log("hi2", map);
 
     for (let i = 0; i < map.tiles.length; i++){
         if (map.tiles[i] == "1"){
@@ -311,8 +315,6 @@ function sleep(ms) {
 */
 function renderMap(map){
 
-    console.log("hi", map);
-
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
 
@@ -328,7 +330,7 @@ function renderMap(map){
 
     function drawImageActualSize(){
 
-        canvas.width = this.naturalWidth;
+        canvas.width = this.naturalWidth/4;
         canvas.height = this.naturalHeight;
 
         for (var c = 0; c < map.cols; c++) {
@@ -373,7 +375,7 @@ function sendCommandButton(map){
     if (checkCommandStack(arr[0].getTopBlocks(true)) == true){
         document.getElementById("cmdsSent").innerHTML = ++commandsSent;
         parseCommands(arr[0].getAllBlocks(true), arr[0], map);
-        console.log("eof",win);
+
     }
     else if (arr[0].getAllBlocks(true).length == 0)
         alert("Please ensure that there is at least one command in the box.");
