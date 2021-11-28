@@ -6,22 +6,21 @@ Write To Map File
     Handle the file processing validate if the dictionary have Goal sprite if 
     Goal sprite is present insert new Level Map into a text file under levels folder 
     and call on Model to insert to database.
-        @param CommandList The id list of checked commands
+        @param CommandList The id list of checked commands Example:[1,2,3,4,5]
         @param LevelName String levelName user input
         @param Difficulty value 1(easy),2(medium),3(hard)
         @param mapList Array that store position and sprite
-        @param MapDict (Position: Sprite) key and value pair 
-        @param fileName is path to generate new textfile
-        @param fileObj file object
         @param dbStatus status of insert statement (sucess/fail)
         @return success/fail
 '''
 def writeToMapFile(Maparray,LevelName,CommandList, Difficulty):
     MapDict ={}
+    # MapDict (Position: Sprite) key and value pair 
     for grid in Maparray:
         MapDict[grid['position']]= grid['type']
     if 'goal' in MapDict.values():
         MapID = Models.EditLevel.fetch_LastMapID() +1 
+        # fileName is path to generate new textfile
         fileName = "Levels/"+str(MapID)+".txt"
         fileObj = open(fileName,"w+")
         processCommands(fileObj, CommandList) 
@@ -53,17 +52,28 @@ Process Commands
 '''   
 
 def processCommands(fileObj, CommandList):
+    
+    for commands in CommandList:
+        if int(commands) > 5 or len(CommandList) > 5:
+            status = 'not written'
+            return status
     for i in range(1,6):
         if str(i) in CommandList:
+            status = 'written 1'
             if i == 5:
                 fileObj.write('1' +'\n')
             else:
                 fileObj.write('1')
         else:
+            status = 'written 0'
             if i == 5:
-                fileObj.write('0' +'\n')
+                fileObj.write('0' +'\n')    
             else:
                 fileObj.write('0')
+                
+    return status
+
+
 
 '''
 Process Grid
@@ -106,4 +116,8 @@ def findGridType(gridType):
         return '3'
     elif (gridType == 'goal'):
         return '4'
+    else:
+        return 'no match'
+
+
 
