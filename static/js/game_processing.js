@@ -330,7 +330,7 @@ function renderMap(map){
 
     function drawImageActualSize(){
 
-        canvas.width = this.naturalWidth;
+        canvas.width = this.naturalWidth/4;
         canvas.height = this.naturalHeight;
 
         for (var c = 0; c < map.cols; c++) {
