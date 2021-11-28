@@ -34,3 +34,16 @@ a:hover {
 .custom-select {
     margin-left: 100px;
 }
+
+#canvas-div {
+    text-align: center;
+    border-style: solid;
+}
+
+#level-div, #control-div{
+    padding-top: 10px;
+}
+
+#send_commands {
+    margin-top: 10px;
+}
