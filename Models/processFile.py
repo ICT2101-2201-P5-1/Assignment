@@ -33,13 +33,9 @@ def writeToMapFile(Maparray,LevelName,CommandList, Difficulty):
             return 'Sprite Error'
         Status = Models.EditLevel.insert_Level(Difficulty, LevelName, fileName)
         fileObj.close()  
-        return Status
+        return 'success'
     else:
         return 'not inserted'
-
-
-    
-
 
         
 '''
@@ -78,7 +74,6 @@ def processCommands(fileObj, CommandList):
                 fileObj.write('0')
                 
     return status
-
 
 
 '''

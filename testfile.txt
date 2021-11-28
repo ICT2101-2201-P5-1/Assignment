@@ -1,6 +1,0 @@
-Assertion 1:
-Assertion 2:
-Assertion 3:
-00000
-Assertion 4:
-11111

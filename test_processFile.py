@@ -3,8 +3,6 @@ import unittest
 import Models.processFile
 
 
-
-
 class TestProcessFile(unittest.TestCase):
     
     def test_processCommands(self):
@@ -82,7 +80,7 @@ class TestProcessFile(unittest.TestCase):
         CommandList = ['1', '2', '3', '4']
         Difficulty = 2
         result = Models.processFile.writeToMapFile(Maparray,LevelName,CommandList, Difficulty)
-        self.assertEqual(result, "Insert Level success")
+        self.assertEqual(result, "success")
         # Assertion 3
         Maparray = [{'position': '2', 'type': 'coins'}, {'position': '20', 'type': 'wall'}, {'position': '24', 'type': 'goal'}, {'position': '3', 'type': 'coins'}]
         LevelName = 'May_Game'
