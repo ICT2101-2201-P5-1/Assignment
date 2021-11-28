@@ -1,9 +1,13 @@
 from flask import Flask, render_template, url_for, flash, redirect, request, jsonify, make_response,session
+from mysql import connector
+import mysql.connector
 import Models.processFile
 import Models.EditLevel
 import Models.GamePlatform
 import Models.displayLevel
 import Models.Dashboard
+import telnetCom
+from Models.processLogin import LoginForm
 import json
 import operator
 
@@ -17,40 +21,64 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 mapList = []
 LevelName = "Default"
 
-
-'''
-Game Platform
-    Handles the main game logic, calls a win screen upon winning, and sets the cookies
-        @return the index.html page with Maps, Commands, and Level data passed in
-'''
+# ---------------- APP ROUTES HERE --------------------------------------------
 @app.route('/', methods=['GET','POST'])
 def gamePlatform():
+    # To connect to car use these 2 methods 
+    #telnetCom.sendCommands(b'hello')
+    #telnetCom.receiveData()
+    # win game scenario call-back
+    levelsData = Models.displayLevel.display()
     if request.method == "POST":
+        # check for lastLevelLoaded, set variable = 1 (tutorial level) if unset
         win = request.get_json().get('win')
-        if win == '1':
+        map_id = request.get_json().get('map_id')
+        map_difficulty = request.get_json().get('map_difficulty')
+        game_min = request.get_json().get('game_minutes')
+        game_sec = request.get_json().get('game_seconds')
+        dist_travelled = request.get_json().get('dist_travelled')
+        if win == 1:
+
+            total_secs = int(game_min) * 60 + int(game_sec)
+            # store data to db
+            Models.GamePlatform.storeGameDataToDB(map_id, map_difficulty, dist_travelled, total_secs)
             pass
+
     lll = 1
     if request.cookies.get('lastLevelLoaded') is not None:
         lll = request.cookies.get('lastLevelLoaded')
-    mapFile, levelName = Models.GamePlatform.readMapDataFromDB(lll)
+
+    mapId, mapDifficulty, mapName, mapFile = Models.GamePlatform.readMapDataFromDB(lll)
     commandList, mapData = Models.GamePlatform.initLevelLayout(mapFile)
-    return render_template("index.html", mapLevelLayout=mapData, commandList=commandList, levelName=levelName)
-'''
-Select Level
-    Handles the Level selection
-        @return the last level set as a cookie
-'''
-@app.route('/set-level')
+
+    return render_template("index.html"
+                           , mapLevelLayout=mapData
+                           , commandList=commandList
+                           , mapName=mapName
+                           , mapId=mapId
+                           , mapDifficulty=mapDifficulty
+                           ,levelsData=levelsData)
+
+
+# set last level loaded as cookie..
+@app.route('/selectLevel' , methods=['GET','POST'])
 def selectLevel():
-    res = make_response("Set last level loaded as cookie")
+
+    res = make_response(redirect(url_for('gamePlatform')))
+
     if request.method == "POST":
         # check for lastLevelLoaded, set variable = 1 (tutorial level) if unset
         if not request.cookies.get('lastLevelLoaded'):
             res.set_cookie('lastLevelLoaded', '1', max_age=60 * 60 * 24 * 365 * 2)
+
         else:
             mid = request.form.get('level')
+            print(mid)
             res.set_cookie('lastLevelLoaded', mid, max_age=60 * 60 * 24 * 365 * 2)
+            
     return res
+
+
 '''
 Edit Level
     Handle receiving of POST request from Map and rendering of CreateLevel page 
@@ -70,13 +98,15 @@ def edit_level():
     # sort list 
     mapList.sort(key=operator.itemgetter('position'))
     return render_template("LevelEditor/CreateLevel.html")
+
+
 '''
-Get Map Data 
-    Handle receiving of POST request from Level_Editor_Form and rendering of CreateLevel page 
-        @param CommandList The id list of checked commands
-        @param LevelName String levelName user input
-        @param Difficulty value 1(easy),2(medium),3(hard)
-        @return the CreateLevel.html page 
+    Get Map Data 
+        Handle receiving of POST request from Level_Editor_Form and rendering of CreateLevel page 
+            @param CommandList The id list of checked commands
+            @param LevelName String levelName user input
+            @param Difficulty value 1(easy),2(medium),3(hard)
+            @return the CreateLevel.html page 
 '''
 @app.route('/getMAPData', methods=['POST'])
 def get_MAPData():
@@ -98,10 +128,8 @@ def get_MAPData():
     return render_template("LevelEditor/CreateLevel.html")
 
 '''
-View Display Level
-    This routes to the displaylevel.html, that page will display
-    all the levels stored in the database and allow for deletes. 
-        @return the displayLevel.html with title and output data passed in
+This routes to the displaylevel.html, that page will display
+all the levels stored in the database and allow for deletes. 
 '''
 @app.route("/displayLevel")
 def view_display_Level():
@@ -110,11 +138,9 @@ def view_display_Level():
 
 
 '''
-Delete Level
-    This route takes the variable passed by the delete button 
-    in the displaylevel.html and passes it to the delete function
-            @param id Is the variable that it receives from the displaylevel.html delete button
-            @return   The level is deleted  
+This route takes the variable passed by the delete button 
+in the displaylevel.html and passes it to the delete function
+        @param id           Is the variable that it receives from the displaylevel.html delete button
 '''
 @app.route("/deletelevel/<int:id>", methods=['POST'])
 def delete_level(id):
@@ -122,20 +148,7 @@ def delete_level(id):
     session.pop('_flashes', None)
     flash('Deletion Successful', "info")
     return redirect(url_for('view_display_Level'))
-'''
-Dashboard
-    This routes to the dashboard.html. That page will display.
-            @return the dashboard.html page with the chart data from the Dashboard.py controller passed in
-'''
-@app.route('/dashboard', methods=['GET', 'POST'])
-def dashboard():
-    Models.Dashboard.getGameDataFromDB()
-    return render_template("dashboard.html", data=Models.Dashboard.fetchData())
 
-
-if __name__ == "__main__":
-    # Error will be displayed on web page
-    app.run(debug=True)
 
 
 #-----------------------------May Communication Testing--------------------------------------------------------------#
@@ -154,3 +167,36 @@ def get_data():
     Car_data = telnetCom.receiveData()
     print(Car_data)
     return render_template("command.html", Car_data=Car_data)
+
+
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
+    Models.Dashboard.getGameDataFromDB()
+    return render_template("dashboard.html", data=Models.Dashboard.fetchData())
+
+
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    form.load()
+    if form.check() == "Success":
+        flash('Login Successful', "info")
+        return redirect(url_for('edit_level'))
+    elif form.check() == "Fail":
+        form.load()
+        flash('Wrong Password!')
+        
+    elif form.check() == "Timeout":
+        form.load()
+        flash('Too many incorrect logins incident!')
+    
+    return render_template('LevelEditor/login.html', title='Login', form=form)
+
+
+
+if __name__ == "__main__":
+    # Error will be displayed on web page
+    app.run(debug=True)
+
+
