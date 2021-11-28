@@ -23,13 +23,19 @@ def writeToMapFile(Maparray,LevelName,CommandList, Difficulty):
         # fileName is path to generate new textfile
         fileName = "Levels/"+str(MapID)+".txt"
         fileObj = open(fileName,"w+")
-        processCommands(fileObj, CommandList) 
-        dbStatus = Models.EditLevel.insert_Level(Difficulty, LevelName, fileName)
-        processGrid(fileObj, MapDict)
+        Status = processCommands(fileObj, CommandList) 
+        if (Status == 'not written'):
+            fileObj.close()  
+            return 'Command Error'
+        Status = processGrid(fileObj, MapDict)
+        if (Status == 'sprite out of range'):
+            fileObj.close()  
+            return 'Sprite Error'
+        Status = Models.EditLevel.insert_Level(Difficulty, LevelName, fileName)
         fileObj.close()  
-        return 'success'
+        return Status
     else:
-        return 'fail'
+        return 'not inserted'
 
 
     
@@ -88,15 +94,20 @@ def processGrid(fileObj, MapDict):
     for i in range(2,26):
         if str(i) in MapDict.keys():
             writevalue = findGridType(MapDict.get(str(i)))
+            if writevalue == 'no match':
+                return 'sprite out of range'
             if i%5 == 0:
                 fileObj.write(writevalue +'\n')
             else: 
                 fileObj.write(writevalue)
+            status = 'got sprite'
         else:
             if i%5 == 0:
                 fileObj.write('0' +'\n')
             else: 
                 fileObj.write('0')
+            status = 'no sprite'
+    return status
 
 '''
 Find Grid Type

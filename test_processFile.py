@@ -8,7 +8,7 @@ import Models.processFile
 class TestProcessFile(unittest.TestCase):
     
     def test_processCommands(self):
-        fileName = "testfile.txt"
+        fileName = "test_processCommandsfile.txt"
         fileObj = open(fileName,"w+")
         # Assertion 1: covers line 1-2,3,4-5,16
         CommandList = ['1','2','3','4','5','5']
@@ -46,6 +46,61 @@ class TestProcessFile(unittest.TestCase):
         # Assertion 2: 1,6,7
         result = Models.processFile.findGridType("test")
         self.assertEqual(result, "no match")
+
+
+    def test_processGrid(self):
+        fileName = "test_processGridfile.txt"
+        fileObj = open(fileName,"w+")
+        # Assertion 1
+        MapDict = {'9': 'goal', '10': 'wall', '25': 'chicken'}
+        fileObj.write('Assertion 1:' +'\n')
+        result = Models.processFile.processGrid(fileObj,MapDict)
+        self.assertEqual(result, "sprite out of range")
+        # Assertion 2
+        MapDict = {'9': 'goal', '10': 'wall', '25': 'coins'}
+        fileObj.write('Assertion 1:' +'\n')
+        result = Models.processFile.processGrid(fileObj,MapDict)
+        self.assertEqual(result, "got sprite")
+        # Assertion 3
+        MapDict = {}
+        fileObj.write('Assertion 1:' +'\n')
+        result = Models.processFile.processGrid(fileObj,MapDict)
+        self.assertEqual(result, "no sprite")
+        fileObj.close()  
+
+    def test_writeToMapFile(self):
+        # Assertion 1
+        Maparray = [{'position': '2', 'type': 'coins'}, {'position': '20', 'type': 'wall'}, {'position': '24', 'type': 'coins'}, {'position': '3', 'type': 'coins'}]
+        LevelName = 'May_Game'
+        CommandList = ['1', '2', '3', '4']
+        Difficulty = 2
+        result = Models.processFile.writeToMapFile(Maparray,LevelName,CommandList, Difficulty)
+        self.assertEqual(result, "not inserted")
+        # Assertion 2
+        Maparray = [{'position': '2', 'type': 'coins'}, {'position': '20', 'type': 'wall'}, {'position': '24', 'type': 'goal'}, {'position': '3', 'type': 'coins'}]
+        LevelName = 'May_Game'
+        CommandList = ['1', '2', '3', '4']
+        Difficulty = 2
+        result = Models.processFile.writeToMapFile(Maparray,LevelName,CommandList, Difficulty)
+        self.assertEqual(result, "Insert Level success")
+        # Assertion 3
+        Maparray = [{'position': '2', 'type': 'coins'}, {'position': '20', 'type': 'wall'}, {'position': '24', 'type': 'goal'}, {'position': '3', 'type': 'coins'}]
+        LevelName = 'May_Game'
+        CommandList = ['7']
+        Difficulty = 2
+        result = Models.processFile.writeToMapFile(Maparray,LevelName,CommandList, Difficulty)
+        self.assertEqual(result, "Command Error")
+        # Assertion 4
+        Maparray = [{'position': '2', 'type': 'coins'}, {'position': '20', 'type': 'ball'}, {'position': '24', 'type': 'goal'}, {'position': '3', 'type': 'coins'}]
+        LevelName = 'May_Game'
+        CommandList = ['1', '2', '3', '4']
+        Difficulty = 2
+        result = Models.processFile.writeToMapFile(Maparray,LevelName,CommandList, Difficulty)
+        self.assertEqual(result, "Sprite Error")
+       
+
+
+
 
 
 
