@@ -40,7 +40,7 @@ a:hover {
     border-style: solid;
 }
 
-#level-div, #control-div{
+#level-div, #control-div, #live-div{
     padding-top: 10px;
 }
 
