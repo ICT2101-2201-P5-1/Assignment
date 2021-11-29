@@ -177,16 +177,17 @@ def dashboard():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    print(form.data)
     form.load()
-    ## keep output in var change 
-    if form.check() == "Success":
+    ## keep output in var change
+    status = form.check()
+    if status == "Success":
         flash('Login Successful', "info")
         return redirect(url_for('edit_level'))
-    elif form.check() == "Fail":
+    elif status == "Fail":
         form.load()
         flash('Wrong Password!')
-        
-    elif form.check() == "Timeout":
+    elif status == "Timeout":
         form.load()
         flash('Too many incorrect logins incident!')
     
