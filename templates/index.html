@@ -53,9 +53,9 @@
                 <canvas id="canvas"> </canvas>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col">
+        <br>
+        <div id="dashboard" class="row">
+            <div class="col-3">
                 <div id ="live-div" class="container-fluid justify-content-center">
                     <p class="fw-bold">Live Dashboard</p>
                     <p class="d-inline">Car Speed:</p> <p class="d-inline fw-bold" id="carSpeed">0.2 metres per second</p>
@@ -66,7 +66,7 @@
                     <br/>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-3">
                 <div id ="level-div" class="container-fluid justify-content-center">
                     <p class="d-inline font-weight-bold">Level: </p>
                     <p class="d-inline">{{mapName}}</p>
@@ -85,11 +85,18 @@
                     <br/>
                     <p class="d-inline">Commands Sent:</p> <p class="d-inline" id="cmdsSent">0</p>
                 </div>
+                <!-- Button trigger modal -->
+                <button id="select_levels" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                    Select Level
+                </button>
+            </div>
+            <div class="col-3">
+                
             </div>
         </div>
         
 
-       
+        <br>
 
         
 
@@ -97,14 +104,12 @@
             <h2> Car Control Station </h2>
             <div id="blocklyDiv" style="height: 320px; width: auto;"></div>
             <button id="send_commands" class="btn btn-primary" type="button">Send Commands</button>
+            
         </div>
         <br>
       </div>
       <div class="col">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                Select Level
-            </button>
+            
             
             <!-- Modal -->
             <div class="modal fade-modal-sm" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
