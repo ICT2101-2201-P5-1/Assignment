@@ -180,14 +180,14 @@ def dashboard():
 def login():
     form = LoginForm()
     form.load()
-    if form.check() == "Success":
+    status = form.check()
+    if status == "Success":
         flash('Login Successful', "info")
         return redirect(url_for('edit_level'))
-    elif form.check() == "Fail":
+    elif status == "Fail":
         form.load()
         flash('Wrong Password!')
-        
-    elif form.check() == "Timeout":
+    elif status == "Timeout":
         form.load()
         flash('Too many incorrect logins incident!')
     
