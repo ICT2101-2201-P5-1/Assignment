@@ -6,3 +6,6 @@
     padding: 25px 15px 25px 15px;
     margin: 50px 50px 50px 50px;
 }
+html, body {
+    height: 100%;
+ }
