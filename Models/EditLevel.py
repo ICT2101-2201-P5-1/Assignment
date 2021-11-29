@@ -1,6 +1,11 @@
 import mysql.connector
 from mysql.connector import errorcode
 from Credentials import constants
+# HOST = 'database-1.cbuwe4uyyt2j.ap-southeast-1.rds.amazonaws.com'
+# DATABASE = 'coolmotor'
+# USER = 'cooladmin'
+# PASSWORD = '2101motor'
+# PORT = 3306
 
 
 def init_connection_sql():
@@ -13,7 +18,7 @@ def init_connection_sql():
 
 def fetchPassword(): 
     conn = init_connection_sql()
-    cur = conn.cursor(prepared=True)
+    cur = conn.cursor()
     query = ("""SELECT pw FROM accounts;""")
     cur.execute(query)
     pw = cur.fetchall()
