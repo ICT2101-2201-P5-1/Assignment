@@ -199,7 +199,7 @@ def getGameDataFromDB():
     ax.set_xticklabels(x1Array)
     plt.xticks(fontsize=16, rotation=0)
     plt.yticks(fontsize=16, rotation=0)
-    fig1.savefig('static/img/chart1.png')
+    fig1.savefig('static/img/chart1.png', transparent=True)
     
     fig2 = plt.figure(figsize=(12, 8))
     ax = freq_series2.plot(kind="bar")
@@ -209,4 +209,4 @@ def getGameDataFromDB():
     ax.set_xticklabels(x2Array)
     plt.xticks(fontsize=16, rotation=0)
     plt.yticks(fontsize=16, rotation=0)
-    fig2.savefig('static/img/chart2.png')
+    fig2.savefig('static/img/chart2.png', transparent=True)
