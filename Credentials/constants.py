@@ -1,5 +1,11 @@
-HOST = 'database-1.cbuwe4uyyt2j.ap-southeast-1.rds.amazonaws.com'
+# HOST = 'database-1.cbuwe4uyyt2j.ap-southeast-1.rds.amazonaws.com'
+# DATABASE = 'coolmotor'
+# USER = 'cooladmin'
+# PASSWORD = '2101motor'
+# PORT = 3306
+
+HOST = 'test-coolmotor.cbuwe4uyyt2j.ap-southeast-1.rds.amazonaws.com'
 DATABASE = 'coolmotor'
-USER = 'cooladmin'
-PASSWORD = '2101motor'
+USER = 'admin'
+PASSWORD = 'testmotor'
 PORT = 3306

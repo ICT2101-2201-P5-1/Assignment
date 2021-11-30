@@ -25,7 +25,7 @@ class TestEditLevel(unittest.TestCase):
     def test_fetch_LastMapID(self):
         result = fetch_LastMapID()
         # Ensure that the 2nd argument in below is same as the latest map_id
-        self.assertIs(result, 16)
+        self.assertIs(result, 3)
         
 if __name__ == '__main__':
     unittest.main()
