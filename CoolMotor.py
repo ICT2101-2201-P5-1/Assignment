@@ -21,6 +21,22 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 mapList = []
 LevelName = "Default"
 
+#-----------------------------May Communication Testing--------------------------------------------------------------#
+@app.route('/command', methods=['GET', 'POST'])
+def command():
+    if request.method == 'POST':
+        command = request.form.get('command')
+        print(command)
+        commandB = bytes(command, 'utf-8')
+        print(commandB)
+        telnetCom.sendCommands(commandB)
+    return render_template("command.html")
+
+@app.route('/getCarData', methods=['POST'])
+def get_data():
+    Car_data = telnetCom.receiveData()
+    print(Car_data)
+    return render_template("command.html", Car_data=Car_data)
 
 # ---------------- APP ROUTES HERE --------------------------------------------
 @app.route('/', methods=['GET','POST'])
@@ -35,8 +51,9 @@ def gamePlatform():
         win = request.get_json().get('win')
         commands = request.get_json().get('commands')
         print(commands)
-        #telnetCom.sendCommands(b'hello')
+        # telnetCom.sendCommands(b'hello')
         commandB = bytes(commands[0], 'utf-8')
+        telnetCom.sendCommands(commandB)
         print(commandB)
 
         if win == '1':
@@ -144,22 +161,7 @@ def delete_level(id):
 
 
 
-#-----------------------------May Communication Testing--------------------------------------------------------------#
-@app.route('/command', methods=['GET', 'POST'])
-def command():
-    if request.method == 'POST':
-        command = request.form.get('command')
-        print(command)
-        commandB = bytes(command, 'utf-8')
-        print(commandB)
-        telnetCom.sendCommands(commandB)
-    return render_template("command.html")
 
-@app.route('/getCarData', methods=['POST'])
-def get_data():
-    Car_data = telnetCom.receiveData()
-    print(Car_data)
-    return render_template("command.html", Car_data=Car_data)
 
 
 @app.route('/dashboard', methods=['GET', 'POST'])

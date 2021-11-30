@@ -16,7 +16,7 @@ def readMapDataFromDB(mid):
                                    user=constants.USER,
                                    password=constants.PASSWORD)
 
-    cur = conn.cursor(prepared=True)
+    cur = conn.cursor()
     query = ("select map_level_layout, map_name from levels where map_id = %s")
     cur.execute(query, (mid,))
 
