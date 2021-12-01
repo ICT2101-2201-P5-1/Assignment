@@ -4,7 +4,7 @@ from Models.processLogin import LoginForm
 from Models.EditLevel import fetchPassword
 from flask import Flask
 from CoolMotor import app
-
+import time
 
 class TestFormTestCase(unittest.TestCase):
 
@@ -49,6 +49,16 @@ class TestFormTestCase(unittest.TestCase):
         for i in range(5):
             res = self.login('rubbishpassword')
         self.assertIn(b"Too many incorrect logins incident!", res.data)
+
+    # tests the login bruteforcer timeout
+    def test_loginBrute(self):
+        for i in range(5):
+            res = self.login('rubbishpassword')
+        self.assertIn(b"Too many incorrect logins incident!", res.data)
+
+        time.sleep(10)
+        res = self.login('rubbishpassword')
+        self.assertNotIn(b"Too many incorrect logins incident!", res.data)
 
 
 if __name__ in '__main__':
