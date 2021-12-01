@@ -14,7 +14,7 @@ def display():
                                    database=constants.DATABASE,
                                    user=constants.USER,
                                    password=constants.PASSWORD)
-    cur = conn.cursor(prepared=True)
+    cur = conn.cursor()
     query = "SELECT * FROM levels;"
     cur.execute(query)
     data = cur.fetchall()
@@ -39,3 +39,4 @@ def delete(map_id):
     conn.commit()
     cur.close()
     conn.close()
+    return "Delete Successful"

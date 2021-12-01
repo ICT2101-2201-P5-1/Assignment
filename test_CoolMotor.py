@@ -1,9 +1,7 @@
-import pytest
+import unittest
 import CoolMotor
-from CoolMotor import app as flask_app
-
+from CoolMotor import app
 from flask import Flask, render_template, url_for, flash, redirect, request, jsonify, make_response,session
-
 '''
 White box testing code for code in displayLevel.py 
 and edit_level(), 
@@ -22,33 +20,21 @@ def delete_level(id):
 '''
 
 
+class TestCoolMotor(unittest.TestCase):
+    def setUp(self):
+        self.app = app.test_client()
 
-@pytest.fixture
-def app():
-    yield flask_app
+    def test_edit_level(self):
+        rv = self.app.get('/edit_level')
+        assert rv.status_code == 200
+        assert b'<h2 class="map-title"> Edit Map </h2>' in rv.data
 
+    def test_view_display_Level(self):
+        rv = self.app.get('/displayLevel')
+        assert rv.status_code == 200
+        assert b'<th>Map ID</th>' in rv.data
 
-@pytest.fixture
-def client(app):
-    return app.test_client()
-
-
-def test_edit_level(app,client):
-    res = client.get('/edit_level')
-    assert res.status_code == 200
-    html = res.data.decode()
-    assert "<h3>Drag Item to map:</h3>" in html
-    assert "<form name=\"Level_Editor_Form\" method=\"POST\" action=\"/getMAPData\">" in html
-    assert "<h2 class=\"map-title Commands2\"> Save Level </h2>" in html
-
-
-def test_view_display_level(app,client):
-    res = client.get('/displayLevel')
-    assert res.status_code == 200
-    html = res.data.decode()
-    assert "<th>Map ID</th>" in html
-    assert "<th>Map Difficulty</th>" in html
-    assert "<th>Map Name</th>" in html
-    assert "<th>Delete</th>" in html
-
-
+    def test_delete_level(self):
+        rv = self.app.post('/deletelevel/5')
+        assert rv.status_code == 302
+        assert b' redirected automatically to target URL: <a href="/displayLevel">/displayLevel</a>' in rv.data
