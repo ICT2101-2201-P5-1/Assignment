@@ -4,12 +4,18 @@ import telnetlib
 HOST = "192.168.43.174"
 PORT = 80
 
+Distance  =0
+Ultrasonic =0 
+
 
 def sendCommands(commands):
     tn = telnetlib.Telnet(HOST,PORT)
     print(commands)
     print("Writing data")
     tn.write(commands)
+    #comment this out if no need recieve 
+    data = tn.read_until(b'END')
+    print(data)
     print("DISCONNECT")
 
 def receiveData():
@@ -20,3 +26,7 @@ def receiveData():
     data = tn.read_until(b'END')
     print("DISCONNECT")
     return data
+
+
+def liveData():
+    return Distance,Ultrasonic
