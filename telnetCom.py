@@ -10,9 +10,6 @@ def sendCommands(commands):
     print(commands)
     print("Writing data")
     tn.write(commands)
-    #comment this out if no need recieve 
-    data = tn.read_until(b'END')
-    print(data)
     print("DISCONNECT")
 
 def receiveData():

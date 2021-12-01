@@ -11,6 +11,7 @@ from Models.processLogin import LoginForm
 import json
 import operator
 
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
 
@@ -22,39 +23,49 @@ Car_data = []
 mapList = []
 LevelName = "Default"
 
+
 # ---------------- APP ROUTES HERE --------------------------------------------
 @app.route('/', methods=['GET','POST'])
 def gamePlatform():
     levelsData = Models.displayLevel.display()
-    if request.method == "POST":
-        Sonic = telnetCom.receiveData()
-        print(Car_data)
-        Car_data.append(Sonic)
-        # check for lastLevelLoaded, set variable = 1 (tutorial level) if unset
-        win = request.get_json().get('win')
-        map_id = request.get_json().get('map_id')
-        map_difficulty = request.get_json().get('map_difficulty')
-        game_min = request.get_json().get('game_minutes')
-        game_sec = request.get_json().get('game_seconds')
-        dist_travelled = request.get_json().get('dist_travelled')
-        commands = request.get_json().get('commands')
-        print(commands)
-        #telnetCom.sendCommands(b'hello')
-        commandB = bytes(commands[0], 'utf-8')
-        print(commandB)
-        telnetCom.sendCommands(commandB)
-        if win == 1:
+    
 
-            total_secs = int(game_min) * 60 + int(game_sec)
-            # store data to db
-            Models.GamePlatform.storeGameDataToDB(map_id, map_difficulty, dist_travelled, total_secs)
-            pass
+    if request.method == "POST" :  
+        get_data = request.form.get('get_data')
+        print(get_data)
+        if get_data == '1':
+            Sonic = telnetCom.receiveData()
+            print(Car_data)
+            Car_data.append(Sonic)
+        else: 
+            # check for lastLevelLoaded, set variable = 1 (tutorial level) if unset
+            win = request.get_json().get('win')
+            map_id = request.get_json().get('map_id')
+            map_difficulty = request.get_json().get('map_difficulty')
+            game_min = request.get_json().get('game_minutes')
+            game_sec = request.get_json().get('game_seconds')
+            dist_travelled = request.get_json().get('dist_travelled')
+            commands = request.get_json().get('commands')
+            print(commands)
+            #telnetCom.sendCommands(b'hello')
+            commandB = bytes(commands[0], 'utf-8')
+            print(commandB)
+            telnetCom.sendCommands(commandB)
+            if win == 1:
+
+                total_secs = int(game_min) * 60 + int(game_sec)
+                # store data to 
+                Models.GamePlatform.storeGameDataToDB(map_id, map_difficulty, dist_travelled, total_secs)
+                pass
+    
     lll = 1
+
     if request.cookies.get('lastLevelLoaded') is not None:
         lll = request.cookies.get('lastLevelLoaded')
 
     mapId, mapDifficulty, mapName, mapFile = Models.GamePlatform.readMapDataFromDB(lll)
     commandList, mapData = Models.GamePlatform.initLevelLayout(mapFile)
+    
 
     return render_template("index.html"
                            , mapLevelLayout=mapData
@@ -175,7 +186,7 @@ def get_data():
     Sonic = telnetCom.receiveData()
     print(Car_data)
     Car_data.append(Sonic)
-    return None
+    return render_template("command.html",Car_data=Car_data )
     
 
 
@@ -208,5 +219,6 @@ def login():
 if __name__ == "__main__":
     # Error will be displayed on web page
     app.run(debug=True)
+
 
 
