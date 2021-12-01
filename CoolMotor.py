@@ -37,13 +37,18 @@ def gamePlatform():
         game_min = request.get_json().get('game_minutes')
         game_sec = request.get_json().get('game_seconds')
         dist_travelled = request.get_json().get('dist_travelled')
+        commands = request.get_json().get('commands')
+        print(commands)
+        #telnetCom.sendCommands(b'hello')
+        commandB = bytes(commands[0], 'utf-8')
+        print(commandB)
+        telnetCom.sendCommands(commandB)
         if win == 1:
 
             total_secs = int(game_min) * 60 + int(game_sec)
             # store data to db
             Models.GamePlatform.storeGameDataToDB(map_id, map_difficulty, dist_travelled, total_secs)
             pass
-
     lll = 1
     if request.cookies.get('lastLevelLoaded') is not None:
         lll = request.cookies.get('lastLevelLoaded')
@@ -59,6 +64,8 @@ def gamePlatform():
                            , mapDifficulty=mapDifficulty
                            ,levelsData=levelsData
                            , Car_data=Car_data)
+
+
 
 
 # set last level loaded as cookie..
