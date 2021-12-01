@@ -18,18 +18,18 @@ app.config['SECRET_KEY'] = 'secret'
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 # Global Array 
+Car_data = []
 mapList = []
 LevelName = "Default"
 
 # ---------------- APP ROUTES HERE --------------------------------------------
 @app.route('/', methods=['GET','POST'])
 def gamePlatform():
-    # To connect to car use these 2 methods 
-    #telnetCom.sendCommands(b'hello')
-    #telnetCom.receiveData()
-    # win game scenario call-back
     levelsData = Models.displayLevel.display()
     if request.method == "POST":
+        Sonic = telnetCom.receiveData()
+        print(Car_data)
+        Car_data.append(Sonic)
         # check for lastLevelLoaded, set variable = 1 (tutorial level) if unset
         win = request.get_json().get('win')
         map_id = request.get_json().get('map_id')
@@ -57,7 +57,8 @@ def gamePlatform():
                            , mapName=mapName
                            , mapId=mapId
                            , mapDifficulty=mapDifficulty
-                           ,levelsData=levelsData)
+                           ,levelsData=levelsData
+                           , Car_data=Car_data)
 
 
 # set last level loaded as cookie..
@@ -164,9 +165,11 @@ def command():
 
 @app.route('/getCarData', methods=['POST'])
 def get_data():
-    Car_data = telnetCom.receiveData()
+    Sonic = telnetCom.receiveData()
     print(Car_data)
-    return render_template("command.html", Car_data=Car_data)
+    Car_data.append(Sonic)
+    return None
+    
 
 
 @app.route('/dashboard', methods=['GET', 'POST'])
