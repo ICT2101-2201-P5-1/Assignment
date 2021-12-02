@@ -40,10 +40,18 @@ a:hover {
     border-style: solid;
 }
 
-#level-div, #control-div{
+#level-div, #control-div, #live-div{
     padding-top: 10px;
+    /* border-style: solid; */
 }
 
-#send_commands {
+#send_commands, #select_levels {
     margin-top: 10px;
+    margin-left: 12px;
+}
+
+#dashboard {
+    background-image: url("../img/liveDashboard.png");
+    /* height:auto;
+    width: 100%; */
 }
