@@ -14,6 +14,8 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Log In')
     attempt = None
     incident_time = None
+    print(password)
+    
 
     def load(self):
         """

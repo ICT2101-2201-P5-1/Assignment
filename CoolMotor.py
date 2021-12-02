@@ -144,7 +144,6 @@ def get_MAPData():
         # Clear the array after every submission 
         mapList.clear()
         if status == 'success':
-            
             flash("Level created successsfully!")
         else:
             flash("Please select a goal in the map!")
@@ -206,7 +205,9 @@ def dashboard():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    print(form.data)
     form.load()
+    ## keep output in var change
     status = form.check()
     if status == "Success":
         flash('Login Successful', "info")
