@@ -34,7 +34,7 @@ def delete(map_id):
                                    user=constants.USER,
                                    password=constants.PASSWORD)
     x = int(map_id)
-    cur = conn.cursor(prepared=True)
+    cur = conn.cursor()
     cur.execute("DELETE FROM levels WHERE map_id = %s;", (x,))
     conn.commit()
     cur.close()
