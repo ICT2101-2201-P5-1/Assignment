@@ -2,7 +2,6 @@ import mysql.connector
 from mysql.connector import errorcode
 from Credentials import constants
 
-
 def init_connection_sql():
     # Initialise connection for MySQL
     return mysql.connector.connect(host=constants.HOST,
@@ -13,7 +12,7 @@ def init_connection_sql():
 
 def fetchPassword(): 
     conn = init_connection_sql()
-    cur = conn.cursor(prepared=True)
+    cur = conn.cursor()
     query = ("""SELECT pw FROM accounts;""")
     cur.execute(query)
     pw = cur.fetchall()
@@ -31,7 +30,7 @@ Insert Level details into coolmotor.levels
 ''' 
 def insert_Level(Difficulty, LevelName, fileName):
     conn = init_connection_sql()
-    cur = conn.cursor(prepared=True)
+    cur = conn.cursor()
     cur.execute("""INSERT INTO coolmotor.levels ( map_difficulty, map_name, map_level_layout) 
     VALUES ( %s, %s, %s);""",(Difficulty, LevelName, fileName))
     conn.commit()
@@ -45,7 +44,7 @@ Get the last MapID inserted into database
 ''' 
 def fetch_LastMapID():
     conn = init_connection_sql()
-    cur = conn.cursor(prepared=True)
+    cur = conn.cursor()
     query = """SELECT map_id 
         FROM coolmotor.levels
         ORDER BY map_id DESC;"""
