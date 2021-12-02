@@ -38,7 +38,6 @@ def gamePlatform():
         game_sec = request.get_json().get('game_seconds')
         dist_travelled = request.get_json().get('dist_travelled')
         if win == 1:
-
             total_secs = int(game_min) * 60 + int(game_sec)
             # store data to db
             Models.GamePlatform.storeGameDataToDB(map_id, map_difficulty, dist_travelled, total_secs)
@@ -119,7 +118,6 @@ def get_MAPData():
         # Clear the array after every submission 
         mapList.clear()
         if status == 'success':
-            
             flash("Level created successsfully!")
         else:
             flash("Please select a goal in the map!")
@@ -179,7 +177,9 @@ def dashboard():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    print(form.data)
     form.load()
+    ## keep output in var change
     status = form.check()
     if status == "Success":
         flash('Login Successful', "info")
