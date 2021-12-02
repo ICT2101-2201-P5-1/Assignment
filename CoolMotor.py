@@ -11,6 +11,7 @@ from Models.processLogin import LoginForm
 import json
 import operator
 
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
 
@@ -18,37 +19,57 @@ app.config['SECRET_KEY'] = 'secret'
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 # Global Array 
+Car_sonic = []
+Car_distance = []
+Car_speed = []
+
 mapList = []
 LevelName = "Default"
+
 
 # ---------------- APP ROUTES HERE --------------------------------------------
 @app.route('/', methods=['GET','POST'])
 def gamePlatform():
-    # To connect to car use these 2 methods 
-    #telnetCom.sendCommands(b'hello')
-    #telnetCom.receiveData()
-    # win game scenario call-back
     levelsData = Models.displayLevel.display()
-    if request.method == "POST":
-        # check for lastLevelLoaded, set variable = 1 (tutorial level) if unset
-        win = request.get_json().get('win')
-        map_id = request.get_json().get('map_id')
-        map_difficulty = request.get_json().get('map_difficulty')
-        game_min = request.get_json().get('game_minutes')
-        game_sec = request.get_json().get('game_seconds')
-        dist_travelled = request.get_json().get('dist_travelled')
-        if win == 1:
-            total_secs = int(game_min) * 60 + int(game_sec)
-            # store data to db
-            Models.GamePlatform.storeGameDataToDB(map_id, map_difficulty, dist_travelled, total_secs)
-            pass
+    
 
+    if request.method == "POST" :  
+        get_data = request.form.get('get_data')
+        print(get_data)
+        if get_data == '1':
+            Sonic, Distance, Speed = telnetCom.receiveData()            
+            Car_sonic.append(Sonic)
+            Car_distance.append(Distance)
+            Car_speed.append(Speed)
+        else: 
+            # check for lastLevelLoaded, set variable = 1 (tutorial level) if unset
+            win = request.get_json().get('win')
+            map_id = request.get_json().get('map_id')
+            map_difficulty = request.get_json().get('map_difficulty')
+            game_min = request.get_json().get('game_minutes')
+            game_sec = request.get_json().get('game_seconds')
+            dist_travelled = request.get_json().get('dist_travelled')
+            commands = request.get_json().get('commands')
+            print(commands)
+            #telnetCom.sendCommands(b'hello')
+            commandB = bytes(commands[0], 'utf-8')
+            print(commandB)
+            telnetCom.sendCommands(commandB)
+            if win == 1:
+
+                total_secs = int(game_min) * 60 + int(game_sec)
+                # store data to 
+                Models.GamePlatform.storeGameDataToDB(map_id, map_difficulty, dist_travelled, total_secs)
+                pass
+    
     lll = 1
+
     if request.cookies.get('lastLevelLoaded') is not None:
         lll = request.cookies.get('lastLevelLoaded')
 
     mapId, mapDifficulty, mapName, mapFile = Models.GamePlatform.readMapDataFromDB(lll)
     commandList, mapData = Models.GamePlatform.initLevelLayout(mapFile)
+    
 
     return render_template("index.html"
                            , mapLevelLayout=mapData
@@ -56,7 +77,12 @@ def gamePlatform():
                            , mapName=mapName
                            , mapId=mapId
                            , mapDifficulty=mapDifficulty
-                           ,levelsData=levelsData)
+                           ,levelsData=levelsData
+                           , Car_sonic=Car_sonic
+                           , Car_distance=Car_distance
+                           , Car_speed=Car_speed )
+
+
 
 
 # set last level loaded as cookie..
@@ -162,9 +188,11 @@ def command():
 
 @app.route('/getCarData', methods=['POST'])
 def get_data():
-    Car_data = telnetCom.receiveData()
+    Sonic = telnetCom.receiveData()
     print(Car_data)
-    return render_template("command.html", Car_data=Car_data)
+    Car_data.append(Sonic)
+    return render_template("command.html",Car_data=Car_data )
+    
 
 
 @app.route('/dashboard', methods=['GET', 'POST'])
@@ -198,5 +226,6 @@ def login():
 if __name__ == "__main__":
     # Error will be displayed on web page
     app.run(debug=True)
+
 
 
