@@ -19,7 +19,10 @@ app.config['SECRET_KEY'] = 'secret'
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 # Global Array 
-Car_data = []
+Car_sonic = []
+Car_distance = []
+Car_speed = []
+
 mapList = []
 LevelName = "Default"
 
@@ -34,9 +37,10 @@ def gamePlatform():
         get_data = request.form.get('get_data')
         print(get_data)
         if get_data == '1':
-            Sonic = telnetCom.receiveData()
-            print(Car_data)
-            Car_data.append(Sonic)
+            Sonic, Distance, Speed = telnetCom.receiveData()            
+            Car_sonic.append(Sonic)
+            Car_distance.append(Distance)
+            Car_speed.append(Speed)
         else: 
             # check for lastLevelLoaded, set variable = 1 (tutorial level) if unset
             win = request.get_json().get('win')
@@ -74,7 +78,9 @@ def gamePlatform():
                            , mapId=mapId
                            , mapDifficulty=mapDifficulty
                            ,levelsData=levelsData
-                           , Car_data=Car_data)
+                           , Car_sonic=Car_sonic
+                           , Car_distance=Car_distance
+                           , Car_speed=Car_speed )
 
 
 

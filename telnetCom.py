@@ -2,9 +2,6 @@ import telnetlib
 HOST = "192.168.43.174"
 PORT = 80
 
-ultrasonic = []
-
-
 def sendCommands(commands):
     tn = telnetlib.Telnet(HOST,PORT)
     print(commands)
@@ -19,10 +16,18 @@ def receiveData():
     print("Reading data")
     data = tn.read_until(b'END').decode("utf-8") 
     print(data)
-    ultrasonic.append(data[2])
-    #print(ultrasonic)
+    start = data.find("d=") + len("d=")
+    end = data.find("s=")
+    distance= data[start:end]
+
+    start = data.find("s=") + len("s=")
+    end = data.find(" END")
+    speed = data[start:end]
+
+    print(distance)
+    
     print("DISCONNECT")
-    return data[2]
+    return data[2], distance, speed
 
 
 

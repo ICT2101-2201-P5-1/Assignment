@@ -48,7 +48,7 @@ function winGame(){
 * Sends a post request to CoolMotor controller when game is won.
 */
 function sendCommands(commands){
-    alert("sent to cAR");
+    // alert("sent to cAR");
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/", true);
     xhr.setRequestHeader('Content-Type', 'application/json');
