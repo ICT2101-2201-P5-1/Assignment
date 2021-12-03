@@ -1,7 +1,6 @@
 # CoolMotor
 ICT 2101/2201 Team Project P5-1
 
-Development Workflow:
 
 Team Leader: May Madi Aung - @mayinot (2002390) **Code Reviewer 1**
 
