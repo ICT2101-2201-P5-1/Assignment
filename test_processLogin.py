@@ -1,12 +1,13 @@
 # Python Test lib 
 import unittest
 from Models.processLogin import LoginForm
-from Models.EditLevel import fetchPassword
+from Models.editLevel import fetchPassword
 from flask import Flask
 from CoolMotor import app
 import time
 
-class TestFormTestCase(unittest.TestCase):
+
+class TestLoginForm(unittest.TestCase):
 
     def setUp(self):
         self.app = app
@@ -63,4 +64,3 @@ class TestFormTestCase(unittest.TestCase):
 
 if __name__ in '__main__':
     unittest.main()
-

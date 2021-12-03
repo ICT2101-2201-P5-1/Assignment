@@ -3,6 +3,7 @@ from mysql.connector import errorcode
 from Credentials import constants
 from datetime import date
 
+
 def init_connection_sql():
     # Initialise connection for MySQL
     return mysql.connector.connect(host=constants.HOST,
@@ -11,17 +12,18 @@ def init_connection_sql():
                                    password=constants.PASSWORD
                                    )
 
-'''
-readMapDataFromDB
-    Reads the map level file path from the database 
-        @param mid  Refers to the map ID to fetch the the DB
-        @return pw[0]   The map level file path
-        @return pw[1]   The map name
-'''
+
 def readMapDataFromDB(mid):
+    """
+    readMapDataFromDB
+        Reads the map level file path from the database
+            @param mid  Refers to the map ID to fetch the the DB
+            @return pw[0]   The map level file path
+            @return pw[1]   The map name
+    """
     conn = init_connection_sql()
     cur = conn.cursor()
-    query = ("select * from levels where map_id = %s")
+    query = "select * from levels where map_id = %s"
     cur.execute(query, (mid,))
 
     pw = cur.fetchone()
@@ -33,14 +35,14 @@ def readMapDataFromDB(mid):
     return pw[0], pw[1], pw[2], pw[3]
 
 
-'''
-storeGameDataToDB
-    Stores the game data to the database 
-        @param mid  Refers to the map ID to fetch the the DB
-        @return pw[0]   The map level file path
-        @return pw[1]   The map name
-'''
 def storeGameDataToDB(map_id, map_difficulty, dist_travelled, game_duration):
+    """
+    storeGameDataToDB
+        Stores the game data to the database
+            @param mid  Refers to the map ID to fetch the the DB
+            @return pw[0]   The map level file path
+            @return pw[1]   The map name
+    """
     conn = init_connection_sql()
     cur = conn.cursor(prepared=True)
 
@@ -54,19 +56,17 @@ def storeGameDataToDB(map_id, map_difficulty, dist_travelled, game_duration):
     return "Insert Level success"
 
 
-
-'''
-initLevelLayout
-    Reads the map data from the text file, parses the map data into JSON format.
-        @param mapFile  The map level file path
-        @param mapLevelLayout  The map level details in JSON
-        @param commandList  The full command list
-        
-        @return commandList  The parsed command list according to the map text file specs.
-        @return mapLevelLayout  The map level details in JSON
-'''
 def initLevelLayout(mapFile):
+    """
+    initLevelLayout
+        Reads the map data from the text file, parses the map data into JSON format.
+            @param mapFile  The map level file path
+            @param mapLevelLayout  The map level details in JSON
+            @param commandList  The full command list
 
+            @return commandList  The parsed command list according to the map text file specs.
+            @return mapLevelLayout  The map level details in JSON
+    """
     # our map level json object
     mapLevelLayout = {"rows":5, "cols":5, "tsize":512, "tiles":[]}
     commandList = ["upward", "downward", "left", "right", "loop"]

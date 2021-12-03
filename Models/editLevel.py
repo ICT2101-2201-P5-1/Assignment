@@ -2,6 +2,7 @@ import mysql.connector
 from mysql.connector import errorcode
 from Credentials import constants
 
+
 def init_connection_sql():
     # Initialise connection for MySQL
     return mysql.connector.connect(host=constants.HOST,
@@ -10,7 +11,11 @@ def init_connection_sql():
                                    password=constants.PASSWORD
                                    )
 
-def fetchPassword(): 
+
+def fetchPassword():
+    """
+    Fetch password details from coolmotor.accounts
+    """
     conn = init_connection_sql()
     cur = conn.cursor()
     query = ("""SELECT pw FROM accounts;""")
@@ -20,15 +25,16 @@ def fetchPassword():
     conn.close()
     return pw
 
-'''
-Insert Level details into coolmotor.levels
-    @param Difficulty value 1(easy),2(medium),3(hard)
-    @param LevelName String levelName user input
-    @param fileName is path to generated textfile
-    @return "Insert Level success" notify user
 
-''' 
 def insert_Level(Difficulty, LevelName, fileName):
+    """
+    Insert Level details into coolmotor.levels
+        @param Difficulty value 1(easy),2(medium),3(hard)
+        @param LevelName String levelName user input
+        @param fileName is path to generated textfile
+        @return "Insert Level success" notify user
+
+    """
     conn = init_connection_sql()
     cur = conn.cursor()
     cur.execute("""INSERT INTO coolmotor.levels ( map_difficulty, map_name, map_level_layout) 
@@ -38,11 +44,11 @@ def insert_Level(Difficulty, LevelName, fileName):
     conn.close()
     return "Insert Level success"
 
-'''
-Get the last MapID inserted into database
-    
-''' 
+
 def fetch_LastMapID():
+    """
+    Get the last MapID inserted into database.
+    """
     conn = init_connection_sql()
     cur = conn.cursor()
     query = """SELECT map_id 
