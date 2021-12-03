@@ -74,7 +74,7 @@ The team have chosen Level Editor Feature as the meaningful classes, we will be 
     
 ###### Level Editor Feature Tested
     
-    Control: CoolMotor.py ( edit_level, get_MAPData, view_display_Level, delete_level and login) 
+    Control: CoolMotor.py (edit_level, get_MAPData, view_display_Level, delete_level and login) 
     Models: DisplayLevel.py, EditLevel.py, ProcessFile.py and ProcesLogin.py 
     
     
@@ -101,6 +101,14 @@ The team will also be using Coverage.py to measure the coverage we manage to cov
 
      $ coverage run -m unittest discover
      $ coverage html
+     
+     
+![image](https://user-images.githubusercontent.com/31657679/144563838-bb9a157b-e508-4727-9281-bca997189c9b.png)
+
+As mentioned aboved, the team managed to cover 100% on Level Editor Feature Tested; CoolMotor.py (edit_level, get_MAPData, view_display_Level, delete_level and login), DisplayLevel.py, EditLevel.py, ProcessFile.py and ProcesLogin.py.
+
+![image](https://user-images.githubusercontent.com/31657679/144564167-aa00ba83-0bac-4224-8d9b-3344309bd4a4.png)
+
     
 
 ###### Branch Coverage | Control Flow Graph (CFG)
