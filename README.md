@@ -89,6 +89,7 @@ The team have chosen Level Editor Feature as the meaningful classes, we will be 
     
 ###### Test Codes (unittest — Unit testing framework)
 The team used unittest to test our code. We are able to assert into our codes using unittest. In addition, the team set up a test database to test our model classes. The credentials of our test database is specified in Credentials\constants.py below the credentials of our real database. 
+
 ![image](https://user-images.githubusercontent.com/31657679/144563838-bb9a157b-e508-4727-9281-bca997189c9b.png)
     
      $ py -m unittest //Remember to run all flask environment before running the test cases
@@ -121,42 +122,7 @@ We have ran the test cases and attached the video **<add video here!>  **
 
 ###### Branch Coverage | Control Flow Graph (CFG)
 
-**CoolMotor.py**
-
-![CoolMotor_1](https://user-images.githubusercontent.com/31657679/144558748-c2c37aa8-182d-4287-bf97-8bd86e2bd13c.png)
-![CoolMotor_2](https://user-images.githubusercontent.com/31657679/144558766-61880dc4-48d4-4681-93b6-d52a274be7b3.png)
-![CoolMotor_3](https://user-images.githubusercontent.com/31657679/144558782-aaa5e046-c9d5-4175-a4f1-6a899c94d66a.png)
-![CoolMotor4](https://user-images.githubusercontent.com/31657679/144558797-e6ac8b01-5944-4003-aec8-a754b2e91987.png)
-![CoolMotor5](https://user-images.githubusercontent.com/31657679/144558820-aa6496e5-4e3c-40cf-b49b-45b3f3083ce7.png)
-![CoolMotor6](https://user-images.githubusercontent.com/31657679/144558831-6dc8db47-67fb-4168-a76a-65fd3ab54721.png)
-![CoolMotor7](https://user-images.githubusercontent.com/31657679/144558846-5f1fb3b5-1afb-49b1-a0c0-e82c2069f437.png)
-![CoolMotor8](https://user-images.githubusercontent.com/31657679/144558865-d0591d46-49b7-4127-bb9f-68e98747afc6.png)
-![CoolMotor9](https://user-images.githubusercontent.com/31657679/144558883-0d377847-4c58-460e-9ba1-149aa9a35b0d.png)
-![CoolMotor10](https://user-images.githubusercontent.com/31657679/144558903-d4b14608-5492-4e5f-91e4-4f6aab7109f8.png)
-![CoolMotor11](https://user-images.githubusercontent.com/31657679/144558913-01562cc5-e9f1-4c33-8845-301061368692.png)
-
-
-**DisplayLevel.py**
-
-![displayLevel1](https://user-images.githubusercontent.com/31657679/144559169-b5533616-d5fc-4e2b-8050-0eafff6dbafe.png)
-![displayLevel2](https://user-images.githubusercontent.com/31657679/144559191-fe05d691-814d-4b88-a3b6-15a0bf45db31.png)
-![displayLevel3](https://user-images.githubusercontent.com/31657679/144559209-c6c47d02-9c64-451c-af07-6c2e7306ec14.png)
-
-**EditLevel.py**
-
-![editLevel1](https://user-images.githubusercontent.com/31657679/144559272-23639ce2-05ba-48b3-b25d-1e8d6c26ce68.png)
-![editLevel2](https://user-images.githubusercontent.com/31657679/144559291-04844b77-d6ac-4419-adea-0bbae32d250c.png)
-
-**ProcessFile.py**
-
-![processFile1](https://user-images.githubusercontent.com/31657679/144559344-a7681b6c-b831-44f8-9462-d8d8752c9d66.png)
-![processFile2](https://user-images.githubusercontent.com/31657679/144559359-8be47a19-e03b-4bf4-8131-f41ee3ffa58e.png)
-
-
-**ProcessLogin.py**
-
-![processLogin py](https://user-images.githubusercontent.com/31657679/144559397-5e579e2b-1d18-4f62-8db2-1e0967a73b74.png)
-
+All CFGs can be found at https://github.com/ICT2101-2201-P5-1/CoolMotor/wiki!(it was too long so we put them there)
 
 ## Work Distribution & Plan
 
