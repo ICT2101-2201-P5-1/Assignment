@@ -68,11 +68,7 @@ Another way members can make changes to Dev will be thtrough Hot-Fix. Hot-Fix sh
 
 
 ## UAT
-For User Acceptance Testing, the team will be covering all test cases covered in M2 under section  **6.4	Test Case**.
-
-
-
-
+For User Acceptance Testing, the team will be covering all test cases covered in M2 under section **6.4 Test Case**. The video label each test case with #TC_Number on the upper right hand 
 
 
 ## Whitebox Testing
@@ -155,8 +151,15 @@ We have ran the test cases and attached the video **<add video here!>  **
 ![processLogin py](https://user-images.githubusercontent.com/31657679/144559397-5e579e2b-1d18-4f62-8db2-1e0967a73b74.png)
 
 
+## Work Distribution & Plan
+
+###### Updated Burndown Chart
+![image](https://user-images.githubusercontent.com/31657679/144567504-57d61bbf-54ad-4cde-9ac8-d9e00c0eb25e.png)
 
 
+###### Gantt Chart
+![image](https://user-images.githubusercontent.com/31657679/144568231-11edb329-285f-4811-bfe3-c04ebec34e1a.png)
+![image](https://user-images.githubusercontent.com/31657679/144568267-0d12d93b-b285-45f6-9629-8cd053834ac1.png)
 
 
     
