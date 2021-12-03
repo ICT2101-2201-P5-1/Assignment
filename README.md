@@ -70,3 +70,11 @@ Another way members can make changes to Dev will be thtrough Hot-Fix. Hot-Fix sh
 ## UAT
 
 ## Whitebox Testing
+The team have chosen Level Editor Feature as the meaningful classes, we will be using to demonstrate our test code. Level Editor include Administrator Login, Creating new levels, Viewing Levels and Deleting Levels. 
+    ### Level Editor Feature 
+    **Control:**  CoolMotor.py ( edit_level, get_MAPData, view_display_Level, delete_level and login) 
+    **Models:**  DisplayLevel.py, EditLevel.py, ProcessFile.py and ProcesLogin.py 
+    
+    
+    
+  
