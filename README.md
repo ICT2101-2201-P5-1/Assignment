@@ -72,10 +72,17 @@ Another way members can make changes to Dev will be thtrough Hot-Fix. Hot-Fix sh
 ## Whitebox Testing
 The team have chosen Level Editor Feature as the meaningful classes, we will be using to demonstrate our test code. Level Editor include Administrator Login, Creating new levels, Viewing Levels and Deleting Levels. 
     
-###### Level Editor Feature 
+###### Level Editor Feature Tested
     
     Control: CoolMotor.py ( edit_level, get_MAPData, view_display_Level, delete_level and login) 
     Models: DisplayLevel.py, EditLevel.py, ProcessFile.py and ProcesLogin.py 
+    
+    
+###### Test Codes (unittest — Unit testing framework)
+The team used unittest to test our code. We are able to assert into our codes using unittest. In addition, the team set up a test database to test our model classes. The credentials of our test database is specified in Credentials\constants.py below the credentials of our real database. The team will also be using Coverage.py to measure the coverage we manage to cover with our test cases. We chose Coverage.py as it can be tested together with unittest. 
+    
+     $ py -m unittest
+    
     
     
     
