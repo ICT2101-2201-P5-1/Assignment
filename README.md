@@ -68,6 +68,12 @@ Another way members can make changes to Dev will be thtrough Hot-Fix. Hot-Fix sh
 
 
 ## UAT
+For User Acceptance Testing, the team will be covering all test cases covered in M2 under section  **6.4	Test Case**.
+
+
+
+
+
 
 ## Whitebox Testing
 The team have chosen Level Editor Feature as the meaningful classes, we will be using to demonstrate our test code. Level Editor include Administrator Login, Creating new levels, Viewing Levels and Deleting Levels. 
@@ -80,8 +86,9 @@ The team have chosen Level Editor Feature as the meaningful classes, we will be 
     
 ###### Test Codes (unittest — Unit testing framework)
 The team used unittest to test our code. We are able to assert into our codes using unittest. In addition, the team set up a test database to test our model classes. The credentials of our test database is specified in Credentials\constants.py below the credentials of our real database. 
+![image](https://user-images.githubusercontent.com/31657679/144563838-bb9a157b-e508-4727-9281-bca997189c9b.png)
     
-     $ py -m unittest
+     $ py -m unittest //Remember to run all flask environment before running the test cases
      
 **Test Codes Files:**
 - test_CoolMotor.py
@@ -103,13 +110,11 @@ The team will also be using Coverage.py to measure the coverage we manage to cov
      $ coverage html
      
      
-![image](https://user-images.githubusercontent.com/31657679/144563838-bb9a157b-e508-4727-9281-bca997189c9b.png)
-
 As mentioned aboved, the team managed to cover 100% on Level Editor Feature Tested; CoolMotor.py (edit_level, get_MAPData, view_display_Level, delete_level and login), DisplayLevel.py, EditLevel.py, ProcessFile.py and ProcesLogin.py.
 
 ![image](https://user-images.githubusercontent.com/31657679/144564167-aa00ba83-0bac-4224-8d9b-3344309bd4a4.png)
 
-    
+We have ran the test cases and attached the video **<add video here!>  **   
 
 ###### Branch Coverage | Control Flow Graph (CFG)
 
