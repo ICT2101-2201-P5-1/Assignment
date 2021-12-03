@@ -157,7 +157,7 @@ We have ran the test cases and attached the video **<add video here!>  **
 ![image](https://user-images.githubusercontent.com/31657679/144567504-57d61bbf-54ad-4cde-9ac8-d9e00c0eb25e.png)
 
 
-###### Gantt Chart
+###### Updated Gantt Chart
 ![image](https://user-images.githubusercontent.com/31657679/144568231-11edb329-285f-4811-bfe3-c04ebec34e1a.png)
 ![image](https://user-images.githubusercontent.com/31657679/144568267-0d12d93b-b285-45f6-9629-8cd053834ac1.png)
 
