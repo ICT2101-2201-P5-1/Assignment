@@ -64,6 +64,14 @@ Another way members can make changes to Dev will be thtrough Hot-Fix. Hot-Fix sh
 - Physical Car
     - Send Commands to Car (May)
     - Recieve Commands from Car (Shawn)
+- Testing 
+    - CoolMotor.py (edit_level, get_MAPData, view_display_Level, delete_level and login) (Tudy)
+    - DisplayLevel.py (Tudy)
+    - EditLevel.py (Shawn)
+    - ProcessFile.py (May)
+    - ProcesLogin.py (Alicia)
+    - UAT Video (Kah Howe)
+    - WBT Video (Shawn)
 
 
 ## UAT
