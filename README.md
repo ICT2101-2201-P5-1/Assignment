@@ -3,9 +3,9 @@ ICT 2101/2201 Team Project P5-1
 
 Development Workflow:
 
-Team Leader: May Madi Aung - @mayinot (2002390)
+Team Leader: May Madi Aung - @mayinot (2002390) **Code Reviewer 1**
 
-Member: Tan Chu Qing Alicia - @BestCrochet (2001874)
+Member: Tan Chu Qing Alicia - @BestCrochet (2001874) **Code Reviewer 2**
 
 Member: Shawn Lemuel Evora Dabi - @ShawnLemuelDabi (2001401)
 
