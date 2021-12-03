@@ -47,13 +47,13 @@ def gamePlatform():
             game_min = request.get_json().get('game_minutes')
             game_sec = request.get_json().get('game_seconds')
             dist_travelled = request.get_json().get('dist_travelled')
-            commands = request.get_json().get('commands')
+            # commands = request.get_json().get('commands')
 
             # car communications
-            print(commands)
-            commandB = bytes(commands[0], 'utf-8')
-            print(commandB)
-            telnetCom.sendCommands(commandB)
+            # print(commands)
+            # commandB = bytes(commands[0], 'utf-8')
+            # print(commandB)
+            # telnetCom.sendCommands(commandB)
 
             # win game scenario
             if win == 1:

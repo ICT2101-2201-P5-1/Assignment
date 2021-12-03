@@ -152,7 +152,13 @@
           minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
         }
 
-        
+        // Live Dashboard scripts
+        var distanceTravelled = 0;
+        let distanceCounter = document.getElementById("dist_travelled")
+        let add = document.getElementById('send_commands').addEventListener('click', function(){
+            distanceTravelled += 30;
+            distanceCounter.innerHTML = distanceTravelled
+        });
 
         function pad(val) {
           var valString = val + "";
