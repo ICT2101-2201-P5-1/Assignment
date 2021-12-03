@@ -30,6 +30,11 @@ The web interface uses the flask framework. To start the web portal, run the fol
     set flask_app=CoolMotor
     flask run
 ## Development Workflow
+The team will using **Feature branching** Git Workflow. Each member will branch out from Dev to work on their assigned Features, as stated below. After each feature is finailized, members will do PR to Dev Branch. All PR to Dev will be review by Code Reviews. Upon approval, Code Review will merge feature to Dev. Each Feauture branch should be name feature/<name of feature>.
+
+Another way members can make changes to Dev will be thtrough Hot-Fix. Hot-Fix should only be done if member find major error in Dev. Naming convention of Hot-Fix will be Hot_Fix-<Name of Error>
+    
+**Features Members are assigned:**
 - Database and Page setup (Shawn)
 - Game Platform
   - Drag-and-drop interface integration (Alicia)
@@ -38,7 +43,6 @@ The web interface uses the flask framework. To start the web portal, run the fol
   - Game Logic Processing: Car crashes scenarios 1 & 2 (Alicia)
   - Game Logic Processing: Collect coin scenario (Alicia)
   - Game Logic Processing: Win game scenario (Alicia) 
-  - Game Logic Processing: Pause game (Shawn)
    - Car detects obstacles (Shawn)
   - Game Logic Processing: Render map, objects (Alicia)
   - Store game data to db (Alicia)
@@ -58,6 +62,11 @@ The web interface uses the flask framework. To start the web portal, run the fol
   - Load level data from DB (Shawn)
   - Graph statistics 1 (Shawn)
   - Graph statistics 2 (Shawn)
+- Physical Car
+    - Send Commands to Car (May)
+    - Recieve Commands from Car (Shawn)
+
+
 ## UAT
 
 ## Whitebox Testing
