@@ -67,7 +67,7 @@ Another way members can make changes to Dev will be thtrough Hot-Fix. Hot-Fix sh
 
 
 ## UAT
-For User Acceptance Testing, the team will be covering all test cases covered in M2 under section **6.4 Test Case**. The video label each test case with #TC_Number on the upper right hand 
+For User Acceptance Testing, the team will be covering all test cases covered in M2 under section **6.4 Test Case**. The video label each test case with #TC_Number on the upper right hand of the video. Here is a quick run through of all UAT cases  **<add video here!>  **   
 
 
 ## Whitebox Testing
