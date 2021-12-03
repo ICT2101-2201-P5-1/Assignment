@@ -122,7 +122,7 @@ We have ran the test cases and attached the video **<add video here!>  **
 
 ###### Branch Coverage | Control Flow Graph (CFG)
 
-All CFGs can be found at https://github.com/ICT2101-2201-P5-1/CoolMotor/wiki!(it was too long so we put them there)
+All CFGs can be found at https://github.com/ICT2101-2201-P5-1/CoolMotor/wiki!    (it was too long so we put them there)
 
 ## Work Distribution & Plan
 
