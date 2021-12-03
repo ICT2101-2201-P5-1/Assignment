@@ -74,8 +74,8 @@ The team have chosen Level Editor Feature as the meaningful classes, we will be 
     
 ###### Level Editor Feature 
     
-    **Control:**  CoolMotor.py ( edit_level, get_MAPData, view_display_Level, delete_level and login) 
-    **Models:**  DisplayLevel.py, EditLevel.py, ProcessFile.py and ProcesLogin.py 
+    Control: CoolMotor.py ( edit_level, get_MAPData, view_display_Level, delete_level and login) 
+    Models: DisplayLevel.py, EditLevel.py, ProcessFile.py and ProcesLogin.py 
     
     
     
