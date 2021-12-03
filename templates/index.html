@@ -39,7 +39,7 @@
                     <p class="fw-bold">Live Dashboard</p>
                     <p class="d-inline">Car Speed:</p> <p class="d-inline fw-bold" id="carSpeed">{{ Car_speed[-1] }} meters/minute </p>
                     <br/>
-                    <p class="d-inline">Distance Travelled:</p> <p class="d-inline fw-bold" id="">{{ Car_distance[-1] }}</p> <p class="d-inline fw-bold">CM</p>
+                    <p class="d-inline">Distance Travelled:</p> <p class="d-inline fw-bold" id="dist_travelled">0</p> <p class="d-inline fw-bold">CM</p>
                     <br/>
                     <p class="d-inline">Front Sensor</p> <p class="d-inline fw-bold" id="frontSensor">WORKING</p>
                     <br/>                    
@@ -151,6 +151,8 @@
           secondsLabel.innerHTML = pad(totalSeconds % 60);
           minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
         }
+
+        
 
         function pad(val) {
           var valString = val + "";

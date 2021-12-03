@@ -38,9 +38,8 @@ function winGame(){
         map_id: document.getElementById("map_id").innerHTML,
         map_difficulty: document.getElementById("map_difficulty").innerHTML,
         game_minutes: document.getElementById("game_minutes").innerHTML,
-        game_seconds: document.getElementById("game_seconds").innerHTML,
-        dist_travelled: 20 // hardcoded placeholder value.
-//        dist_travelled: document.getElementById("dist_travelled").innerHTML
+        game_seconds: document.getElementById("game_seconds").innerHTML,        
+        dist_travelled: document.getElementById("dist_travelled").innerHTML
     }));
 }
 
