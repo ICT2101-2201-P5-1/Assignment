@@ -57,8 +57,6 @@ function sendCommands(commands){
     }));
 }
 
-
-
 /**
 * parse the command stack. recursive function.
 * @param    cmdStack    1-D JavaScript array of Blockly blocks from our workspace

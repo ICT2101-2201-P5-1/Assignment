@@ -2,10 +2,10 @@ from flask import Flask, render_template, url_for, flash, redirect, request, jso
 from mysql import connector
 import mysql.connector
 import Models.processFile
-import Models.EditLevel
-import Models.GamePlatform
+import Models.editLevel
+import Models.gamePlatform
 import Models.displayLevel
-import Models.Dashboard
+import Models.dashboard
 import telnetCom
 from Models.processLogin import LoginForm
 import json
@@ -27,15 +27,13 @@ mapList = []
 LevelName = "Default"
 
 
-# ---------------- APP ROUTES HERE --------------------------------------------
+# ---------------- APP ROUTES HERE -------------------
 @app.route('/', methods=['GET','POST'])
 def gamePlatform():
     levelsData = Models.displayLevel.display()
-    
 
     if request.method == "POST" :  
         get_data = request.form.get('get_data')
-        print(get_data)
         if get_data == '1':
             Sonic, Distance, Speed = telnetCom.receiveData()            
             Car_sonic.append(Sonic)
@@ -50,16 +48,19 @@ def gamePlatform():
             game_sec = request.get_json().get('game_seconds')
             dist_travelled = request.get_json().get('dist_travelled')
             commands = request.get_json().get('commands')
+
+            # car communications
             print(commands)
-            #telnetCom.sendCommands(b'hello')
             commandB = bytes(commands[0], 'utf-8')
             print(commandB)
             telnetCom.sendCommands(commandB)
+
+            # win game scenario
             if win == 1:
 
                 total_secs = int(game_min) * 60 + int(game_sec)
-                # store data to 
-                Models.GamePlatform.storeGameDataToDB(map_id, map_difficulty, dist_travelled, total_secs)
+                # store data to db
+                Models.gamePlatform.storeGameDataToDB(map_id, map_difficulty, dist_travelled, total_secs)
                 pass
     
     lll = 1
@@ -67,9 +68,8 @@ def gamePlatform():
     if request.cookies.get('lastLevelLoaded') is not None:
         lll = request.cookies.get('lastLevelLoaded')
 
-    mapId, mapDifficulty, mapName, mapFile = Models.GamePlatform.readMapDataFromDB(lll)
-    commandList, mapData = Models.GamePlatform.initLevelLayout(mapFile)
-    
+    mapId, mapDifficulty, mapName, mapFile = Models.gamePlatform.readMapDataFromDB(lll)
+    commandList, mapData = Models.gamePlatform.initLevelLayout(mapFile)
 
     return render_template("index.html"
                            , mapLevelLayout=mapData
@@ -77,12 +77,10 @@ def gamePlatform():
                            , mapName=mapName
                            , mapId=mapId
                            , mapDifficulty=mapDifficulty
-                           ,levelsData=levelsData
+                           , levelsData=levelsData
                            , Car_sonic=Car_sonic
                            , Car_distance=Car_distance
                            , Car_speed=Car_speed )
-
-
 
 
 # set last level loaded as cookie..
@@ -104,16 +102,16 @@ def selectLevel():
     return res
 
 
-'''
-Edit Level
-    Handle receiving of POST request from Map and rendering of CreateLevel page 
-        @param jsdata The data transfered from drag & drop interface 
-        @param JSON_obj JSON object in position: "2", value:"goal"
-        @param mapList global array 
-        @return the CreateLevel.html page 
-'''
 @app.route('/edit_level', methods=['GET', 'POST'])
 def edit_level():
+    """
+    Edit Level
+        Handle receiving of POST request from Map and rendering of CreateLevel page
+            @param jsdata The data transfered from drag & drop interface
+            @param JSON_obj JSON object in position: "2", value:"goal"
+            @param mapList global array
+            @return the CreateLevel.html page
+    """
     # Get post request from TranserJson(value,data) JS
     if request.method == 'POST':
         jsdata = request.form['javascript_data'] 
@@ -125,16 +123,16 @@ def edit_level():
     return render_template("LevelEditor/CreateLevel.html")
 
 
-'''
-    Get Map Data 
-        Handle receiving of POST request from Level_Editor_Form and rendering of CreateLevel page 
-            @param CommandList The id list of checked commands
-            @param LevelName String levelName user input
-            @param Difficulty value 1(easy),2(medium),3(hard)
-            @return the CreateLevel.html page 
-'''
 @app.route('/getMAPData', methods=['POST'])
 def get_MAPData():
+    """
+        Get Map Data
+            Handle receiving of POST request from Level_Editor_Form and rendering of CreateLevel page
+                @param CommandList The id list of checked commands
+                @param LevelName String levelName user input
+                @param Difficulty value 1(easy),2(medium),3(hard)
+                @return the CreateLevel.html page
+    """
     # Get post request from form when user submit
     if request.method == 'POST':
         CommandList = request.form.getlist('Commands')
@@ -151,63 +149,41 @@ def get_MAPData():
       
     return render_template("LevelEditor/CreateLevel.html")
 
-'''
-This routes to the displaylevel.html, that page will display
-all the levels stored in the database and allow for deletes. 
-'''
+
 @app.route("/displayLevel")
 def view_display_Level():
+    """
+    This routes to the displaylevel.html, that page will display
+    all the levels stored in the database and allow for deletes.
+    """
     data = Models.displayLevel.display()
     return render_template("LevelEditor/displayLevel.html", title="Level Display", output_data=data)
 
 
-'''
-This route takes the variable passed by the delete button 
-in the displaylevel.html and passes it to the delete function
-        @param id           Is the variable that it receives from the displaylevel.html delete button
-'''
 @app.route("/deletelevel/<int:id>", methods=['POST'])
 def delete_level(id):
+    """
+    This route takes the variable passed by the delete button
+    in the displaylevel.html and passes it to the delete function
+            @param id           Is the variable that it receives from the displaylevel.html delete button
+    """
     Models.displayLevel.delete(id)
     session.pop('_flashes', None)
     flash('Deletion Successful', "info")
     return redirect(url_for('view_display_Level'))
 
 
-
-#-----------------------------May Communication Testing--------------------------------------------------------------#
-@app.route('/command', methods=['GET', 'POST'])
-def command():
-    if request.method == 'POST':
-        command = request.form.get('command')
-        print(command)
-        commandB = bytes(command, 'utf-8')
-        print(commandB)
-        telnetCom.sendCommands(commandB)
-    return render_template("command.html")
-
-@app.route('/getCarData', methods=['POST'])
-def get_data():
-    Sonic = telnetCom.receiveData()
-    print(Car_data)
-    Car_data.append(Sonic)
-    return render_template("command.html",Car_data=Car_data )
-    
-
-
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    Models.Dashboard.getGameDataFromDB()
-    return render_template("dashboard.html", data=Models.Dashboard.fetchData())
-
+    Models.dashboard.getGameDataFromDB()
+    return render_template("dashboard.html", data=Models.dashboard.fetchData())
 
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    print(form.data)
     form.load()
-    ## keep output in var change
+    # keep output in var change
     status = form.check()
     if status == "Success":
         flash('Login Successful', "info")
@@ -218,14 +194,31 @@ def login():
     elif status == "Timeout":
         form.load()
         flash('Too many incorrect logins incident!')
-    
+
     return render_template('LevelEditor/login.html', title='Login', form=form)
 
 
+# -----------------------------Car Communication Testing--------------------------------
+@app.route('/command', methods=['GET', 'POST'])
+def command():
+    if request.method == 'POST':
+        command = request.form.get('command')
+        print(command)
+        commandB = bytes(command, 'utf-8')
+        print(commandB)
+        telnetCom.sendCommands(commandB)
+    return render_template("command.html")
 
+
+@app.route('/getCarData', methods=['POST'])
+def get_data():
+    Sonic = telnetCom.receiveData()
+    print(Car_data)
+    Car_data.append(Sonic)
+    return render_template("command.html",Car_data=Car_data )
+
+    
 if __name__ == "__main__":
     # Error will be displayed on web page
     app.run(debug=True)
-
-
 

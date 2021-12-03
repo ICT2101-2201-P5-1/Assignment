@@ -3,25 +3,15 @@ import CoolMotor
 import json
 from CoolMotor import app
 from flask import Flask, render_template, url_for, flash, redirect, request, jsonify, make_response,session
-'''
-White box testing code for code in displayLevel.py 
-and edit_level(), 
-view_display_Level() 
-and def delete_level(id) in CoolMotor.py by Tudy 
-'''
-'''
-@app.route("/deletelevel/<int:id>", methods=['POST'])
-def delete_level(id):
-    Models.displayLevel.delete(id)
-    session.pop('_flashes', None)
-    flash('Deletion Successful', "info")
-    return redirect(url_for('view_display_Level'))
-
-
-'''
 
 
 class TestCoolMotor(unittest.TestCase):
+    """
+    White box testing code for code in displayLevel.py
+    , edit_level(), view_display_Level()
+    and def delete_level(id) in CoolMotor.py
+    """
+
     def setUp(self):
         self.app = app
         self.app.config['TESTING'] = True
@@ -51,3 +41,6 @@ class TestCoolMotor(unittest.TestCase):
         rv = self.client.post('/deletelevel/5')
         assert rv.status_code == 302
         assert b' redirected automatically to target URL: <a href="/displayLevel">/displayLevel</a>' in rv.data
+
+if __name__ == '__main__':
+    unittest.main()
