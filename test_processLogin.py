@@ -52,7 +52,7 @@ class TestLoginForm(unittest.TestCase):
         self.assertIn(b"Too many incorrect logins incident!", res.data)
 
     # tests the login bruteforcer timeout
-    def test_loginBrute(self):
+    def test_loginBruteReset(self):
         for i in range(5):
             res = self.login('rubbishpassword')
         self.assertIn(b"Too many incorrect logins incident!", res.data)
