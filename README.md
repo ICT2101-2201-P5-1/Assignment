@@ -33,7 +33,7 @@ The team will be using **Feature branching** Git Workflow. Each member will bran
 
 After each feature is finailized, members will do PR to the Dev Branch. All PR to Dev will be reviewed by Code Reviewers (May or Alicia). Upon approval, the Code Reviewer will merge the feature to Dev. Each Feature branch should be named ```feature/<name of feature>```.
 
-Another way members can make changes to Dev will be through Hot-Fixes. Hot-Fixes should only be done if there is a bug inside the Dev branch. The aming convention for the Hot-Fix branch will be ```Hot_Fix-<name of error>```.
+Another way members can make changes to Dev will be through Hot-Fixes. Hot-Fixes should only be done if there is a bug inside the Dev branch. The naming convention for the Hot-Fix branch will be ```Hot_Fix-<name of error>```.
     
 **Feature Work Distribution:**
 - Database and Page setup (Shawn)
