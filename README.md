@@ -75,7 +75,7 @@ Another way members can make changes to Dev will be thtrough Hot-Fix. Hot-Fix sh
 
 
 ## UAT
-For User Acceptance Testing, the team will be covering all test cases covered in M2 under section **6.4 Test Case**. The video label each test case with #TC_Number on the upper right hand of the video. Here is a quick run through of all UAT cases  **<add video here!>  **   
+For User Acceptance Testing, the team will be covering all test cases covered in M2 under section **6.4 Test Case**. The video label each test case with #TC_Number on the upper right hand of the video. Here is a quick run through of all UAT cases https://youtu.be/jya3VeKFCvQ 
 
 
 ## Whitebox Testing
@@ -118,7 +118,7 @@ As mentioned aboved, the team managed to cover 100% on Level Editor Feature Test
 
 ![image](https://user-images.githubusercontent.com/31657679/144564167-aa00ba83-0bac-4224-8d9b-3344309bd4a4.png)
 
-We have ran the test cases and attached the video **<add video here!>  **   
+We have ran the test cases and attached the video https://youtu.be/Sn690thzR88
 
 ###### Branch Coverage | Control Flow Graph (CFG)
 
