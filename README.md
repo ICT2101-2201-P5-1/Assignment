@@ -1,6 +1,7 @@
 # CoolMotor
 ICT 2101/2201 Team Project P5-1
 
+Project Board: https://github.com/orgs/ICT2101-2201-P5-1/projects/1
 
 Team Leader: May Madi Aung - @mayinot (2002390) **Code Reviewer 1**
 
