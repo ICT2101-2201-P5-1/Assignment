@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base.html'%}
 
 {% block head %}
@@ -173,3 +174,18 @@
     </script>
 
 {% endblock %}
+=======
+<html>
+	<head>
+		<title>ESP8266 LED Control</title>
+	</head>
+	<body>
+	
+	<!-- in the <button> tags below the ID attribute is the value sent to the arduino -->
+	<form method="POST" action="/">
+		<input id="1" type="submit" name="submit" value="pin=1">
+		<input id="0" type="submit" name="submit" value="pin=0">
+	</form>
+	</body>
+</html>
+>>>>>>> master
